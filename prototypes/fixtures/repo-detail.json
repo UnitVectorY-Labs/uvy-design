@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-11-07T18:18:05.892801+00:00",
+  "source_url": "https://unreleasedcommits.unitvectorylabs.com/adk-docker-base.html",
+  "metadata": {
+    "Repository": "adk-docker-base",
+    "Default Branch": "main",
+    "Latest Release": "1.17.0",
+    "Release Date": "October 25, 2025",
+    "Unreleased Commits": "183",
+    "Days Behind": "376",
+    "Days Since Release": "377"
+  },
+  "commits": [
+    {
+      "sha": "80d76bb7d2b82eef2683f626b8a48c0de6bcf121",
+      "author": "JaredHatfield",
+      "date": "Nov 5, 2026 23:15",
+      "message": "fix: use UVY package cleanup action (#158)",
+      "url": "https://github.com/UnitVectorY-Labs/adk-docker-base/commit/80d76bb7d2b82eef2683f626b8a48c0de6bcf121"
+    },
+    {
+      "sha": "5b390e94f8ed1a265b1a4ab954760f31823dac77",
+      "author": "JaredHatfield",
+      "date": "Nov 5, 2026 03:45",
+      "message": "Merge pull request #157 from UnitVectorY-Labs/retire-add-to-project-workflow\n\nRetire add-to-project workflow in favor of ghook4action",
+      "url": "https://github.com/UnitVectorY-Labs/adk-docker-base/commit/5b390e94f8ed1a265b1a4ab954760f31823dac77"
+    },
+    {
+      "sha": "4856aa53a3b45421f19d7daf01095ce62a209d23",
+      "author": "JaredHatfield",
+      "date": "Nov 5, 2026 01:07",
+      "message": "Retire add-to-project workflow in favor of ghook4action",
+      "url": "https://github.com/UnitVectorY-Labs/adk-docker-base/commit/4856aa53a3b45421f19d7daf01095ce62a209d23"
+    },
+    {
+      "sha": "283533dbbcb98680f3bf8d6e2504bd4f587d9ca7",
+      "author": "JaredHatfield",
+      "date": "Oct 31, 2026 13:30",
+      "message": "Merge pull request #155 from UnitVectorY-Labs/dependabot/github_actions/docker/login-action-4.7.0\n\nbuild(deps): bump docker/login-action from 4.6.0 to 4.7.0",
+      "url": "https://github.com/UnitVectorY-Labs/adk-docker-base/commit/283533dbbcb98680f3bf8d6e2504bd4f587d9ca7"
+    },
+    {
+      "sha": "ac156ccbfda036f67becc9a78ce57bb5742b0cce",
+      "author": "JaredHatfield",
+      "date": "Oct 31, 2026 12:57",
+      "message": "Merge pull request #156 from UnitVectorY-Labs/dependabot/github_actions/astral-sh/setup-uv-10.3.3\n\nbuild(deps): bump astral-sh/setup-uv from 10.3.1 to 10.3.3",
+      "url": "https://github.com/UnitVectorY-Labs/adk-docker-base/commit/ac156ccbfda036f67becc9a78ce57bb5742b0cce"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "tabler_commit": "ed177a085b652fe04ec4f37ced867c94621e7840",
+  "files": [
+    {
+      "path": "icons/sun.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/sun.svg",
+      "sha256": "6677490605af8987d55d6e4185b1f6c241eced65b63ccfece68cadb7ce90fbb5"
+    },
+    {
+      "path": "icons/moon.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/moon.svg",
+      "sha256": "7cabaae40eea65310da478d3cad30b23cf1d7e99adad56378f82824338079668"
+    },
+    {
+      "path": "icons/search.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/search.svg",
+      "sha256": "3dd53b9606283dfa0adcb0b10a7d9a4432369d4bebcfacf67f80fbe358381c34"
+    },
+    {
+      "path": "icons/copy.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/copy.svg",
+      "sha256": "3a455a299db4ec939fd0473d15c81c1d3f30f65dec81a7de816317c989b06073"
+    },
+    {
+      "path": "icons/brand-github.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/brand-github.svg",
+      "sha256": "1ba4d43069f269d4aedc71bd5887632ae08b17435d64f47f331b18c316ffeb37"
+    },
+    {
+      "path": "icons/arrow-up.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/arrow-up.svg",
+      "sha256": "c0a58436629c59996826b7980b0cbdfff51bfa289eefb2cceee494a964c5105e"
+    },
+    {
+      "path": "icons/arrow-down.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/arrow-down.svg",
+      "sha256": "34efc2d5737ffa3f29f8056e6d861ea8218d8f40858539a959a9482811f6bd05"
+    },
+    {
+      "path": "icons/external-link.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/external-link.svg",
+      "sha256": "95de8d4e3e77d34b39a94e157ff26b5a860015c6ce3056794f63dd3a55805bbc"
+    },
+    {
+      "path": "icons/menu-2.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/menu-2.svg",
+      "sha256": "bcef199c5e53082a56c7bf33d4c48181b71373eb5d923cce8884aca09d106842"
+    },
+    {
+      "path": "icons/x.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/x.svg",
+      "sha256": "9350785360414c39450c3505f17d1745e55a7534edace8548e30cf49e3727d43"
+    },
+    {
+      "path": "icons/check.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/check.svg",
+      "sha256": "e206067a7d570997b5b3a7d30ab287c0b15a492787649a8b96dff8fad2862fbe"
+    },
+    {
+      "path": "icons/certificate.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/certificate.svg",
+      "sha256": "77507ab592e71c6057f85d87c046502fd8009cd0cff05689854eb9380b50300a"
+    },
+    {
+      "path": "icons/key.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/key.svg",
+      "sha256": "2aed9dbae011d377c94cfee3ea68326fa98a7510964a9995dfe59c6610219046"
+    },
+    {
+      "path": "icons/refresh.svg",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/refresh.svg",
+      "sha256": "9dd8ab8cac268489501cbb0a106d93cc3f367add493d20c47ec1e1d9804c760a"
+    },
+    {
+      "path": "vendor/htmx-4.0.0.min.js",
+      "upstream": "https://github.com/bigskysoftware/htmx/tree/v4.0.0",
+      "copied_from": "cert-observatory/internal/web/static/js/htmx.min.js",
+      "source_commit": "02ac52cb4e8445492c0c2b88ae60b70cb2cc5ac3",
+      "sha256": "e484d9171a9db30a39c8f16e3d709d4137f3211c659f8e6125816635033d593f"
+    }
+  ]
+}

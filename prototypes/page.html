@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{.Title}}</title>
+  <script src="theme.js"></script><link rel="stylesheet" href="style.css">
+  {{if eq .Kind "catalog"}}<script src="vendor/htmx-4.0.0.min.js" defer></script>{{end}}
+  <script src="demo.js" defer></script>
+</head>
+<body class="app-{{.Kind}}">
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="shell masthead">
+  {{if eq .Kind "catalog"}}<button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open service navigation" aria-controls="service-nav" aria-expanded="false">{{icon "menu-2"}}</button>{{else}}<span class="header-spacer" aria-hidden="true"></span>{{end}}
+  {{if or (eq .Kind "catalog") (eq .Kind "repository")}}<a class="project-title" href="{{if eq .Kind "catalog"}}catalog.html{{else}}table.html{{end}}">{{.Project}}</a>{{else}}<h1 class="project-title">{{.Project}}</h1>{{end}}
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" hidden><span class="moon">{{icon "moon"}}</span><span class="sun">{{icon "sun"}}</span></button>
+</div></header>
+{{if eq .Kind "catalog"}}
+<div class="explorer-shell shell" id="main"><nav class="sidebar" id="service-nav" aria-label="Services">
+  <label for="service-search">Search services</label><div class="search-field">{{icon "search"}}<input id="service-search" type="search" placeholder="Name or domain"></div>
+  <label for="provider-filter">Provider</label><select id="provider-filter"><option value="all">All sites</option><option value="auth0">Auth0</option><option value="salesforce">Salesforce</option><option value="okta">Okta</option><option value="other">Other</option></select>
+  <div class="service-links">{{range .Data.JWKS.services}}
+    {{if or (eq .id "1worldsync") (eq .id "3d-systems")}}<a class="service-link" data-provider="{{.provider}}" href="service-{{.id}}.html" hx-get="snippets/service-{{.id}}.html" hx-target="#service-main" hx-push-url="service-{{.id}}.html" {{if eq .id $.Selected.id}}aria-current="page"{{end}}>{{.name}}<span class="provider-label">{{.provider}}</span></a>{{else}}<a class="service-link" data-provider="{{.provider}}" href="https://jwks-catalog.unitvectorylabs.com/{{.href}}">{{.name}}<span class="provider-label">{{.provider}}</span></a>{{end}}
+  {{end}}</div><p id="service-count" class="muted small" role="status" aria-live="polite">8 services</p>
+</nav><main id="service-main" class="explorer-content" tabindex="-1">{{template "jwks-content" .}}</main></div>
+{{else}}
+<main id="main" class="shell main" tabindex="-1">
+{{if eq .Kind "review"}}
+<div class="review-list"><a href="table.html">Unreleased Commits <span>Dashboard + existing mobile metric layout</span></a><a href="repository.html">adk-docker-base <span>Repository detail</span></a><a href="catalog.html">JWKS Catalog <span>Existing service explorer</span></a><a href="workbench.html">certsummary <span>Existing input / output workspace</span></a></div>
+<p class="review-note">Recorded data for design review. Only the first two JWKS services and first repository have local detail examples; other links retain their production destinations.</p>
+{{else if eq .Kind "table"}}
+<div class="summary-stats">
+  <div class="stat-card"><strong>{{.Data.Unreleased.summary.repos}}</strong><span>Repositories</span></div>
+  <div class="stat-card"><strong>{{.Data.Unreleased.summary.commits}}</strong><span>Unreleased Commits</span></div>
+  <div class="stat-card"><strong>{{.Data.Unreleased.summary.with_commits}}</strong><span>Repositories with Unreleased Commits</span></div>
+</div>
+<h2 class="section-heading">Repositories</h2>
+<div class="mobile-sort" hidden><label for="sort-field">Sort by</label><select id="sort-field"><option value="0">Repository</option><option value="1">Latest Release</option><option value="2">Unreleased Commits</option><option value="3">Days Behind</option><option value="4">Days Since Release</option></select><button id="sort-direction" type="button" aria-label="Reverse sort order">{{icon "arrow-up"}}<span>A–Z</span></button></div>
+<table id="repositories" class="repository-table" data-sortable role="table"><thead role="rowgroup"><tr role="row"><th scope="col" aria-sort="ascending"><button class="sort-button" data-sort-type="text" type="button">Repository</button></th><th scope="col" aria-sort="none"><button class="sort-button" data-sort-type="text" type="button">Latest Release</button></th><th scope="col" aria-sort="none"><button class="sort-button" data-sort-type="number" type="button">Unreleased Commits</button></th><th scope="col" aria-sort="none"><button class="sort-button" data-sort-type="number" type="button">Days Behind</button></th><th scope="col" aria-sort="none"><button class="sort-button" data-sort-type="number" type="button">Days Since Release</button></th></tr></thead><tbody role="rowgroup">
+{{range $i,$r:=.Data.Unreleased.repos}}<tr role="row"><td role="cell" data-sort-value="{{.name}}"><a class="repo-link" href="{{if eq $i 0}}repository.html{{else}}https://unreleasedcommits.unitvectorylabs.com/{{.name}}.html{{end}}">{{.name}}</a></td><td role="cell" class="release-cell" data-sort-value="{{.latest_release}}"><span class="mobile-label" aria-hidden="true">Latest Release</span><a href="{{.repository_url}}/releases/tag/{{.latest_release}}">{{.latest_release}}</a></td><td role="cell" class="metric-cell" data-sort-value="{{.commit_count}}" style="{{metricStyle .commit_color}}"><span class="mobile-label" aria-hidden="true">Unreleased<br>Commits</span><a href="{{.repository_url}}/compare/{{.latest_release}}...{{.default_branch}}">{{.commit_count}}</a></td><td role="cell" class="metric-cell" data-sort-value="{{.days_behind}}" style="{{metricStyle .behind_color}}"><span class="mobile-label" aria-hidden="true">Days Behind</span><span>{{.days_behind}}</span></td><td role="cell" class="metric-cell" data-sort-value="{{.days_since_release}}" style="{{metricStyle .since_color}}"><span class="mobile-label" aria-hidden="true">Days Since<br>Release</span><span>{{.days_since_release}}</span></td></tr>{{end}}
+</tbody></table>
+<p class="review-note">8 of {{.Data.Unreleased.summary.repos}} recorded repositories shown.</p>
+{{else if eq .Kind "repository"}}
+<section class="panel repo-info"><h1>adk-docker-base</h1><dl class="info-grid">{{range $label,$value:=.Data.Repo.metadata}}<div><dt>{{$label}}</dt><dd>{{$value}}</dd></div>{{end}}</dl></section>
+<h2 class="section-heading">Unreleased Commits</h2><div class="commits-list">{{range .Data.Repo.commits}}<article class="commit-card"><div class="commit-header"><a class="mono" href="{{.url}}">{{short .sha}}</a><span>{{.author}}</span><time>{{.date}}</time></div><p class="commit-message">{{.message}}</p></article>{{end}}</div><p class="review-note">First five recorded commits. Messages remain visible while scrolling.</p>
+{{else if eq .Kind "workbench"}}
+<div class="workbench"><section class="panel input-panel"><h2>Paste PEM Certificate</h2><label class="sr-only" for="cert-input">PEM certificate</label><textarea id="cert-input" spellcheck="false" aria-describedby="cert-preview-note">{{.Data.Cert.pem}}</textarea><p id="cert-preview-note" class="small muted">Static preview of the ISRG Root X1 certificate.</p><div class="actions"><button id="copy-link-btn" class="primary" type="button">{{icon "copy"}}Copy Link</button><span id="copy-status" role="status" aria-live="polite"></span></div></section>
+<section class="panel output-panel"><h2>Certificate Details</h2><div id="certificate-output"><table class="certificate-table"><tbody>{{range .Data.Cert.rows}}<tr><th scope="row">{{.label}}</th><td>{{.value}}</td></tr>{{end}}</tbody></table></div><p id="certificate-state" role="status" aria-live="polite" hidden></p></section></div>
+{{end}}
+</main>
+{{end}}
+<footer><div class="shell footer"><div><a href="https://github.com/UnitVectorY-Labs/{{.Repository}}">{{icon "brand-github"}}Open source on GitHub</a><span aria-hidden="true"> · </span><a href="https://github.com/UnitVectorY-Labs/{{.Repository}}/blob/main/LICENSE">MIT License</a>{{if eq .Kind "catalog"}}<span aria-hidden="true"> · </span><a href="https://github.com/UnitVectorY-Labs/jwks-observer">Observer source</a>{{end}}</div><span class="prototype-note">Recorded-data design preview</span></div></footer>
+</body></html>

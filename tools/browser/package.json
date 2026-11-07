@@ -1,0 +1,14 @@
+{
+  "name": "uvy-design-review-tools",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Optional screenshot and review checks; not production dependencies",
+  "license": "MIT",
+  "scripts": {
+    "capture": "node capture.cjs && node details.cjs",
+    "check": "node qa.cjs && node contrast.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.0"
+  }
+}

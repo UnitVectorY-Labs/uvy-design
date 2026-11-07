@@ -1,0 +1,7 @@
+{{define "jwks-content"}}
+<h1 data-service="{{.Selected.id}}">{{.Selected.name}}</h1>
+<section class="panel endpoints"><h2>Endpoints</h2>{{range endpointRows .Selected.endpoints}}<div class="endpoint-row"><h3>{{.label}}</h3><a class="mono" href="{{.url}}">{{.url}}</a></div>{{end}}</section>
+<section class="panel section"><h2>Active Keys</h2><table class="key-table" role="table"><thead role="rowgroup"><tr role="row"><th scope="col">KID</th><th scope="col">Use</th><th scope="col">Alg/Crv</th><th scope="col">Key Length</th><th scope="col">Observed</th></tr></thead><tbody role="rowgroup">{{range .Selected.active_keys}}<tr role="row"><td role="cell" class="key-id mono">{{.kid}}</td><td role="cell"><span class="mobile-label" aria-hidden="true">Use</span>{{.use}}</td><td role="cell"><span class="mobile-label" aria-hidden="true">Algorithm</span>{{.algorithm}}</td><td role="cell"><span class="mobile-label" aria-hidden="true">Bits</span>{{.key_length}}</td><td role="cell"><span class="mobile-label" aria-hidden="true">Observed</span>{{.observed}}</td></tr>{{end}}</tbody></table></section>
+
+{{end}}
+{{define "jwks-fragment"}}<title>{{.Selected.name}} · JWKS Catalog</title>{{template "jwks-content" .}}{{end}}

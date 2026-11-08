@@ -25,7 +25,7 @@ body { font-family: var(--font-sans); font-size: var(--text-body); line-height: 
 code, pre, .technical-value { font-family: var(--font-mono); }
 ```
 
-Use `--text-small` for supporting labels, `--text-body` for ordinary content, `--text-large` for prominent supporting text, `--text-section` for section headings and `--text-title` for the application title. Use weight 600 for headings and controls, and 400 for body text. Headings should have a line height around 1.2; avoid fixed heights that clip wrapped text. Make page and section titles blue with a restrained orange underline. Align headings left on mobile.
+Use `--text-small` for supporting labels, `--text-body` for ordinary content, `--text-large` for prominent supporting text, `--text-section` for section headings and `--text-title` for the application title. Use weight 600 for headings and controls, and 400 for body text. Headings should have a line height around 1.2; avoid fixed heights that clip wrapped text. Make page and section titles blue with a restrained orange underline. In a blue application header, use a white title with the orange underline as shown in the [header reference](header.md). Align headings left on mobile.
 
 Use 0.25–0.5rem between closely related label and value, 0.75–1rem between controls, 1rem between cards, and 2rem between sections. Start with 1rem card padding and 0.75rem by 1rem button padding. Use a centered content area with a maximum width of 75rem and 1rem side gutters; increase the gutters to 2rem on wider screens. Keep interactive targets at least 44 by 44 CSS pixels where practical, including icon-only actions.
 

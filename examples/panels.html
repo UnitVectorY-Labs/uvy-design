@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Panels, tables, and feedback — UVY Design examples</title>
 <style>
-
 :root, :root[data-theme="light"] {
   color-scheme: light;
   --page: #f3f6fc;
@@ -107,53 +106,6 @@ th { font-size: .875rem; }
 .status { font-weight: 600; }
 code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
 
-
-body { min-height:100vh; display:flex; flex-direction:column; }
-.site-header { background:#174b93; color:#fff; }
-.header-inner, .page, .footer-inner { width:min(100% - 2rem, 75rem); margin-inline:auto; }
-.header-inner { display:flex; align-items:center; gap:1rem 2rem; flex-wrap:wrap; padding-block:1rem; }
-.brand { flex:1 1 auto; min-width:0; }
-.brand a { color:#fff; font-size:1.5rem; font-weight:700; line-height:1.2; text-decoration:none; }
-.brand a::after { content:""; display:block; width:3rem; height:.2rem; margin-top:.45rem; background:#ff932e; }
-.site-header nav { display:flex; flex-wrap:wrap; gap:.25rem 1rem; }
-.site-header nav a { color:#fff; padding:.5rem 0; text-underline-offset:.3rem; }
-.site-header nav a[aria-current="page"] { text-decoration-thickness:.2rem; text-decoration-color:#ff932e; }
-.site-header :focus-visible { outline-color:#fff; }
-.theme-button { background:transparent; color:#fff; border-color:#b8cdea; }
-.theme-button:hover { border-color:#fff; }
-main { flex:1; padding-block:2rem 3rem; }
-h1,h2 { color:var(--blue); line-height:1.2; } h1 { font-size:2rem; margin:0; } h2 { font-size:1.5rem; margin:0 0 1rem; }
-h1::after, h2::after { content:""; display:block; width:3rem; height:.2rem; background:var(--orange); margin-top:.5rem; }
-h3 { margin-top:0; } section { margin-block:2rem; } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap:1rem; }
-.stack > * + * { margin-top:1rem; } .field { margin-block:1rem; } .field:first-child { margin-top:0; } .intro { max-width:68ch; } .table-wrap { margin-top:1rem; } .table-wrap table { min-width:36rem; }
-footer { border-top:1px solid var(--border); color:var(--muted); padding-block:1rem; font-size:.875rem; }
-@media (min-width:48rem) { .header-inner,.page,.footer-inner { width:min(100% - 4rem,75rem); } }
-@media (max-width:48rem) { .site-header nav { order:3; flex-basis:100%; } }
-</style>
-</head>
-<body>
-<header class="site-header"><div class="header-inner"><div class="brand"><a href="navigation.html">Catalog Explorer</a></div><nav aria-label="Example pages"><a href="navigation.html" aria-current="page">Navigation</a><a href="forms.html">Forms</a><a href="panels.html">Panels and feedback</a></nav><button class="button theme-button" id="theme" type="button" aria-label="Toggle color theme">◐ <span>Theme</span></button></div></header>
-<main class="page"><h1>Header and navigation</h1><p class="intro">A blue application header keeps the project title, navigation, and theme control together. Resize the window to see navigation move below the title and theme control on a narrow screen.</p>
-<section><h2>Navigation patterns</h2><div class="grid"><article class="panel"><h3>Project identity</h3><p>The white title stays legible on the blue bar; its orange underline carries the accent. Long titles can wrap without clipping.</p></article><article class="panel"><h3>Available on every screen</h3><p>Navigation links wrap onto a second row on mobile. The current page has an orange underline and an accessible current-page label.</p></article><article class="panel"><h3>Appearance</h3><p>The theme button starts with your system preference and remembers an explicit choice. All examples work when opened directly from disk.</p></article></div></section>
-<section><h2>Use this pattern</h2><div class="panel"><p>Keep an application's own title and destinations. Use real links for navigation, a named button for the theme, and visible keyboard focus. On smaller screens, allow links to wrap or use an accessible menu when needed.</p><a href="forms.html">Explore forms and actions →</a></div></section></main>
-<footer><div class="footer-inner">UVY Design examples · <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> · <a href="https://github.com/UnitVectorY-Labs/uvy-design/blob/main/LICENSE">License</a></div></footer>
-<script>
-(function () {
-  var root = document.documentElement, button = document.getElementById('theme');
-  try { var saved = localStorage.getItem('uvy-example-theme'); if (saved === 'light' || saved === 'dark') root.dataset.theme = saved; } catch (e) {}
-  function updateLabel() { var dark = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; button.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); }
-  updateLabel();
-  button.addEventListener('click', function () { var dark = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('uvy-example-theme', root.dataset.theme); } catch (e) {} updateLabel(); });
-  var form = document.getElementById('search-form');
-  if (form) { var domain = document.getElementById('domain'), error = document.getElementById('domain-error'), status = document.getElementById('form-status');
-    form.addEventListener('submit', function (event) { event.preventDefault(); var valid = /^[^\s.]+(\.[^\s.]+)+$/.test(domain.value.trim()); error.hidden = valid; if (valid) { domain.removeAttribute('aria-invalid'); domain.setAttribute('aria-describedby','domain-help'); status.textContent = 'Example search submitted; no data was sent.'; } else { domain.setAttribute('aria-invalid','true'); domain.setAttribute('aria-describedby','domain-help domain-error'); status.textContent = ''; domain.focus(); } });
-    form.addEventListener('reset', function () { error.hidden = true; domain.removeAttribute('aria-invalid'); domain.setAttribute('aria-describedby','domain-help'); status.textContent = ''; });
-    document.getElementById('demo-action').addEventListener('click', function () { document.getElementById('action-status').textContent = 'Example action completed.'; }); }
-  var retry = document.getElementById('retry'); if (retry) retry.addEventListener('click', function () { document.getElementById('retry-status').textContent = 'Example retry completed.'; });
-}());
-</script>
-</body>
-</html>
 
 body { min-height:100vh; display:flex; flex-direction:column; }
 .site-header { background:#174b93; color:#fff; }

@@ -1,6 +1,6 @@
 # Foundations
 
-UnitVectorY Labs tools are practical, independent applications. Each leads with its own project name and content, with a consistent visual language across projects. Avoid an organization masthead, cross-project navigation or decorative copy that competes with the task.
+UnitVectorY Labs tools are practical, independent applications. Each leads with its own project name and content, with a consistent visual language across projects. Avoid a generic organization masthead, cross-project navigation or decorative copy that competes with the task. When an organization identifies the scope of the data, show its name prominently as a subtitle, as in Unreleased Commits.
 
 Use blue for titles and primary interface identity, with orange for emphasis and primary icon actions. Clean neutral surfaces, modest rounding, subtle shadows and consistent spacing keep technical information readable. Tabler is a useful reference for the restrained character of controls and icons, not a required framework.
 

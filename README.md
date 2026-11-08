@@ -8,3 +8,5 @@ Design guidance for UnitVectorY Labs projects. These principles give independent
 - [Components and icons](docs/components-and-icons.md): actions, controls and feedback.
 - [Themes and navigation](docs/themes-and-navigation.md): appearance, navigation and footer.
 - [Review](docs/review.md): practical checks for applying the guidance.
+
+Open the [standalone component reference](examples/components.html) in a browser to explore common patterns in both themes and at different screen widths. Its source is a reference for application implementations.

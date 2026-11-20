@@ -3,10 +3,17 @@
   const root = document.documentElement;
   root.classList.add("js");
   try {
-    const saved = localStorage.getItem("uvy-theme");
+    const saved =
+      root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
     if (saved === "light" || saved === "dark") root.dataset.theme = saved;
   } catch (_) {}
   document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("[data-enable-with-js]").forEach((control) => {
+      control.disabled = false;
+    });
+    document.querySelectorAll("[data-requires-js]").forEach((control) => {
+      control.hidden = false;
+    });
     const system = matchMedia("(prefers-color-scheme: dark)");
     const theme = document.getElementById("theme");
     const reset = document.getElementById("theme-reset");
@@ -91,6 +98,19 @@
     menu.addEventListener("click", () => setOpen(true, false));
     close.addEventListener("click", () => setOpen(false, true));
     backdrop.addEventListener("click", () => setOpen(false, true));
+    function selectLocalSection() {
+      const links = [...sidebar.querySelectorAll('nav a[href^="#"]')];
+      if (!links.length) return;
+      const current =
+        links.find((link) => link.getAttribute("href") === location.hash) ||
+        links[0];
+      links.forEach((link) => {
+        if (link === current) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }
+    selectLocalSection();
+    window.addEventListener("hashchange", selectLocalSection);
     sidebar.addEventListener("click", (event) => {
       if (event.target.closest("a") && mobile.matches) setOpen(false, true);
     });
@@ -132,21 +152,18 @@
     });
     setOpen(false, false);
     const search = document.getElementById("nav-search");
-    const group = document.getElementById("nav-group");
-    function filterNavigation() {
-      let count = 0;
-      sidebar.querySelectorAll("nav a").forEach((link) => {
-        link.hidden =
-          !link.textContent
+    if (search) {
+      search.closest(".nav-filters").hidden = false;
+      search.addEventListener("input", function () {
+        let count = 0;
+        sidebar.querySelectorAll("nav a").forEach((link) => {
+          link.hidden = !link.textContent
             .toLowerCase()
-            .includes(search.value.trim().toLowerCase()) ||
-          (group.value !== "all" && link.dataset.group !== group.value);
-        if (!link.hidden) count++;
+            .includes(search.value.trim().toLowerCase());
+          if (!link.hidden) count++;
+        });
+        document.getElementById("nav-empty").hidden = count > 0;
       });
-      document.getElementById("nav-empty").hidden = count > 0;
     }
-    search.closest(".nav-filters").hidden = false;
-    search.addEventListener("input", filterNavigation);
-    group.addEventListener("change", filterNavigation);
   });
 })();

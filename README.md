@@ -4,32 +4,22 @@ Current design guidance for Unit Vector Y Labs projects: minimal, precise engine
 
 ## Read the guide
 
-- [Foundations](docs/foundations.md): principles and implementation approach.
-- [Color](docs/color.md): semantic palette, contrast and status colors.
-- [Typography and spacing](docs/typography-and-spacing.md): fonts, hierarchy and geometry.
-- [Universal header](docs/header.md): shared anatomy and responsive behavior.
-- [Page archetypes](docs/page-archetypes.md): layouts and hero policy.
-- [Components and icons](docs/components-and-icons.md): controls, tables and feedback.
-- [Themes and navigation](docs/themes-and-navigation.md): system preference and manual overrides.
-- [Review](docs/review.md): practical checks across themes and screen sizes.
+- [Foundations](docs/foundations.md)
+- [Color](docs/color.md)
+- [Typography and spacing](docs/typography-and-spacing.md)
+- [Header](docs/header.md)
+- [Themes and navigation](docs/themes-and-navigation.md)
+- [Icons](docs/icons.md)
+- [Components](docs/components-and-icons.md)
+- [Footer](docs/footer.md)
+- [Page archetypes](docs/page-archetypes.md)
+- [Review](docs/review.md)
 
 ## Explore the examples
 
-Open any HTML file directly in a browser. Each contains its own styles and scripts, with no server, build step or external assets required. The font stacks prefer locally installed IBM Plex fonts and fall back to system fonts.
+Open the separate [examples index](examples/index.html). Each page is a full-page implementation focused on one concept, with no guide sidebar. The [light](examples/light.html), [dark](examples/dark.html), [footer](examples/footer.html), [icons](examples/icons.html) and [table](examples/table.html) references are intentionally small. Complete static and dynamic layouts are available separately.
 
-| Example | What to inspect |
-| --- | --- |
-| [Landing page](examples/landing.html) | Compact hero, capabilities and one primary action |
-| [Documentation article](examples/documentation.html) | Sidebar, readable article and code |
-| [Compact utility](examples/utility.html) | Local input, action and output |
-| [Forms and actions](examples/forms.html) | Validation, reset, inputs, select, textarea and alerts |
-| [Key detail panels](examples/panels.html) | Endpoint summaries, lifecycle row tints, comparison tables and empty states |
-| [Repository metrics](examples/table-records.html) | Long table, mobile record cards, sorting and independent metric spectra |
-| [Typography and content](examples/typography.html) | Headings, lists, links and code |
-| [Universal header](examples/navigation.html) | Top-left Tabler theme icon, searchable left navigation and mobile drawer |
-| [Component catalog](examples/components.html) | Common components and routes to complete examples |
-
-Related-guide links in the examples point to Markdown when opened locally. The web build converts these links to rendered guide pages. Original Markdown is also available from every rendered article.
+Every HTML example contains its own styles and behavior and can be opened directly in a browser. No server, build step or external assets are required. Font stacks prefer locally installed IBM Plex and fall back to system fonts. The web build renders Markdown guide pages and adapts links; the Markdown remains readable on its own.
 
 ## Preview and publish
 

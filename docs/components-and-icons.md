@@ -1,6 +1,6 @@
-# Components and icons
+# Components
 
-Use semantic HTML and a small set of namespaced variants. Each application owns its styles; the [component catalog](../examples/components.html) provides inspectable, standalone patterns.
+Use semantic HTML and a small set of namespaced variants. Each application owns its styles; the [examples index](../examples/index.html) provides separate, standalone implementations.
 
 | Component | Default treatment |
 | --- | --- |
@@ -16,7 +16,7 @@ Use semantic HTML and a small set of namespaced variants. Each application owns 
 
 ## Actions and icons
 
-Use one primary action per task. Links navigate; buttons perform actions. Explain unavailable actions. Use **Tabler Icons** outline icons, normally 20px with a 2-unit stroke in their 24px view box, served locally or inline. Give icon-only controls accessible names and hide decorative icons from assistive technology. Preserve meaningful provider marks and data badges.
+Use one primary action per task. Links navigate; buttons perform actions. Explain unavailable actions. Follow the [icon guidance](icons.md) for Tabler sources, size, color, labeling and use. Preserve meaningful provider marks and data badges.
 
 ## Panels and summaries
 
@@ -36,4 +36,4 @@ Use captions, scoped headers and visible units. Density changes spacing without 
 
 On mobile, records may reflow into labeled cards when every value and action retains its context. Keep comparison tables tabular; contain unavoidable horizontal scrolling in a named, keyboard-accessible region. Do not hide columns to make a table fit. Empty states explain the absence and a next action; loading and errors stay near the affected content.
 
-See [comparison tables](../examples/panels.html) and the [long record table](../examples/table-records.html).
+See the [isolated comparison table](../examples/table.html) and the [long record table](../examples/table-records.html).

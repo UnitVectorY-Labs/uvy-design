@@ -464,7 +464,7 @@ main.layout {
 .sidebar nav a:hover {
   background: var(--surface);
 }
-.sidebar nav a[aria-current="page"] {
+.sidebar nav a[aria-current] {
   background: var(--surface);
   text-decoration: underline;
 }
@@ -753,5 +753,239 @@ th[scope="row"] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+}
+/* Keep the theme switch in the top-right header position at every width. */
+.header-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+.header-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+.header-inner > nav {
+  grid-column: 2;
+  grid-row: 1;
+  margin-left: 0;
+}
+.header-inner > #theme {
+  grid-column: 3;
+  grid-row: 1;
+}
+.site-footer .footer-inner,
+.footer-preview {
+  text-align: center;
+}
+.site-footer p,
+.footer-preview p {
+  max-width: none;
+  margin: 0;
+}
+.version {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  margin-top: 0.5rem !important;
+  overflow-wrap: anywhere;
+}
+.footer-preview {
+  border-top: 1px solid var(--border);
+  padding-block: 1rem;
+  font-size: 0.875rem;
+}
+.footer-preview a strong,
+.site-footer a strong {
+  font-weight: 600;
+}
+.icon-small {
+  width: 1rem;
+  height: 1rem;
+}
+.icon-large {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.icon-muted {
+  color: var(--muted);
+}
+.icon-status {
+  flex: none;
+}
+.run-lane h3 {
+  margin-block: 0 1rem;
+}
+.run-list {
+  display: grid;
+  gap: 0.75rem;
+}
+.run-card {
+  width: 100%;
+  justify-content: start;
+  text-align: left;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem;
+}
+.run-card small {
+  font-weight: 400;
+}
+.run-empty {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.run-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+.run-controls .field {
+  margin: 0;
+  flex: 1;
+  min-width: min(100%, 12rem);
+}
+dialog {
+  max-width: min(40rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--surface);
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 40%);
+}
+dialog h2 {
+  margin-top: 0;
+}
+@media (max-width: 48rem) {
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .header-inner > nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .header-inner > #theme {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+}
+.color-swatch {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--control);
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+.type-preview {
+  display: grid;
+  gap: 1rem;
+  margin-block: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.spacing-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+.spacing-preview > div {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+.spacing-preview i {
+  display: block;
+  height: 1rem;
+  background: var(--muted);
+}
+.example-link {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+}
+.example-link strong {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.example-link span {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.theme-reset {
+  font-size: 0.875rem;
+}
+.icon-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.palette-table .color-swatch + code {
+  white-space: nowrap;
+}
+.palette-label {
+  display: none;
+}
+@media (max-width: 48rem) {
+  .palette-table,
+  .palette-table tbody {
+    display: block;
+  }
+  .palette-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .palette-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .palette-table td {
+    display: block;
+    border: 0;
+    padding: 0.5rem;
+  }
+  .palette-table td:first-child {
+    grid-column: 1 / -1;
+    font-weight: 500;
+  }
+  .palette-label {
+    display: block;
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
   }
 }

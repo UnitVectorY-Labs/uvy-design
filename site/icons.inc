@@ -33,4 +33,22 @@ SOFTWARE.
 </symbol><symbol id="tabler-x" viewBox="0 0 24 24">
   <path d="M18 6l-12 12" />
   <path d="M6 6l12 12" />
+</symbol><symbol id="tabler-copy" viewBox="0 0 24 24">
+  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+</symbol><symbol id="tabler-check" viewBox="0 0 24 24">
+  <path d="M5 12l5 5l10 -10" />
+</symbol><symbol id="tabler-alert-circle" viewBox="0 0 24 24">
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M12 8v4" />
+  <path d="M12 16h.01" />
+</symbol><symbol id="tabler-refresh" viewBox="0 0 24 24">
+  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+</symbol><symbol id="tabler-file-text" viewBox="0 0 24 24">
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+  <path d="M9 9l1 0" />
+  <path d="M9 13l6 0" />
+  <path d="M9 17l6 0" />
 </symbol></svg>

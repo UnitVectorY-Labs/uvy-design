@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Typography and content — UVY Design</title>
+    <title>Typography — UVY Design examples</title>
     <style data-uvy-reference>
       :root {
         color-scheme: light;
@@ -471,7 +471,7 @@
       .sidebar nav a:hover {
         background: var(--surface);
       }
-      .sidebar nav a[aria-current="page"] {
+      .sidebar nav a[aria-current] {
         background: var(--surface);
         text-decoration: underline;
       }
@@ -762,6 +762,240 @@
           justify-content: space-between;
         }
       }
+      /* Keep the theme switch in the top-right header position at every width. */
+      .header-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+      }
+      .header-identity {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .header-inner > nav {
+        grid-column: 2;
+        grid-row: 1;
+        margin-left: 0;
+      }
+      .header-inner > #theme {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      .site-footer .footer-inner,
+      .footer-preview {
+        text-align: center;
+      }
+      .site-footer p,
+      .footer-preview p {
+        max-width: none;
+        margin: 0;
+      }
+      .version {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.875rem;
+        margin-top: 0.5rem !important;
+        overflow-wrap: anywhere;
+      }
+      .footer-preview {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+      }
+      .footer-preview a strong,
+      .site-footer a strong {
+        font-weight: 600;
+      }
+      .icon-small {
+        width: 1rem;
+        height: 1rem;
+      }
+      .icon-large {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .icon-muted {
+        color: var(--muted);
+      }
+      .icon-status {
+        flex: none;
+      }
+      .run-lane h3 {
+        margin-block: 0 1rem;
+      }
+      .run-list {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .run-card {
+        width: 100%;
+        justify-content: start;
+        text-align: left;
+        display: grid;
+        gap: 0.25rem;
+        padding: 0.75rem;
+      }
+      .run-card small {
+        font-weight: 400;
+      }
+      .run-empty {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .run-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .run-controls .field {
+        margin: 0;
+        flex: 1;
+        min-width: min(100%, 12rem);
+      }
+      dialog {
+        max-width: min(40rem, calc(100% - 2rem));
+        max-height: calc(100dvh - 2rem);
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--text);
+        background: var(--surface);
+      }
+      dialog::backdrop {
+        background: rgb(0 0 0 / 40%);
+      }
+      dialog h2 {
+        margin-top: 0;
+      }
+      @media (max-width: 48rem) {
+        .header-inner {
+          grid-template-columns: minmax(0, 1fr) auto;
+        }
+        .header-inner > nav {
+          grid-column: 1 / -1;
+          grid-row: 2;
+        }
+        .header-inner > #theme {
+          grid-column: 2;
+          grid-row: 1;
+          align-self: start;
+        }
+      }
+      .color-swatch {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+      .type-preview {
+        display: grid;
+        gap: 1rem;
+        margin-block: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .spacing-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .spacing-preview > div {
+        display: grid;
+        gap: 0.5rem;
+        align-content: start;
+        font-family: var(--mono);
+        font-size: 0.875rem;
+      }
+      .spacing-preview i {
+        display: block;
+        height: 1rem;
+        background: var(--muted);
+      }
+      .example-link {
+        display: grid;
+        align-content: start;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .example-link strong {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .example-link span {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .theme-reset {
+        font-size: 0.875rem;
+      }
+      .icon-preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .palette-table .color-swatch + code {
+        white-space: nowrap;
+      }
+      .palette-label {
+        display: none;
+      }
+      @media (max-width: 48rem) {
+        .palette-table,
+        .palette-table tbody {
+          display: block;
+        }
+        .palette-table thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+        }
+        .palette-table tbody tr {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding-block: 0.75rem;
+          border-bottom: 1px solid var(--border);
+        }
+        .palette-table td {
+          display: block;
+          border: 0;
+          padding: 0.5rem;
+        }
+        .palette-table td:first-child {
+          grid-column: 1 / -1;
+          font-weight: 500;
+        }
+        .palette-label {
+          display: block;
+          color: var(--muted);
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+      }
     </style>
     <script data-uvy-shell>
       // Apply the saved preference before content is painted. CSS handles the OS default.
@@ -769,10 +1003,19 @@
         const root = document.documentElement;
         root.classList.add("js");
         try {
-          const saved = localStorage.getItem("uvy-theme");
+          const saved =
+            root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
           if (saved === "light" || saved === "dark") root.dataset.theme = saved;
         } catch (_) {}
         document.addEventListener("DOMContentLoaded", function () {
+          document
+            .querySelectorAll("[data-enable-with-js]")
+            .forEach((control) => {
+              control.disabled = false;
+            });
+          document.querySelectorAll("[data-requires-js]").forEach((control) => {
+            control.hidden = false;
+          });
           const system = matchMedia("(prefers-color-scheme: dark)");
           const theme = document.getElementById("theme");
           const reset = document.getElementById("theme-reset");
@@ -862,6 +1105,21 @@
           menu.addEventListener("click", () => setOpen(true, false));
           close.addEventListener("click", () => setOpen(false, true));
           backdrop.addEventListener("click", () => setOpen(false, true));
+          function selectLocalSection() {
+            const links = [...sidebar.querySelectorAll('nav a[href^="#"]')];
+            if (!links.length) return;
+            const current =
+              links.find(
+                (link) => link.getAttribute("href") === location.hash,
+              ) || links[0];
+            links.forEach((link) => {
+              if (link === current)
+                link.setAttribute("aria-current", "location");
+              else link.removeAttribute("aria-current");
+            });
+          }
+          selectLocalSection();
+          window.addEventListener("hashchange", selectLocalSection);
           sidebar.addEventListener("click", (event) => {
             if (event.target.closest("a") && mobile.matches)
               setOpen(false, true);
@@ -904,22 +1162,19 @@
           });
           setOpen(false, false);
           const search = document.getElementById("nav-search");
-          const group = document.getElementById("nav-group");
-          function filterNavigation() {
-            let count = 0;
-            sidebar.querySelectorAll("nav a").forEach((link) => {
-              link.hidden =
-                !link.textContent
+          if (search) {
+            search.closest(".nav-filters").hidden = false;
+            search.addEventListener("input", function () {
+              let count = 0;
+              sidebar.querySelectorAll("nav a").forEach((link) => {
+                link.hidden = !link.textContent
                   .toLowerCase()
-                  .includes(search.value.trim().toLowerCase()) ||
-                (group.value !== "all" && link.dataset.group !== group.value);
-              if (!link.hidden) count++;
+                  .includes(search.value.trim().toLowerCase());
+                if (!link.hidden) count++;
+              });
+              document.getElementById("nav-empty").hidden = count > 0;
             });
-            document.getElementById("nav-empty").hidden = count > 0;
           }
-          search.closest(".nav-filters").hidden = false;
-          search.addEventListener("input", filterNavigation);
-          group.addEventListener("change", filterNavigation);
         });
       })();
     </script>
@@ -977,7 +1232,46 @@ SOFTWARE.
             <path d="M18 6l-12 12" />
             <path d="M6 6l12 12" />
           </symbol>
+          <symbol id="tabler-copy" viewBox="0 0 24 24">
+            <path
+              d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"
+            />
+            <path
+              d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"
+            />
+          </symbol>
+          <symbol id="tabler-check" viewBox="0 0 24 24">
+            <path d="M5 12l5 5l10 -10" />
+          </symbol>
+          <symbol id="tabler-alert-circle" viewBox="0 0 24 24">
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M12 8v4" />
+            <path d="M12 16h.01" />
+          </symbol>
+          <symbol id="tabler-refresh" viewBox="0 0 24 24">
+            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+          </symbol>
+          <symbol id="tabler-file-text" viewBox="0 0 24 24">
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path
+              d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
+            />
+            <path d="M9 9l1 0" />
+            <path d="M9 13l6 0" />
+            <path d="M9 17l6 0" />
+          </symbol>
         </svg>
+        <div class="header-identity">
+          <a class="brand" href="../examples/index.html">Design examples</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <a href="../README.md">Guide</a
+          ><a href="../examples/index.html" aria-current="page">Examples</a
+          ><button id="theme-reset" class="theme-reset" type="button" hidden>
+            Use system theme
+          </button>
+        </nav>
         <button
           id="theme"
           class="icon-button"
@@ -1015,182 +1309,75 @@ SOFTWARE.
             <use href="#tabler-sun"></use>
           </svg>
         </button>
-        <a class="brand" href="../examples/landing.html">Catalog Explorer</a>
-        <nav aria-label="Main navigation">
-          <a href="../README.md">Guide</a
-          ><a href="../examples/components.html">Examples</a>
-        </nav>
-        <button
-          id="menu"
-          class="icon-button menu-button"
-          type="button"
-          aria-label="Open navigation"
-          aria-controls="sidebar"
-          aria-expanded="false"
-          hidden
-        >
-          <svg
-            class="icon"
-            aria-hidden="true"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <use href="#tabler-menu"></use>
-          </svg>
-        </button>
       </div>
     </header>
-    <main class="page layout" id="main">
-      <aside id="sidebar" class="sidebar" aria-label="Reference pages">
-        <div class="sidebar-tools">
-          <div class="sidebar-heading">
-            <h2>Reference pages</h2>
-            <button
-              id="menu-close"
-              class="icon-button sidebar-close"
-              type="button"
-              aria-label="Close navigation"
-              hidden
-            >
-              <svg
-                class="icon"
-                aria-hidden="true"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <use href="#tabler-x"></use>
-              </svg>
-            </button>
-          </div>
-          <div class="nav-filters" hidden>
-            <div class="field">
-              <label for="nav-search">Find a page</label
-              ><input id="nav-search" type="search" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label for="nav-group">Show</label
-              ><select id="nav-group">
-                <option value="all">All pages</option>
-                <option value="guide">Guidance</option>
-                <option value="example">Examples</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <nav aria-label="Reference pages">
-          <a data-group="example" href="components.html">Component catalog</a
-          ><a data-group="example" href="landing.html">Project landing</a
-          ><a data-group="example" href="documentation.html"
-            >Documentation article</a
-          ><a data-group="example" href="utility.html">Compact utility</a
-          ><a data-group="example" href="forms.html">Forms and actions</a
-          ><a data-group="example" href="panels.html">Key detail panels</a
-          ><a data-group="example" href="table-records.html"
-            >Repository metrics</a
-          ><a data-group="example" href="typography.html" aria-current="page"
-            >Typography and content</a
-          ><a data-group="example" href="navigation.html"
-            >Header and navigation</a
-          ><a data-group="guide" href="../docs/foundations.md"
-            >Design principles</a
-          ><a data-group="guide" href="../docs/color.md">Color guidance</a>
-        </nav>
-        <p id="nav-empty" class="hint" hidden>
-          No pages match. Clear the search or change the filter.
+    <main class="page" id="main">
+      <article class="article">
+        <h1>Typography and content</h1>
+        <p>
+          A readable article starts with a clear heading and a brief
+          introduction. IBM Plex Sans is preferred; system sans-serif is the
+          offline fallback.
         </p>
-        <div class="sidebar-footer">
-          <button id="theme-reset" type="button" hidden>
-            Use system theme
-          </button>
-        </div>
-      </aside>
-      <div class="workspace">
-        <article class="article">
-          <h1>Typography and content</h1>
-          <p>
-            A readable article starts with a clear heading and a brief
-            introduction. IBM Plex Sans is preferred; system sans-serif is the
-            offline fallback.
-          </p>
-          <h2>Information hierarchy</h2>
-          <p>
-            Headings describe the content that follows.
-            <a href="documentation.html">Read the documentation example</a> for
-            a complete article layout.
-          </p>
-          <h3>Practical defaults</h3>
-          <ul>
-            <li>Use native lists for parallel items.</li>
-            <li>Keep instructions close to the task.</li>
-            <li>Let long technical identifiers wrap.</li>
-          </ul>
-          <h4>Before you submit</h4>
-          <ol>
-            <li>Review the identifier.</li>
-            <li>Choose the environment.</li>
-            <li>Submit the form.</li>
-          </ol>
-          <p>
-            <strong>Clear labels</strong> matter more than decorative styling.
-            Use <em>emphasis</em> sparingly.
-          </p>
-          <blockquote>
-            <p>Keep the application's purpose and data semantics intact.</p>
-          </blockquote>
-          <h2>Technical content</h2>
-          <p class="technical">CONFIGURATION / OPTIONAL METADATA</p>
-          <p>
-            Use <code>service.example.com</code> as an illustrative identifier.
-          </p>
-          <pre
-            tabindex="0"
-            aria-label="HTML example"
-          ><code>&lt;button class="uvy-button" type="submit"&gt;Check domain&lt;/button&gt;</code></pre>
-          <p>
-            <small
-              >Supporting information uses 14px text. Technical metadata uses
-              12px selectively.</small
-            >
-          </p>
-          <hr />
-          <p>
-            Code uses IBM Plex Mono when installed, with a native monospace
-            fallback.
-          </p>
-        </article>
-
-        <aside class="guide-note" aria-label="Related guidance">
-          <a href="../docs/typography-and-spacing.md">Read the related guide</a>
-          · <a href="../README.md">All guidance</a>
-        </aside>
-      </div>
+        <h2>Information hierarchy</h2>
+        <p>
+          Headings describe the content that follows.
+          <a href="documentation.html">Read the documentation example</a> for a
+          complete article layout.
+        </p>
+        <h3>Practical defaults</h3>
+        <ul>
+          <li>Use native lists for parallel items.</li>
+          <li>Keep instructions close to the task.</li>
+          <li>Let long technical identifiers wrap.</li>
+        </ul>
+        <h4>Before you submit</h4>
+        <ol>
+          <li>Review the identifier.</li>
+          <li>Choose the environment.</li>
+          <li>Submit the form.</li>
+        </ol>
+        <p>
+          <strong>Clear labels</strong> matter more than decorative styling. Use
+          <em>emphasis</em> sparingly.
+        </p>
+        <blockquote>
+          <p>Keep the application's purpose and data semantics intact.</p>
+        </blockquote>
+        <h2>Technical content</h2>
+        <p class="technical">CONFIGURATION / OPTIONAL METADATA</p>
+        <p>
+          Use <code>service.example.com</code> as an illustrative identifier.
+        </p>
+        <pre
+          tabindex="0"
+          aria-label="HTML example"
+        ><code>&lt;button class="uvy-button" type="submit"&gt;Check domain&lt;/button&gt;</code></pre>
+        <p>
+          <small
+            >Supporting information uses 14px text. Technical metadata uses 12px
+            selectively.</small
+          >
+        </p>
+        <hr />
+        <p>
+          Code uses IBM Plex Mono when installed, with a native monospace
+          fallback.
+        </p>
+      </article>
     </main>
-    <button
-      id="menu-backdrop"
-      class="menu-backdrop"
-      type="button"
-      aria-label="Close navigation"
-      tabindex="-1"
-      hidden
-    ></button>
-    <footer>
+    <footer class="site-footer">
       <div class="footer-inner">
-        UVY Design reference ·
-        <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> ·
-        <a href="../LICENSE">License</a> ·
-        <a href="https://tabler.io/icons">Tabler Icons</a>
+        <p>
+          <a href="https://github.com/UnitVectorY-Labs">UnitVectorY-Labs</a>
+          <span aria-hidden="true">|</span>
+          <a href="../LICENSE">MIT License</a>
+          <span aria-hidden="true">|</span>
+          <a href="https://github.com/UnitVectorY-Labs/uvy-design"
+            ><strong>uvy-design</strong></a
+          >
+          on GitHub
+        </p>
       </div>
     </footer>
     <script></script>

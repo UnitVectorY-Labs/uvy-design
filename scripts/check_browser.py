@@ -9,8 +9,14 @@ def check_layout(page):
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Page overflow: {page.url}'
     assert page.locator('h1').count() == 1, page.url
     assert page.locator('#theme svg:visible').count() == 1, page.url
-    # Theme switch must precede the independent identity link.
-    assert page.evaluate("document.getElementById('theme').getBoundingClientRect().right <= document.querySelector('.brand').getBoundingClientRect().left"), page.url
+    # The theme switch stays in the first header row at its right edge.
+    assert page.evaluate("Math.abs(document.getElementById('theme').getBoundingClientRect().right-document.querySelector('.header-inner').getBoundingClientRect().right)<2"), page.url
+    assert page.evaluate("document.getElementById('theme').getBoundingClientRect().top < document.querySelector('.header-inner').getBoundingClientRect().top+32"), page.url
+    foot = page.locator('.site-footer')
+    assert 'UnitVectorY-Labs' in foot.inner_text()
+    assert 'MIT License' in foot.inner_text()
+    assert 'on GitHub' in foot.inner_text()
+    assert 'Tabler' not in foot.inner_text()
 
 
 def contrast_ratios(page, selector):
@@ -73,9 +79,9 @@ with sync_playwright() as p:
     page.locator('#nav-search').fill('does-not-exist')
     assert page.locator('#nav-empty').is_visible()
     page.locator('#nav-search').fill('')
-    page.locator('#nav-group').select_option('guide')
-    assert page.locator('#sidebar nav a:visible').count() == 2
-    page.locator('#nav-group').select_option('all')
+    page.locator('#nav-search').fill('Evidence')
+    assert page.locator('#sidebar nav a:visible').count() == 1
+    page.locator('#nav-search').fill('')
     page.locator('#menu-backdrop').click(position={'x': 350, 'y': 300})
     assert page.locator('#menu').get_attribute('aria-expanded') == 'false'
     page.locator('#menu').click()
@@ -85,9 +91,10 @@ with sync_playwright() as p:
     assert page.locator('#theme').evaluate('(el)=>el===document.activeElement')
     page.set_viewport_size({'width': 375, 'height': 900})
     page.locator('#menu').click()
-    page.locator('#sidebar nav a[href="forms.html"]').click()
-    assert page.url.endswith('forms.html')
+    page.locator('#sidebar nav a[href="#section-1"]').click()
+    assert page.url.endswith('#section-1')
     assert page.locator('#sidebar').evaluate('(el)=>el.inert')
+    page.goto((ROOT / 'examples/forms.html').as_uri())
     page.locator('#domain').fill('invalid')
     page.get_by_role('button', name='Check domain').click()
     assert page.locator('#domain').get_attribute('aria-invalid') == 'true'
@@ -96,7 +103,7 @@ with sync_playwright() as p:
     assert 'completed' in page.locator('#form-status').inner_text()
     page.get_by_role('button', name='Reset', exact=True).click()
     assert page.locator('#domain-error').is_hidden()
-    page.goto((ROOT / 'examples/panels.html').as_uri())
+    page.goto((ROOT / 'examples/table.html').as_uri())
     assert page.locator('.table-wrap').first.evaluate('(el)=>el.scrollWidth>el.clientWidth')
     page.locator('#filter').fill('missing')
     assert page.locator('#empty').is_visible()
@@ -127,6 +134,37 @@ with sync_playwright() as p:
     page.set_viewport_size({'width': 640, 'height': 900})
     page.evaluate("document.documentElement.style.fontSize='200%'")
     check_layout(page)
+    page.goto((ROOT / '_site/docs/color.html').as_uri())
+    assert page.locator('.color-swatch:visible').count() >= 22
+    assert page.locator('.color-swatch').first.evaluate("el=>getComputedStyle(el).backgroundColor") != 'rgba(0, 0, 0, 0)'
+    guide_links=page.locator('#sidebar nav a').evaluate_all('links=>links.map(link=>link.getAttribute("href"))')
+    assert all('examples/' not in link for link in guide_links)
+    page.goto((ROOT / '_site/docs/footer.html').as_uri())
+    assert page.locator('#sidebar nav a').evaluate_all('links=>links.map(link=>link.getAttribute("href"))') == guide_links
+    page.goto((ROOT / 'examples/index.html').as_uri())
+    assert page.locator('#sidebar').count() == 0
+    assert page.locator('.example-link').count() == 15
+    page.goto((ROOT / 'examples/footer.html').as_uri())
+    assert page.locator('.site-footer .version').count() == 0
+    page.locator('#footer-version-toggle').check()
+    assert 'example-build' in page.locator('.site-footer .version').inner_text()
+    page.locator('#footer-version-toggle').uncheck()
+    assert page.locator('.site-footer .version').count() == 0
+    page.locator('#footer-repositories').select_option('multiple')
+    assert 'jwks-observer' in page.locator('.site-footer').inner_text()
+    page.goto((ROOT / 'examples/application.html').as_uri())
+    page.locator('#run-repository').select_option('observer')
+    assert page.locator('.run-card').count() == 1
+    page.locator('.run-card').click()
+    assert page.locator('#run-detail').is_visible()
+    page.keyboard.press('Escape')
+    assert page.locator('#run-detail').is_hidden()
+    page.locator('#run-refresh').click()
+    expect(page.locator('#run-status')).to_have_text('Sample updated.')
+    assert page.locator('#run-repository').input_value() == 'observer'
+    for mode in ['light','dark']:
+        page.goto((ROOT / f'examples/{mode}.html').as_uri())
+        assert page.locator('html').get_attribute('data-theme') == mode
     context.close()
 
     context = browser.new_context(java_script_enabled=False, color_scheme='dark', viewport={'width': 320, 'height': 900})
@@ -150,4 +188,4 @@ with sync_playwright() as p:
     context.close()
     assert not errors, errors
     browser.close()
-    print(f'Passed {layout_count} theme/viewport layouts; drawer, keyboard, themes, forms, tables, sorting, contrast, zoom, no-JS and blocked-storage checks')
+    print(f'Passed {layout_count} theme/viewport layouts; header/footer, separated navigation, visual swatches, drawer, themes, forms, tables, dynamic state, contrast, zoom and fallbacks')

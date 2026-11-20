@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Repository metrics — UVY Design</title>
+    <title>Mobile record table — UVY Design examples</title>
     <style data-uvy-reference>
       :root {
         color-scheme: light;
@@ -471,7 +471,7 @@
       .sidebar nav a:hover {
         background: var(--surface);
       }
-      .sidebar nav a[aria-current="page"] {
+      .sidebar nav a[aria-current] {
         background: var(--surface);
         text-decoration: underline;
       }
@@ -762,6 +762,240 @@
           justify-content: space-between;
         }
       }
+      /* Keep the theme switch in the top-right header position at every width. */
+      .header-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+      }
+      .header-identity {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .header-inner > nav {
+        grid-column: 2;
+        grid-row: 1;
+        margin-left: 0;
+      }
+      .header-inner > #theme {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      .site-footer .footer-inner,
+      .footer-preview {
+        text-align: center;
+      }
+      .site-footer p,
+      .footer-preview p {
+        max-width: none;
+        margin: 0;
+      }
+      .version {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.875rem;
+        margin-top: 0.5rem !important;
+        overflow-wrap: anywhere;
+      }
+      .footer-preview {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+      }
+      .footer-preview a strong,
+      .site-footer a strong {
+        font-weight: 600;
+      }
+      .icon-small {
+        width: 1rem;
+        height: 1rem;
+      }
+      .icon-large {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .icon-muted {
+        color: var(--muted);
+      }
+      .icon-status {
+        flex: none;
+      }
+      .run-lane h3 {
+        margin-block: 0 1rem;
+      }
+      .run-list {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .run-card {
+        width: 100%;
+        justify-content: start;
+        text-align: left;
+        display: grid;
+        gap: 0.25rem;
+        padding: 0.75rem;
+      }
+      .run-card small {
+        font-weight: 400;
+      }
+      .run-empty {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .run-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .run-controls .field {
+        margin: 0;
+        flex: 1;
+        min-width: min(100%, 12rem);
+      }
+      dialog {
+        max-width: min(40rem, calc(100% - 2rem));
+        max-height: calc(100dvh - 2rem);
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--text);
+        background: var(--surface);
+      }
+      dialog::backdrop {
+        background: rgb(0 0 0 / 40%);
+      }
+      dialog h2 {
+        margin-top: 0;
+      }
+      @media (max-width: 48rem) {
+        .header-inner {
+          grid-template-columns: minmax(0, 1fr) auto;
+        }
+        .header-inner > nav {
+          grid-column: 1 / -1;
+          grid-row: 2;
+        }
+        .header-inner > #theme {
+          grid-column: 2;
+          grid-row: 1;
+          align-self: start;
+        }
+      }
+      .color-swatch {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+      .type-preview {
+        display: grid;
+        gap: 1rem;
+        margin-block: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .spacing-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .spacing-preview > div {
+        display: grid;
+        gap: 0.5rem;
+        align-content: start;
+        font-family: var(--mono);
+        font-size: 0.875rem;
+      }
+      .spacing-preview i {
+        display: block;
+        height: 1rem;
+        background: var(--muted);
+      }
+      .example-link {
+        display: grid;
+        align-content: start;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .example-link strong {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .example-link span {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .theme-reset {
+        font-size: 0.875rem;
+      }
+      .icon-preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .palette-table .color-swatch + code {
+        white-space: nowrap;
+      }
+      .palette-label {
+        display: none;
+      }
+      @media (max-width: 48rem) {
+        .palette-table,
+        .palette-table tbody {
+          display: block;
+        }
+        .palette-table thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+        }
+        .palette-table tbody tr {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding-block: 0.75rem;
+          border-bottom: 1px solid var(--border);
+        }
+        .palette-table td {
+          display: block;
+          border: 0;
+          padding: 0.5rem;
+        }
+        .palette-table td:first-child {
+          grid-column: 1 / -1;
+          font-weight: 500;
+        }
+        .palette-label {
+          display: block;
+          color: var(--muted);
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+      }
     </style>
     <script data-uvy-shell>
       // Apply the saved preference before content is painted. CSS handles the OS default.
@@ -769,10 +1003,19 @@
         const root = document.documentElement;
         root.classList.add("js");
         try {
-          const saved = localStorage.getItem("uvy-theme");
+          const saved =
+            root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
           if (saved === "light" || saved === "dark") root.dataset.theme = saved;
         } catch (_) {}
         document.addEventListener("DOMContentLoaded", function () {
+          document
+            .querySelectorAll("[data-enable-with-js]")
+            .forEach((control) => {
+              control.disabled = false;
+            });
+          document.querySelectorAll("[data-requires-js]").forEach((control) => {
+            control.hidden = false;
+          });
           const system = matchMedia("(prefers-color-scheme: dark)");
           const theme = document.getElementById("theme");
           const reset = document.getElementById("theme-reset");
@@ -862,6 +1105,21 @@
           menu.addEventListener("click", () => setOpen(true, false));
           close.addEventListener("click", () => setOpen(false, true));
           backdrop.addEventListener("click", () => setOpen(false, true));
+          function selectLocalSection() {
+            const links = [...sidebar.querySelectorAll('nav a[href^="#"]')];
+            if (!links.length) return;
+            const current =
+              links.find(
+                (link) => link.getAttribute("href") === location.hash,
+              ) || links[0];
+            links.forEach((link) => {
+              if (link === current)
+                link.setAttribute("aria-current", "location");
+              else link.removeAttribute("aria-current");
+            });
+          }
+          selectLocalSection();
+          window.addEventListener("hashchange", selectLocalSection);
           sidebar.addEventListener("click", (event) => {
             if (event.target.closest("a") && mobile.matches)
               setOpen(false, true);
@@ -904,22 +1162,19 @@
           });
           setOpen(false, false);
           const search = document.getElementById("nav-search");
-          const group = document.getElementById("nav-group");
-          function filterNavigation() {
-            let count = 0;
-            sidebar.querySelectorAll("nav a").forEach((link) => {
-              link.hidden =
-                !link.textContent
+          if (search) {
+            search.closest(".nav-filters").hidden = false;
+            search.addEventListener("input", function () {
+              let count = 0;
+              sidebar.querySelectorAll("nav a").forEach((link) => {
+                link.hidden = !link.textContent
                   .toLowerCase()
-                  .includes(search.value.trim().toLowerCase()) ||
-                (group.value !== "all" && link.dataset.group !== group.value);
-              if (!link.hidden) count++;
+                  .includes(search.value.trim().toLowerCase());
+                if (!link.hidden) count++;
+              });
+              document.getElementById("nav-empty").hidden = count > 0;
             });
-            document.getElementById("nav-empty").hidden = count > 0;
           }
-          search.closest(".nav-filters").hidden = false;
-          search.addEventListener("input", filterNavigation);
-          group.addEventListener("change", filterNavigation);
         });
       })();
     </script>
@@ -977,7 +1232,46 @@ SOFTWARE.
             <path d="M18 6l-12 12" />
             <path d="M6 6l12 12" />
           </symbol>
+          <symbol id="tabler-copy" viewBox="0 0 24 24">
+            <path
+              d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"
+            />
+            <path
+              d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"
+            />
+          </symbol>
+          <symbol id="tabler-check" viewBox="0 0 24 24">
+            <path d="M5 12l5 5l10 -10" />
+          </symbol>
+          <symbol id="tabler-alert-circle" viewBox="0 0 24 24">
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M12 8v4" />
+            <path d="M12 16h.01" />
+          </symbol>
+          <symbol id="tabler-refresh" viewBox="0 0 24 24">
+            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+          </symbol>
+          <symbol id="tabler-file-text" viewBox="0 0 24 24">
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path
+              d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
+            />
+            <path d="M9 9l1 0" />
+            <path d="M9 13l6 0" />
+            <path d="M9 17l6 0" />
+          </symbol>
         </svg>
+        <div class="header-identity">
+          <a class="brand" href="../examples/index.html">Design examples</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <a href="../README.md">Guide</a
+          ><a href="../examples/index.html" aria-current="page">Examples</a
+          ><button id="theme-reset" class="theme-reset" type="button" hidden>
+            Use system theme
+          </button>
+        </nav>
         <button
           id="theme"
           class="icon-button"
@@ -1015,733 +1309,600 @@ SOFTWARE.
             <use href="#tabler-sun"></use>
           </svg>
         </button>
-        <a class="brand" href="../examples/landing.html">Catalog Explorer</a>
-        <nav aria-label="Main navigation">
-          <a href="../README.md">Guide</a
-          ><a href="../examples/components.html">Examples</a>
-        </nav>
-        <button
-          id="menu"
-          class="icon-button menu-button"
-          type="button"
-          aria-label="Open navigation"
-          aria-controls="sidebar"
-          aria-expanded="false"
-          hidden
-        >
-          <svg
-            class="icon"
-            aria-hidden="true"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <use href="#tabler-menu"></use>
-          </svg>
-        </button>
       </div>
     </header>
-    <main class="page layout" id="main">
-      <aside id="sidebar" class="sidebar" aria-label="Reference pages">
-        <div class="sidebar-tools">
-          <div class="sidebar-heading">
-            <h2>Reference pages</h2>
-            <button
-              id="menu-close"
-              class="icon-button sidebar-close"
-              type="button"
-              aria-label="Close navigation"
-              hidden
-            >
-              <svg
-                class="icon"
-                aria-hidden="true"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <use href="#tabler-x"></use>
-              </svg>
-            </button>
-          </div>
-          <div class="nav-filters" hidden>
-            <div class="field">
-              <label for="nav-search">Find a page</label
-              ><input id="nav-search" type="search" autocomplete="off" />
-            </div>
-            <div class="field">
-              <label for="nav-group">Show</label
-              ><select id="nav-group">
-                <option value="all">All pages</option>
-                <option value="guide">Guidance</option>
-                <option value="example">Examples</option>
-              </select>
-            </div>
-          </div>
+    <main class="page" id="main">
+      <h1>Repository metrics</h1>
+      <p>
+        Illustrative release data. On mobile, repository and release span the
+        full card width, followed by three equal, labeled metrics. Every value
+        and link stays available.
+      </p>
+      <dl class="record-summary">
+        <div class="uvy-card">
+          <dt>Repositories</dt>
+          <dd>12</dd>
         </div>
-        <nav aria-label="Reference pages">
-          <a data-group="example" href="components.html">Component catalog</a
-          ><a data-group="example" href="landing.html">Project landing</a
-          ><a data-group="example" href="documentation.html"
-            >Documentation article</a
-          ><a data-group="example" href="utility.html">Compact utility</a
-          ><a data-group="example" href="forms.html">Forms and actions</a
-          ><a data-group="example" href="panels.html">Key detail panels</a
-          ><a data-group="example" href="table-records.html" aria-current="page"
-            >Repository metrics</a
-          ><a data-group="example" href="typography.html"
-            >Typography and content</a
-          ><a data-group="example" href="navigation.html"
-            >Header and navigation</a
-          ><a data-group="guide" href="../docs/foundations.md"
-            >Design principles</a
-          ><a data-group="guide" href="../docs/color.md">Color guidance</a>
-        </nav>
-        <p id="nav-empty" class="hint" hidden>
-          No pages match. Clear the search or change the filter.
+        <div class="uvy-card">
+          <dt>With unreleased commits</dt>
+          <dd>10</dd>
+        </div>
+        <div class="uvy-card">
+          <dt>Unknown</dt>
+          <dd>1</dd>
+        </div>
+      </dl>
+      <section aria-labelledby="metrics-title">
+        <h2 id="metrics-title">Release comparison</h2>
+        <p id="scale-help" class="hint">
+          Each metric column is scaled independently from its minimum to maximum
+          across all sample rows. Filtering and sorting do not change the scale.
+          Higher values are redder; unknown values have no score.
         </p>
-        <div class="sidebar-footer">
-          <button id="theme-reset" type="button" hidden>
-            Use system theme
+        <div class="legend" aria-label="Relative value scale">
+          <span class="scale-low">Lower</span
+          ><span class="scale-mid">Middle</span
+          ><span class="scale-high">Higher</span
+          ><span class="scale-unknown">Unknown</span>
+        </div>
+        <p class="hint">
+          Days behind: latest release to newest unreleased commit. Days since
+          release: age of the latest release. These measures are not
+          interchangeable.
+        </p>
+        <div class="record-controls" id="record-controls" hidden>
+          <div class="field">
+            <label for="repo-filter">Find a repository</label
+            ><input id="repo-filter" type="search" />
+          </div>
+          <div class="field">
+            <label for="sort">Sort by</label
+            ><select id="sort">
+              <option value="name">Repository</option>
+              <option value="release">Latest release</option>
+              <option value="commits">Unreleased commits</option>
+              <option value="behind">Days behind</option>
+              <option value="age">Days since release</option>
+            </select>
+          </div>
+          <button
+            disabled
+            data-enable-with-js
+            id="direction"
+            type="button"
+            aria-label="Sort descending"
+          >
+            Ascending
           </button>
         </div>
-      </aside>
-      <div class="workspace">
-        <h1>Repository metrics</h1>
-        <p>
-          Illustrative release data. On mobile, repository and release span the
-          full card width, followed by three equal, labeled metrics. Every value
-          and link stays available.
+        <table
+          class="record-table"
+          id="records"
+          role="table"
+          aria-describedby="scale-help"
+        >
+          <caption>
+            Repository releases (sample data)
+          </caption>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th
+                scope="col"
+                role="columnheader"
+                data-sort="name"
+                aria-sort="ascending"
+              >
+                <button
+                  disabled
+                  data-enable-with-js
+                  type="button"
+                  data-sort-key="name"
+                  hidden
+                >
+                  Repository</button
+                ><span class="sort-fallback">Repository</span>
+              </th>
+              <th
+                scope="col"
+                role="columnheader"
+                data-sort="release"
+                aria-sort="none"
+              >
+                <button
+                  disabled
+                  data-enable-with-js
+                  type="button"
+                  data-sort-key="release"
+                  hidden
+                >
+                  Latest release</button
+                ><span class="sort-fallback">Latest release</span>
+              </th>
+              <th
+                scope="col"
+                role="columnheader"
+                data-sort="commits"
+                aria-sort="none"
+              >
+                <button
+                  disabled
+                  data-enable-with-js
+                  type="button"
+                  data-sort-key="commits"
+                  hidden
+                >
+                  Unreleased commits</button
+                ><span class="sort-fallback">Unreleased commits</span>
+              </th>
+              <th
+                scope="col"
+                role="columnheader"
+                data-sort="behind"
+                aria-sort="none"
+              >
+                <button
+                  disabled
+                  data-enable-with-js
+                  type="button"
+                  data-sort-key="behind"
+                  hidden
+                >
+                  Days behind</button
+                ><span class="sort-fallback">Days behind</span>
+              </th>
+              <th
+                scope="col"
+                role="columnheader"
+                data-sort="age"
+                aria-sort="none"
+              >
+                <button
+                  disabled
+                  data-enable-with-js
+                  type="button"
+                  data-sort-key="age"
+                  hidden
+                >
+                  Days since release</button
+                ><span class="sort-fallback">Days since release</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody role="rowgroup">
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">catalog</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.0.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="0"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>0</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="0"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>0</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="5">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>5</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview"
+                  >certificate-observatory</a
+                >
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.1.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="2"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>2</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="1"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>1</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="14">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>14</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview"
+                  >engineering-services/very-long-repository-name-with-a-detailed-purpose</a
+                >
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.2.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="5"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>5</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="3"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>3</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="28">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>28</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">release-inspector</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.3.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="9"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>9</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="5"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>5</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="35">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>35</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">domain-index</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.4.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="14"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>14</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="8"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>8</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="49">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>49</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">signing-key-auditor</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.5.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="21"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>21</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="13"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>13</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="62">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>62</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">metadata-sync</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.6.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="35"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>35</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="21"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>21</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="80">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>80</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">event-router</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.7.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="48"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>48</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="30"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>30</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="105">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>105</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">policy-checker</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.8.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="60"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>60</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="45"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>45</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="140">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>140</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">deployment-tracker</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.9.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="75"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>75</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="60"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>60</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="180">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>180</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">service-inventory</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >v1.10.0
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value="99"
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>99</span>
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="behind"
+                data-value="90"
+              >
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>90</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="240">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>240</span>
+              </td>
+            </tr>
+            <tr role="row" data-record>
+              <th scope="row" role="rowheader">
+                <a href="documentation.html#overview">experimental-adapter</a>
+              </th>
+              <td class="release" role="cell">
+                <span class="mobile-label" aria-hidden="true"
+                  >Latest release</span
+                >Unknown
+              </td>
+              <td
+                class="metric"
+                role="cell"
+                data-metric="commits"
+                data-value=""
+              >
+                <span class="mobile-label" aria-hidden="true"
+                  >Unreleased commits</span
+                ><span>Unknown</span>
+              </td>
+              <td class="metric" role="cell" data-metric="behind" data-value="">
+                <span class="mobile-label" aria-hidden="true">Days behind</span
+                ><span>Unknown</span>
+              </td>
+              <td class="metric" role="cell" data-metric="age" data-value="">
+                <span class="mobile-label" aria-hidden="true"
+                  >Days since release</span
+                ><span>Unknown</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="record-empty" hidden>
+          No repositories match. Clear the search to see all records.
         </p>
-        <dl class="record-summary">
-          <div class="uvy-card">
-            <dt>Repositories</dt>
-            <dd>12</dd>
-          </div>
-          <div class="uvy-card">
-            <dt>With unreleased commits</dt>
-            <dd>10</dd>
-          </div>
-          <div class="uvy-card">
-            <dt>Unknown</dt>
-            <dd>1</dd>
-          </div>
-        </dl>
-        <section aria-labelledby="metrics-title">
-          <h2 id="metrics-title">Release comparison</h2>
-          <p id="scale-help" class="hint">
-            Each metric column is scaled independently from its minimum to
-            maximum across all sample rows. Filtering and sorting do not change
-            the scale. Higher values are redder; unknown values have no score.
-          </p>
-          <div class="legend" aria-label="Relative value scale">
-            <span class="scale-low">Lower</span
-            ><span class="scale-mid">Middle</span
-            ><span class="scale-high">Higher</span
-            ><span class="scale-unknown">Unknown</span>
-          </div>
-          <p class="hint">
-            Days behind: latest release to newest unreleased commit. Days since
-            release: age of the latest release. These measures are not
-            interchangeable.
-          </p>
-          <div class="record-controls" id="record-controls" hidden>
-            <div class="field">
-              <label for="repo-filter">Find a repository</label
-              ><input id="repo-filter" type="search" />
-            </div>
-            <div class="field">
-              <label for="sort">Sort by</label
-              ><select id="sort">
-                <option value="name">Repository</option>
-                <option value="release">Latest release</option>
-                <option value="commits">Unreleased commits</option>
-                <option value="behind">Days behind</option>
-                <option value="age">Days since release</option>
-              </select>
-            </div>
-            <button id="direction" type="button" aria-label="Sort descending">
-              Ascending
-            </button>
-          </div>
-          <table
-            class="record-table"
-            id="records"
-            role="table"
-            aria-describedby="scale-help"
-          >
-            <caption>
-              Repository releases (sample data)
-            </caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th
-                  scope="col"
-                  role="columnheader"
-                  data-sort="name"
-                  aria-sort="ascending"
-                >
-                  <button type="button" data-sort-key="name" hidden>
-                    Repository</button
-                  ><span class="sort-fallback">Repository</span>
-                </th>
-                <th
-                  scope="col"
-                  role="columnheader"
-                  data-sort="release"
-                  aria-sort="none"
-                >
-                  <button type="button" data-sort-key="release" hidden>
-                    Latest release</button
-                  ><span class="sort-fallback">Latest release</span>
-                </th>
-                <th
-                  scope="col"
-                  role="columnheader"
-                  data-sort="commits"
-                  aria-sort="none"
-                >
-                  <button type="button" data-sort-key="commits" hidden>
-                    Unreleased commits</button
-                  ><span class="sort-fallback">Unreleased commits</span>
-                </th>
-                <th
-                  scope="col"
-                  role="columnheader"
-                  data-sort="behind"
-                  aria-sort="none"
-                >
-                  <button type="button" data-sort-key="behind" hidden>
-                    Days behind</button
-                  ><span class="sort-fallback">Days behind</span>
-                </th>
-                <th
-                  scope="col"
-                  role="columnheader"
-                  data-sort="age"
-                  aria-sort="none"
-                >
-                  <button type="button" data-sort-key="age" hidden>
-                    Days since release</button
-                  ><span class="sort-fallback">Days since release</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody role="rowgroup">
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">catalog</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.0.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="0"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>0</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="0"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>0</span>
-                </td>
-                <td class="metric" role="cell" data-metric="age" data-value="5">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>5</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview"
-                    >certificate-observatory</a
-                  >
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.1.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="2"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>2</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="1"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>1</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="14"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>14</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview"
-                    >engineering-services/very-long-repository-name-with-a-detailed-purpose</a
-                  >
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.2.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="5"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>5</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="3"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>3</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="28"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>28</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">release-inspector</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.3.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="9"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>9</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="5"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>5</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="35"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>35</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">domain-index</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.4.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="14"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>14</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="8"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>8</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="49"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>49</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">signing-key-auditor</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.5.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="21"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>21</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="13"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>13</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="62"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>62</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">metadata-sync</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.6.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="35"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>35</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="21"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>21</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="80"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>80</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">event-router</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.7.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="48"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>48</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="30"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>30</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="105"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>105</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">policy-checker</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.8.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="60"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>60</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="45"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>45</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="140"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>140</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">deployment-tracker</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.9.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="75"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>75</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="60"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>60</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="180"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>180</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">service-inventory</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >v1.10.0
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value="99"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>99</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value="90"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>90</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="age"
-                  data-value="240"
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>240</span>
-                </td>
-              </tr>
-              <tr role="row" data-record>
-                <th scope="row" role="rowheader">
-                  <a href="documentation.html#overview">experimental-adapter</a>
-                </th>
-                <td class="release" role="cell">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Latest release</span
-                  >Unknown
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="commits"
-                  data-value=""
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Unreleased commits</span
-                  ><span>Unknown</span>
-                </td>
-                <td
-                  class="metric"
-                  role="cell"
-                  data-metric="behind"
-                  data-value=""
-                >
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days behind</span
-                  ><span>Unknown</span>
-                </td>
-                <td class="metric" role="cell" data-metric="age" data-value="">
-                  <span class="mobile-label" aria-hidden="true"
-                    >Days since release</span
-                  ><span>Unknown</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <p id="record-empty" hidden>
-            No repositories match. Clear the search to see all records.
-          </p>
-          <p id="record-count" role="status" class="hint">
-            12 repositories shown.
-          </p>
-        </section>
-        <aside class="guide-note" aria-label="Related guidance">
-          <a href="../docs/components-and-icons.md">Read the related guide</a> ·
-          <a href="panels.html">Comparison table pattern</a> ·
-          <a href="../README.md">All guidance</a>
-        </aside>
-      </div>
+        <p id="record-count" role="status" class="hint">
+          12 repositories shown.
+        </p>
+      </section>
+      <noscript
+        ><p class="hint">
+          Interactive actions require JavaScript in this example.
+        </p></noscript
+      >
     </main>
-    <button
-      id="menu-backdrop"
-      class="menu-backdrop"
-      type="button"
-      aria-label="Close navigation"
-      tabindex="-1"
-      hidden
-    ></button>
-    <footer>
+    <footer class="site-footer">
       <div class="footer-inner">
-        UVY Design reference ·
-        <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> ·
-        <a href="../LICENSE">License</a> ·
-        <a href="https://tabler.io/icons">Tabler Icons</a>
+        <p>
+          <a href="https://github.com/UnitVectorY-Labs">UnitVectorY-Labs</a>
+          <span aria-hidden="true">|</span>
+          <a href="../LICENSE">MIT License</a>
+          <span aria-hidden="true">|</span>
+          <a href="https://github.com/UnitVectorY-Labs/uvy-design"
+            ><strong>uvy-design</strong></a
+          >
+          on GitHub
+        </p>
       </div>
     </footer>
     <script>

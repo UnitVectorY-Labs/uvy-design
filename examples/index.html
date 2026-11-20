@@ -1,0 +1,1387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Examples — UVY Design examples</title>
+    <style data-uvy-reference>
+      :root {
+        color-scheme: light;
+        --page: #fafaf8;
+        --surface: #fff;
+        --text: #22272b;
+        --muted: #5e6671;
+        --border: #d8dbde;
+        --accent: #f97316;
+        --link: #9a3e00;
+        --control: #7c838b;
+        --error: #b42318;
+        --success: #21633b;
+        --lifecycle-active-text: #21633b;
+        --lifecycle-inactive-text: #b42318;
+        --lifecycle-active-surface: #edf7ef;
+        --lifecycle-inactive-surface: #fff0ef;
+        --spectrum-low: #d5eadb;
+        --spectrum-mid: #f5e4b1;
+        --spectrum-high: #f1c2bf;
+        --sans: "IBM Plex Sans", system-ui, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --page: #141619;
+        --surface: #202327;
+        --text: #f2f2f0;
+        --muted: #a7afb8;
+        --border: #363b41;
+        --accent: #fb923c;
+        --link: #fdba74;
+        --control: #7d8792;
+        --error: #fda29b;
+        --success: #86d9a0;
+        --lifecycle-active-text: #86d9a0;
+        --lifecycle-inactive-text: #fda29b;
+        --lifecycle-active-surface: #183222;
+        --lifecycle-inactive-surface: #3b2224;
+        --spectrum-low: #23452f;
+        --spectrum-mid: #493c1c;
+        --spectrum-high: #512b2d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme]) {
+          color-scheme: dark;
+          --page: #141619;
+          --surface: #202327;
+          --text: #f2f2f0;
+          --muted: #a7afb8;
+          --border: #363b41;
+          --accent: #fb923c;
+          --link: #fdba74;
+          --control: #7d8792;
+          --error: #fda29b;
+          --success: #86d9a0;
+          --lifecycle-active-text: #86d9a0;
+          --lifecycle-inactive-text: #fda29b;
+          --lifecycle-active-surface: #183222;
+          --lifecycle-inactive-surface: #3b2224;
+          --spectrum-low: #23452f;
+          --spectrum-mid: #493c1c;
+          --spectrum-high: #512b2d;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--text);
+        font: 1rem/1.6 var(--sans);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 0.2em;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      :focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 3px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.25;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+      h4 {
+        font-size: 1rem;
+      }
+      p,
+      li {
+        max-width: 72ch;
+      }
+      small,
+      .hint {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      code,
+      pre,
+      .technical {
+        font-family: var(--mono);
+      }
+      .technical {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      pre {
+        padding: 1rem;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--surface);
+      }
+      pre code {
+        overflow-wrap: normal;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
+      .page,
+      .header-inner,
+      .footer-inner {
+        width: min(100% - 2rem, 75rem);
+        margin-inline: auto;
+      }
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner {
+        min-height: 3.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-block: 0.5rem;
+      }
+      .brand {
+        margin-right: auto;
+        color: var(--text);
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+      .mark {
+        border: 1px solid var(--border);
+        width: 1.75rem;
+        min-width: 1.75rem;
+        text-align: center;
+        font-family: var(--mono);
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      nav a[aria-current] {
+        color: var(--link);
+        text-decoration: underline;
+      }
+      .skip {
+        position: absolute;
+        left: 1rem;
+        top: -5rem;
+        background: var(--surface);
+        padding: 0.5rem;
+        z-index: 2;
+      }
+      .skip:focus {
+        top: 0;
+      }
+      main {
+        flex: 1;
+        padding-block: 2rem 3rem;
+        min-width: 0;
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .uvy-button,
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.25rem;
+        padding: 0.25rem 1rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .uvy-button--primary {
+        background: var(--accent);
+        color: #22272b;
+        border-color: var(--link);
+      }
+      button:hover,
+      .uvy-button:hover {
+        outline: 1px solid var(--link);
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .uvy-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.5rem;
+      }
+      .uvy-card > :first-child {
+        margin-top: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        gap: 1rem;
+      }
+      .field {
+        display: grid;
+        gap: 0.5rem;
+        margin-block: 1rem;
+      }
+      label {
+        font-weight: 500;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 2.25rem;
+        padding: 0.25rem 0.75rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+      }
+      textarea {
+        min-height: 6rem;
+      }
+      input[aria-invalid="true"] {
+        border-color: var(--error);
+      }
+      .error {
+        color: var(--error);
+      }
+      .success {
+        color: var(--success);
+      }
+      .alert {
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+      }
+      .badge {
+        background: var(--page);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.125rem 0.5rem;
+        font-size: 0.875rem;
+      }
+      .table-wrap {
+        overflow: auto;
+        max-width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      .uvy-table--compact th,
+      .uvy-table--compact td {
+        padding: 0.25rem 0.75rem;
+      }
+      caption {
+        text-align: left;
+        font-weight: 600;
+        padding-block: 1rem;
+      }
+      .article {
+        max-width: 72ch;
+        min-width: 0;
+      }
+      .article h1 {
+        margin-top: 0;
+      }
+      .hero {
+        padding-block: 2rem 3rem;
+        max-width: 48rem;
+      }
+      .hero h1 {
+        margin-top: 0;
+      }
+      .stack > * + * {
+        margin-top: 1.5rem;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .guide-note {
+        border-top: 1px solid var(--border);
+        margin-top: 3rem;
+        padding-top: 1rem;
+      }
+      @media (max-width: 48rem) {
+        .site-header nav {
+          order: 3;
+          flex-basis: 100%;
+        }
+        .uvy-card {
+          padding: 1rem;
+        }
+      }
+      @media (pointer: coarse) {
+        button,
+        .uvy-button,
+        input,
+        select {
+          min-height: 2.75rem;
+        }
+      }
+
+      /* Shared shell: the theme icon is first; product identity stays separate. */
+      .icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex: none;
+      }
+      .icon-button {
+        width: 2.25rem;
+        min-width: 2.25rem;
+        padding: 0.25rem;
+        color: var(--link);
+      }
+      .brand {
+        overflow-wrap: anywhere;
+        flex: 1;
+      }
+      .header-inner > nav {
+        margin-left: auto;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+      body:has(.sidebar) {
+        height: 100dvh;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 15rem minmax(0, 1fr);
+        gap: 2rem;
+      }
+      main.layout {
+        padding-block: 0;
+        overflow: hidden;
+        min-height: 0;
+      }
+      .workspace {
+        padding-block: 2rem 3rem;
+        min-width: 0;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+      }
+      .workspace > :first-child {
+        margin-top: 0;
+      }
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding: 1.5rem 1rem 1.5rem 0;
+        min-height: 0;
+        overflow-y: auto;
+      }
+      .sidebar-tools {
+        position: sticky;
+        top: -1.5rem;
+        z-index: 1;
+        background: var(--page);
+        padding-block: 0.5rem 1rem;
+      }
+      .sidebar-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+      .sidebar-heading h2 {
+        font-size: 1rem;
+        margin: 0;
+      }
+      .sidebar nav {
+        display: grid;
+        gap: 0.25rem;
+      }
+      .sidebar nav a {
+        display: block;
+        padding: 0.5rem;
+        border-radius: 4px;
+        overflow-wrap: anywhere;
+      }
+      .sidebar nav a:hover {
+        background: var(--surface);
+      }
+      .sidebar nav a[aria-current] {
+        background: var(--surface);
+        text-decoration: underline;
+      }
+      .sidebar .field {
+        margin-bottom: 0;
+      }
+      .sidebar-footer {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      .sidebar-footer button {
+        font-size: 0.875rem;
+      }
+      .sidebar-close,
+      .menu-button {
+        display: none;
+      }
+      .menu-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 4;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        background: rgb(0 0 0 / 40%);
+      }
+      .menu-backdrop:hover {
+        outline: none;
+      }
+      body.drawer-open {
+        overflow: hidden;
+      }
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .summary-grid .uvy-card {
+        padding: 1rem;
+      }
+      .summary-grid dt {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .summary-grid dd {
+        margin: 0.5rem 0 0;
+        overflow-wrap: anywhere;
+      }
+      .summary-grid dl {
+        margin: 0;
+      }
+      .panel-stack > section + section {
+        margin-top: 1.5rem;
+      }
+      .panel-stack .uvy-card > h2 {
+        margin-top: 0;
+      }
+      .lifecycle-active > * {
+        background: var(--lifecycle-active-surface);
+      }
+      .lifecycle-inactive > * {
+        background: var(--lifecycle-inactive-surface);
+      }
+      .lifecycle-active .state {
+        color: var(--lifecycle-active-text);
+      }
+      .lifecycle-inactive .state {
+        color: var(--lifecycle-inactive-text);
+      }
+      .uvy-table--comparison {
+        min-width: 42rem;
+      }
+      .uvy-table--comparison code {
+        display: inline-block;
+        max-width: 20ch;
+      }
+      th[scope="row"] {
+        background: transparent;
+        font-weight: 500;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        align-items: center;
+        font-size: 0.875rem;
+      }
+      .scale-low {
+        background: var(--spectrum-low);
+        color: var(--text);
+      }
+      .scale-mid {
+        background: var(--spectrum-mid);
+        color: var(--text);
+      }
+      .scale-high {
+        background: var(--spectrum-high);
+        color: var(--text);
+      }
+      .scale-unknown {
+        background: var(--surface);
+        color: var(--text);
+      }
+      .legend span {
+        padding: 0.25rem 0.5rem;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+      }
+      .mobile-label {
+        display: none;
+      }
+      .record-table th,
+      .record-table td {
+        overflow-wrap: anywhere;
+      }
+      .record-table td.metric {
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+      .record-table th button {
+        background: transparent;
+        border: 0;
+        padding: 0.25rem;
+        justify-content: start;
+        font-size: 0.875rem;
+      }
+      .record-table th {
+        font-size: 0.875rem;
+      }
+      .record-table th:first-child {
+        width: 30%;
+      }
+      .record-table a {
+        overflow-wrap: anywhere;
+      }
+      .record-controls {
+        display: flex;
+        align-items: end;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-block: 1rem;
+      }
+      .record-controls .field {
+        margin: 0;
+      }
+      .record-controls select {
+        width: auto;
+      }
+      .record-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem;
+        margin-block: 1.5rem;
+      }
+      .record-summary .uvy-card {
+        padding: 0.75rem;
+      }
+      .record-summary dt {
+        font-size: 0.875rem;
+      }
+      .record-summary dd {
+        margin: 0.25rem 0 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      @media (max-width: 48rem) {
+        body:has(.sidebar) {
+          height: auto;
+        }
+        .layout {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 0;
+        }
+        main.layout {
+          overflow: visible;
+        }
+        .workspace {
+          overflow: visible;
+          scrollbar-gutter: auto;
+        }
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+          max-height: 24rem;
+        }
+        .js .sidebar {
+          position: fixed;
+          inset: 0 auto 0 0;
+          width: min(18rem, calc(100vw - 3rem));
+          height: 100dvh;
+          max-height: none;
+          padding: 1rem;
+          background: var(--page);
+          border-right: 1px solid var(--border);
+          z-index: 5;
+          visibility: hidden;
+        }
+        .js .sidebar[data-open] {
+          visibility: visible;
+        }
+        .sidebar-tools {
+          top: -1rem;
+        }
+        .js .menu-button,
+        .js .sidebar-close {
+          display: inline-flex;
+        }
+        .record-table,
+        .record-table tbody {
+          display: block;
+        }
+        .js .record-table thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+        }
+        .record-table thead tr {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .record-table thead th:first-child {
+          width: auto;
+        }
+        .record-table tbody tr {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          overflow: hidden;
+          margin-top: 1rem;
+          background: var(--surface);
+        }
+        .record-table tbody th,
+        .record-table td {
+          display: block;
+          padding: 0.75rem 0.5rem;
+          border-bottom: 0;
+        }
+        .record-table tbody th,
+        .record-table .release {
+          grid-column: 1 / -1;
+        }
+        .record-table .release {
+          border-top: 1px solid var(--border);
+        }
+        .record-table td.metric {
+          border-top: 1px solid var(--border);
+        }
+        .record-table .mobile-label {
+          display: block;
+          font-size: 0.875rem;
+          font-weight: 400;
+          margin-bottom: 0.5rem;
+        }
+      }
+      @media (pointer: coarse) {
+        .icon-button {
+          width: 2.75rem;
+          min-width: 2.75rem;
+        }
+      }
+      @media (max-width: 48rem) {
+        .record-table caption {
+          display: block;
+          width: 100%;
+        }
+        .record-table tbody th:first-child {
+          width: auto;
+        }
+      }
+      .lifecycle-active > th[scope="row"] {
+        background: var(--lifecycle-active-surface);
+      }
+      .lifecycle-inactive > th[scope="row"] {
+        background: var(--lifecycle-inactive-surface);
+      }
+      .workspace > section.uvy-card + section.uvy-card {
+        margin-top: 1.5rem;
+      }
+      @media (max-width: 48rem) {
+        .record-table td.metric {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      }
+      /* Keep the theme switch in the top-right header position at every width. */
+      .header-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+      }
+      .header-identity {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .header-inner > nav {
+        grid-column: 2;
+        grid-row: 1;
+        margin-left: 0;
+      }
+      .header-inner > #theme {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      .site-footer .footer-inner,
+      .footer-preview {
+        text-align: center;
+      }
+      .site-footer p,
+      .footer-preview p {
+        max-width: none;
+        margin: 0;
+      }
+      .version {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 0.875rem;
+        margin-top: 0.5rem !important;
+        overflow-wrap: anywhere;
+      }
+      .footer-preview {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+      }
+      .footer-preview a strong,
+      .site-footer a strong {
+        font-weight: 600;
+      }
+      .icon-small {
+        width: 1rem;
+        height: 1rem;
+      }
+      .icon-large {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .icon-muted {
+        color: var(--muted);
+      }
+      .icon-status {
+        flex: none;
+      }
+      .run-lane h3 {
+        margin-block: 0 1rem;
+      }
+      .run-list {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .run-card {
+        width: 100%;
+        justify-content: start;
+        text-align: left;
+        display: grid;
+        gap: 0.25rem;
+        padding: 0.75rem;
+      }
+      .run-card small {
+        font-weight: 400;
+      }
+      .run-empty {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .run-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .run-controls .field {
+        margin: 0;
+        flex: 1;
+        min-width: min(100%, 12rem);
+      }
+      dialog {
+        max-width: min(40rem, calc(100% - 2rem));
+        max-height: calc(100dvh - 2rem);
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: var(--text);
+        background: var(--surface);
+      }
+      dialog::backdrop {
+        background: rgb(0 0 0 / 40%);
+      }
+      dialog h2 {
+        margin-top: 0;
+      }
+      @media (max-width: 48rem) {
+        .header-inner {
+          grid-template-columns: minmax(0, 1fr) auto;
+        }
+        .header-inner > nav {
+          grid-column: 1 / -1;
+          grid-row: 2;
+        }
+        .header-inner > #theme {
+          grid-column: 2;
+          grid-row: 1;
+          align-self: start;
+        }
+      }
+      .color-swatch {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
+      .type-preview {
+        display: grid;
+        gap: 1rem;
+        margin-block: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .spacing-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-block: 1.5rem;
+      }
+      .spacing-preview > div {
+        display: grid;
+        gap: 0.5rem;
+        align-content: start;
+        font-family: var(--mono);
+        font-size: 0.875rem;
+      }
+      .spacing-preview i {
+        display: block;
+        height: 1rem;
+        background: var(--muted);
+      }
+      .example-link {
+        display: grid;
+        align-content: start;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .example-link strong {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .example-link span {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .theme-reset {
+        font-size: 0.875rem;
+      }
+      .icon-preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+      }
+      .palette-table .color-swatch + code {
+        white-space: nowrap;
+      }
+      .palette-label {
+        display: none;
+      }
+      @media (max-width: 48rem) {
+        .palette-table,
+        .palette-table tbody {
+          display: block;
+        }
+        .palette-table thead {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+        }
+        .palette-table tbody tr {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding-block: 0.75rem;
+          border-bottom: 1px solid var(--border);
+        }
+        .palette-table td {
+          display: block;
+          border: 0;
+          padding: 0.5rem;
+        }
+        .palette-table td:first-child {
+          grid-column: 1 / -1;
+          font-weight: 500;
+        }
+        .palette-label {
+          display: block;
+          color: var(--muted);
+          font-size: 0.875rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    </style>
+    <script data-uvy-shell>
+      // Apply the saved preference before content is painted. CSS handles the OS default.
+      (function () {
+        const root = document.documentElement;
+        root.classList.add("js");
+        try {
+          const saved =
+            root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
+          if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+        } catch (_) {}
+        document.addEventListener("DOMContentLoaded", function () {
+          document
+            .querySelectorAll("[data-enable-with-js]")
+            .forEach((control) => {
+              control.disabled = false;
+            });
+          document.querySelectorAll("[data-requires-js]").forEach((control) => {
+            control.hidden = false;
+          });
+          const system = matchMedia("(prefers-color-scheme: dark)");
+          const theme = document.getElementById("theme");
+          const reset = document.getElementById("theme-reset");
+          function updateTheme() {
+            const dark = root.dataset.theme
+              ? root.dataset.theme === "dark"
+              : system.matches;
+            theme.setAttribute(
+              "aria-label",
+              dark ? "Switch to light theme" : "Switch to dark theme",
+            );
+            theme.title = theme.getAttribute("aria-label");
+            theme
+              .querySelector("[data-icon=moon]")
+              .toggleAttribute("hidden", dark);
+            theme
+              .querySelector("[data-icon=sun]")
+              .toggleAttribute("hidden", !dark);
+            reset.hidden = !root.dataset.theme;
+          }
+          function chooseTheme(value) {
+            if (value) root.dataset.theme = value;
+            else delete root.dataset.theme;
+            try {
+              if (value) localStorage.setItem("uvy-theme", value);
+              else localStorage.removeItem("uvy-theme");
+            } catch (_) {}
+            updateTheme();
+          }
+          theme.hidden = false;
+          updateTheme();
+          theme.addEventListener("click", function () {
+            const dark = root.dataset.theme
+              ? root.dataset.theme === "dark"
+              : system.matches;
+            chooseTheme(dark ? "light" : "dark");
+          });
+          reset.addEventListener("click", function () {
+            chooseTheme(null);
+            if (sidebar && sidebar.hasAttribute("data-open"))
+              setOpen(false, false);
+            theme.focus();
+          });
+          system.addEventListener("change", updateTheme);
+          window.addEventListener("storage", function (event) {
+            if (event.key === "uvy-theme") {
+              if (event.newValue === "light" || event.newValue === "dark")
+                root.dataset.theme = event.newValue;
+              else delete root.dataset.theme;
+              updateTheme();
+            }
+          });
+
+          const sidebar = document.getElementById("sidebar");
+          if (!sidebar) return;
+          const menu = document.getElementById("menu");
+          const close = document.getElementById("menu-close");
+          const backdrop = document.getElementById("menu-backdrop");
+          const mobile = matchMedia("(max-width: 48rem)");
+          const background = [
+            document.querySelector(".site-header"),
+            document.querySelector(".workspace"),
+            document.querySelector("footer"),
+          ];
+          function setOpen(open, restoreFocus) {
+            open = open && mobile.matches;
+            sidebar.toggleAttribute("data-open", open);
+            sidebar.inert = mobile.matches && !open;
+            backdrop.hidden = !open;
+            menu.setAttribute("aria-expanded", String(open));
+            document.body.classList.toggle("drawer-open", open);
+            background.forEach((element) => {
+              if (element) element.inert = open;
+            });
+            if (open) {
+              sidebar.setAttribute("role", "dialog");
+              sidebar.setAttribute("aria-modal", "true");
+              close.focus();
+            } else {
+              sidebar.removeAttribute("role");
+              sidebar.removeAttribute("aria-modal");
+              if (restoreFocus) menu.focus();
+            }
+          }
+          menu.hidden = false;
+          close.hidden = false;
+          menu.addEventListener("click", () => setOpen(true, false));
+          close.addEventListener("click", () => setOpen(false, true));
+          backdrop.addEventListener("click", () => setOpen(false, true));
+          function selectLocalSection() {
+            const links = [...sidebar.querySelectorAll('nav a[href^="#"]')];
+            if (!links.length) return;
+            const current =
+              links.find(
+                (link) => link.getAttribute("href") === location.hash,
+              ) || links[0];
+            links.forEach((link) => {
+              if (link === current)
+                link.setAttribute("aria-current", "location");
+              else link.removeAttribute("aria-current");
+            });
+          }
+          selectLocalSection();
+          window.addEventListener("hashchange", selectLocalSection);
+          sidebar.addEventListener("click", (event) => {
+            if (event.target.closest("a") && mobile.matches)
+              setOpen(false, true);
+          });
+          sidebar.addEventListener("keydown", (event) => {
+            if (!sidebar.hasAttribute("data-open")) return;
+            if (event.key === "Escape") {
+              event.preventDefault();
+              setOpen(false, true);
+            }
+            if (event.key === "Tab") {
+              const targets = [
+                ...sidebar.querySelectorAll(
+                  'a[href],button,input,select,[tabindex="0"]',
+                ),
+              ].filter(
+                (element) =>
+                  !element.hidden &&
+                  element.getClientRects().length &&
+                  !element.disabled,
+              );
+              const first = targets[0],
+                last = targets[targets.length - 1];
+              if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+              } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+              }
+            }
+          });
+          mobile.addEventListener("change", () => {
+            const active = document.activeElement;
+            const inside = sidebar.contains(active);
+            setOpen(false, false);
+            if (mobile.matches && inside) menu.focus();
+            else if (!mobile.matches && (active === menu || active === close))
+              theme.focus();
+          });
+          setOpen(false, false);
+          const search = document.getElementById("nav-search");
+          if (search) {
+            search.closest(".nav-filters").hidden = false;
+            search.addEventListener("input", function () {
+              let count = 0;
+              sidebar.querySelectorAll("nav a").forEach((link) => {
+                link.hidden = !link.textContent
+                  .toLowerCase()
+                  .includes(search.value.trim().toLowerCase());
+                if (!link.hidden) count++;
+              });
+              document.getElementById("nav-empty").hidden = count > 0;
+            });
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <!-- Tabler Icons: https://tabler.io/icons
+MIT License
+
+Copyright (c) 2020-2026 Paweł Kuna
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="sr-only"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <symbol id="tabler-moon" viewBox="0 0 24 24">
+            <path
+              d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454l0 .008"
+            />
+          </symbol>
+          <symbol id="tabler-sun" viewBox="0 0 24 24">
+            <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+            <path
+              d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"
+            />
+          </symbol>
+          <symbol id="tabler-menu" viewBox="0 0 24 24">
+            <path d="M4 6l16 0" />
+            <path d="M4 12l16 0" />
+            <path d="M4 18l16 0" />
+          </symbol>
+          <symbol id="tabler-x" viewBox="0 0 24 24">
+            <path d="M18 6l-12 12" />
+            <path d="M6 6l12 12" />
+          </symbol>
+          <symbol id="tabler-copy" viewBox="0 0 24 24">
+            <path
+              d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"
+            />
+            <path
+              d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"
+            />
+          </symbol>
+          <symbol id="tabler-check" viewBox="0 0 24 24">
+            <path d="M5 12l5 5l10 -10" />
+          </symbol>
+          <symbol id="tabler-alert-circle" viewBox="0 0 24 24">
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M12 8v4" />
+            <path d="M12 16h.01" />
+          </symbol>
+          <symbol id="tabler-refresh" viewBox="0 0 24 24">
+            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+          </symbol>
+          <symbol id="tabler-file-text" viewBox="0 0 24 24">
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path
+              d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2"
+            />
+            <path d="M9 9l1 0" />
+            <path d="M9 13l6 0" />
+            <path d="M9 17l6 0" />
+          </symbol>
+        </svg>
+        <div class="header-identity">
+          <a class="brand" href="../examples/index.html">Design examples</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <a href="../README.md">Guide</a
+          ><a href="../examples/index.html" aria-current="page">Examples</a
+          ><button id="theme-reset" class="theme-reset" type="button" hidden>
+            Use system theme
+          </button>
+        </nav>
+        <button
+          id="theme"
+          class="icon-button"
+          type="button"
+          aria-label="Switch color theme"
+          hidden
+        >
+          <svg
+            class="icon"
+            aria-hidden="true"
+            data-icon="moon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <use href="#tabler-moon"></use></svg
+          ><svg
+            class="icon"
+            aria-hidden="true"
+            data-icon="sun"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <use href="#tabler-sun"></use>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <main class="page" id="main">
+      <h1>Examples</h1>
+      <p>
+        Full-page implementations, separate from the documentation. Choose a
+        concept to inspect its appearance and behavior.
+      </p>
+      <div class="grid">
+        <a class="uvy-card example-link" href="light.html"
+          ><strong>Light mode</strong
+          ><span>Light surfaces, text, accent and controls.</span></a
+        ><a class="uvy-card example-link" href="dark.html"
+          ><strong>Dark mode</strong
+          ><span>The same components in dark mode.</span></a
+        ><a class="uvy-card example-link" href="typography.html"
+          ><strong>Typography</strong
+          ><span>Headings, prose, lists and technical content.</span></a
+        ><a class="uvy-card example-link" href="icons.html"
+          ><strong>Icons</strong
+          ><span>Size, color and accessible icon controls.</span></a
+        ><a class="uvy-card example-link" href="navigation.html"
+          ><strong>Sidebar and header</strong
+          ><span>Persistent navigation and a mobile drawer.</span></a
+        ><a class="uvy-card example-link" href="footer.html"
+          ><strong>Footer</strong
+          ><span
+            >Organization, license, repositories and optional version.</span
+          ></a
+        ><a class="uvy-card example-link" href="components.html"
+          ><strong>Buttons</strong
+          ><span>Primary, secondary and disabled actions.</span></a
+        ><a class="uvy-card example-link" href="forms.html"
+          ><strong>Form</strong
+          ><span>Labels, validation, reset and feedback.</span></a
+        ><a class="uvy-card example-link" href="table.html"
+          ><strong>Comparison table</strong
+          ><span>Density, filtering and local overflow.</span></a
+        ><a class="uvy-card example-link" href="table-records.html"
+          ><strong>Mobile record table</strong
+          ><span>Record cards, sorting and numeric spectra.</span></a
+        ><a class="uvy-card example-link" href="panels.html"
+          ><strong>Detail panels</strong
+          ><span>Endpoint summaries, lifecycle states and evidence.</span></a
+        ><a class="uvy-card example-link" href="landing.html"
+          ><strong>Landing page</strong
+          ><span>A compact product introduction.</span></a
+        ><a class="uvy-card example-link" href="documentation.html"
+          ><strong>Static article</strong
+          ><span>Readable content with local article navigation.</span></a
+        ><a class="uvy-card example-link" href="application.html"
+          ><strong>Dynamic application</strong
+          ><span>Filters, updates and run details.</span></a
+        ><a class="uvy-card example-link" href="utility.html"
+          ><strong>Utility</strong
+          ><span>A compact input/action/output workflow.</span></a
+        >
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>
+          <a href="https://github.com/UnitVectorY-Labs">UnitVectorY-Labs</a>
+          <span aria-hidden="true">|</span>
+          <a href="../LICENSE">MIT License</a>
+          <span aria-hidden="true">|</span>
+          <a href="https://github.com/UnitVectorY-Labs/uvy-design"
+            ><strong>uvy-design</strong></a
+          >
+          on GitHub
+        </p>
+      </div>
+    </footer>
+    <script></script>
+  </body>
+</html>

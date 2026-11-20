@@ -12,9 +12,13 @@ Use IBM Plex Sans for body and headings, and IBM Plex Mono for code, technical l
 | Small text | 14px / .875rem | 400 |
 | Technical label | 12px / .75rem | 500 |
 
+<div class="type-preview"><span style="font-size:2rem;font-weight:600">Page title · 32px</span><span style="font-size:1.5rem;font-weight:600">Section heading · 24px</span><span style="font-size:1.25rem;font-weight:600">Subheading · 20px</span><span>Body text · 16px</span><span style="font-size:.875rem">Supporting text · 14px</span></div>
+
 Body line-height is 1.6; headings use approximately 1.25. Keep headings in primary text color. Use monospace selectively, without turning the interface into a terminal. Technical labels are brief secondary metadata, not essential instructions.
 
 Use the spacing scale **4, 8, 12, 16, 24, 32, 48, 64px**, expressed in rem. Start with 16–24px panel padding, 8–12px control gaps and 32px between sections. Center page content within 1200px, with at least 16px side gutters. Articles should generally stay near 70 characters per line.
+
+<div class="spacing-preview"><div><span>4px</span><i style="width:0.25rem" aria-hidden="true"></i></div><div><span>8px</span><i style="width:0.5rem" aria-hidden="true"></i></div><div><span>12px</span><i style="width:0.75rem" aria-hidden="true"></i></div><div><span>16px</span><i style="width:1.0rem" aria-hidden="true"></i></div><div><span>24px</span><i style="width:1.5rem" aria-hidden="true"></i></div><div><span>32px</span><i style="width:2.0rem" aria-hidden="true"></i></div><div><span>48px</span><i style="width:3.0rem" aria-hidden="true"></i></div><div><span>64px</span><i style="width:4.0rem" aria-hidden="true"></i></div></div>
 
 Interactive elements have 4px corners, panels 6px corners and borders are 1px solid. Omit shadows by default. Buttons and inputs are 36px high by default, using minimum heights so text can grow. Increase touch targets toward 44px on coarse pointers or add space between targets. Textareas grow with content.
 

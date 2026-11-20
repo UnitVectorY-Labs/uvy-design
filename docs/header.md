@@ -1,28 +1,14 @@
-# Application header
+# Universal header
 
-Use this header as the common reference for UnitVectorY Labs application headers. Keep the application's own name, subtitle and navigation destinations. The [standalone header example](../examples/navigation.html) can be opened directly in a browser and contains the complete HTML, CSS and theme behavior.
+Every Unit Vector Y Labs site uses the same header anatomy: a compact brand mark and product identity on the left, contextual navigation and theme control on the right. Navigation destinations vary by application; structure, alignment and text treatment remain consistent.
 
-- Use a full-width blue bar, with the content aligned to the same centered width and gutters as the page. Use a white, prominent application title and a short orange underline beneath it. A subtitle, when present, sits below the title in a light color with sufficient contrast.
-- Place navigation and the theme control in the bar. Use links for destinations and identify the current page with `aria-current="page"` as well as a visible indicator. The theme control is a button with an accessible name that describes its action.
-- On narrow screens, keep the title and theme control on the first row and put navigation on a separate row below them. Allow links and long titles to wrap; do not clip content or cause page-wide horizontal scrolling. A collapsible menu is appropriate when needed, provided its button has an accessible name and an accurate expanded state.
-- Use visible focus indicators against blue. Navigation remains available without JavaScript. Start with the system color preference, remember an explicit choice when storage is available, and keep the interface usable when storage or JavaScript is unavailable.
+- Use a 56px minimum desktop height, with centered content and page-aligned gutters.
+- Use the standard surface background and a 1px neutral bottom border, without shadows.
+- Keep the mark compact, the product name readable and the theme control clearly labeled.
+- Use neutral navigation text; indicate selection with accessible accent-derived text, an underline and `aria-current="page"`.
+- On small screens, retain identity and theme control on the first row and let navigation wrap onto a second row. Allow the header to grow for long names and zoom.
+- Keep navigation usable without JavaScript. Any collapsible navigation needs a named button and accurate `aria-expanded` state.
 
-A minimal structure follows; the example supplies the responsive styles and working theme toggle:
+The compact “Y” in the references is a text identity marker, not a new logo asset. Retain an application's established brand mark when applying the anatomy. Put longer organization or dataset context in page content when it cannot fit comfortably in the header.
 
-```html
-<header class="site-header">
-  <div class="header-inner">
-    <div class="brand">
-      <a href="/">Application name</a>
-      <p>Optional subtitle</p>
-    </div>
-    <nav aria-label="Main navigation">
-      <a href="/" aria-current="page">Home</a>
-      <a href="/help">Help</a>
-    </nav>
-    <button type="button" class="theme-button" aria-label="Switch to dark theme">Theme</button>
-  </div>
-</header>
-```
-
-The example uses `#174b93` for the blue bar, white for the title and navigation, and `#ff932e` for the underline. Check contrast if adapting these colors. See [themes and navigation](themes-and-navigation.md) for broader behavior and [color](color.md) for other surface and text roles.
+Open the [header reference](../examples/navigation.html), [landing page](../examples/landing.html) and [documentation article](../examples/documentation.html) to compare the shared anatomy across layouts.

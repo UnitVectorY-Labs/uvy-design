@@ -1,9 +1,16 @@
 # Foundations
 
-UnitVectorY Labs tools are practical, independent applications. Each leads with its own project name and content, with a consistent visual language across projects. Avoid a generic organization masthead, cross-project navigation or decorative copy that competes with the task. When an organization identifies the scope of the data, show its name prominently as a subtitle, as in Unreleased Commits.
+Unit Vector Y Labs interfaces are minimal, precise, functional and visually consistent. Their character comes from modern engineering software and traditional technical publications: clear hierarchy, careful spacing and readable information.
 
-Use blue for titles and primary interface identity, with orange for emphasis and primary icon actions. Clean neutral surfaces, modest rounding, subtle shadows and consistent spacing keep technical information readable. Tabler is a useful reference for the restrained character of controls and icons, not a required framework.
+- Use flat surfaces without decorative gradients.
+- Reserve orange for primary actions, selected navigation and important interactive states.
+- Prefer thin neutral borders to shadows; omit shadows by default.
+- Use square or slightly rounded components.
+- Prefer semantic HTML and native CSS. No shared JavaScript framework is required.
+- Treat light and dark modes as equally important.
 
-Keep established navigation, section structure, workflows and meaningful data visible when applying the guidance. Responsive changes should make content usable without silently removing fields or actions. Do not add tabs or disclosures simply to make a page look cleaner.
+Each application leads with its own product identity and keeps its purpose, data semantics and workflows. Preserve fields, actions, navigation and meaningful visualization colors. Do not hide useful information behind new tabs or disclosures for appearance alone.
 
-Interface colors and data colors serve different purposes. Preserve the meaning, scale and direction of existing visualizations, including green–yellow–red spectra. A brand refresh must not change what data communicates.
+This repository is an unversioned, human-readable reference, not a distributed CSS package. Applications own their implementation and dependencies. Copy and adapt the example patterns; use semantic variables and namespaced classes such as `uvy-button`, `uvy-card` and `uvy-table--compact` where reusable variants help. Go templates, HTMX, Jekyll and static HTML can use the same visual rules. Project-specific styling should reuse the tokens wherever practical.
+
+See [page archetypes](page-archetypes.md), the [component catalog](../examples/components.html) and the [review checklist](review.md).

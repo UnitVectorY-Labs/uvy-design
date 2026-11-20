@@ -1,7 +1,14 @@
 # Review
 
-Review the actual application in light and dark themes at desktop and narrow mobile widths. Check long names and values, readable text and control contrast, visible keyboard focus, navigation, theme persistence and the footer. Exercise the application's normal workflows, including search, filtering, sorting and error states where present.
+Review every reference and application in light and dark themes at desktop and mobile widths. A useful matrix includes 1280px desktop, 375px mobile, 320px narrow layouts and 200% zoom.
 
-Check that mobile headings are left aligned, the theme icon remains at the top right, and navigation occupies its own line. Confirm titles are blue, heading underlines and primary icon actions are orange, and panels do not gain colored top or left accent lines. Check that Tabler icons are consistent and icon-only controls have accessible names.
+- Confirm neutral surfaces, restrained orange, thin borders and no default shadows or decorative gradients.
+- Compare header anatomy, navigation selection, spacing, typography and control geometry.
+- Check text contrast (4.5:1 for normal text), essential boundaries and focus indicators (3:1), using actual adjacent colors.
+- Use the keyboard for links, theme selection, forms and scrolling table/code regions. Check visible focus, labels, errors, announcements and heading order.
+- Test System, Light and Dark choices, reload persistence, OS preference changes, unavailable storage and JavaScript disabled.
+- Exercise valid and invalid form submission, reset, utility input, table filtering, density and empty states.
+- Confirm long names wrap, content remains available and only wide data/code regions scroll horizontally.
+- Compare the original application: preserve purpose, data meaning, links, fields and normal workflows.
 
-Compare with the existing application to ensure that fields, links, behavior and data meaning remain intact. Test keyboard use, zoom and narrow screens, and account for reduced motion. Automated checks and screenshots help review but do not by themselves establish accessibility compliance.
+The required references are [landing](../examples/landing.html), [documentation](../examples/documentation.html), [utility](../examples/utility.html), [forms](../examples/forms.html), [tables](../examples/panels.html) and [typography](../examples/typography.html). The [catalog](../examples/components.html) and [header](../examples/navigation.html) support focused inspection. Automated checks supplement hands-on review; they do not establish accessibility compliance.

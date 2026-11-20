@@ -1,7 +1,11 @@
 # Themes and navigation
 
-Offer light and dark themes with a clearly named icon toggle at the top right. Follow the operating system preference on a first visit and remember a person's explicit choice across visits. Ensure both themes have readable text, controls and focus indicators. The page should remain usable if JavaScript or storage is unavailable.
+Every site supports light and dark modes. Without an explicit choice, follow the operating system preference, including changes made while the page is open. Manual selection overrides the system and persists where storage is available. Provide a System option to clear the override.
 
-Use the [application header reference](header.md) for the blue bar, title, theme control and navigation. Keep each application's existing navigation and destinations. On mobile, place navigation on a separate line below the title and top-right theme icon so that it has room to wrap or collapse as appropriate. Keep navigation available and its toggle accessible, including its name and expanded state. Align mobile headings left.
+Use semantic variables for every component color. Set `color-scheme` so native controls match the theme. Apply stored preferences early to reduce flashes. Catch storage failures and keep the page functional without storage or JavaScript. Show theme controls only when their behavior is available.
 
-Include a compact footer linking to the project's own source repository and license. Let the page layout place it at the bottom without covering content. Serve interface assets locally and use system fonts so the interface does not depend on third-party runtime requests.
+Keep the [universal header](header.md) consistent across page archetypes. Use real links for destinations and buttons for actions. Selected navigation has a visible cue and `aria-current`. Documentation sidebars retain clear article labels and collapse naturally into a stacked layout on narrow screens.
+
+Include a compact footer with the project's source and license. It must never cover content. Serve interface assets locally; font fallbacks keep text readable offline.
+
+All [examples](../examples/components.html) contain their own CSS and theme behavior. Their shared preference key lets a choice carry across pages on the same origin; direct-file storage behavior depends on the browser.

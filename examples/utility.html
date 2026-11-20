@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Compact utility — UVY Design</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #fafaf8;
+        --surface: #fff;
+        --text: #22272b;
+        --muted: #5e6671;
+        --border: #d8dbde;
+        --accent: #f97316;
+        --link: #9a3e00;
+        --control: #7c838b;
+        --error: #b42318;
+        --success: #21633b;
+        --sans: "IBM Plex Sans", system-ui, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --page: #141619;
+        --surface: #202327;
+        --text: #f2f2f0;
+        --muted: #a7afb8;
+        --border: #363b41;
+        --accent: #fb923c;
+        --link: #fdba74;
+        --control: #7d8792;
+        --error: #fda29b;
+        --success: #86d9a0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme]) {
+          color-scheme: dark;
+          --page: #141619;
+          --surface: #202327;
+          --text: #f2f2f0;
+          --muted: #a7afb8;
+          --border: #363b41;
+          --accent: #fb923c;
+          --link: #fdba74;
+          --control: #7d8792;
+          --error: #fda29b;
+          --success: #86d9a0;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--text);
+        font: 1rem/1.6 var(--sans);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 0.2em;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      :focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 3px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.25;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+      h4 {
+        font-size: 1rem;
+      }
+      p,
+      li {
+        max-width: 72ch;
+      }
+      small,
+      .hint {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      code,
+      pre,
+      .technical {
+        font-family: var(--mono);
+      }
+      .technical {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      pre {
+        padding: 1rem;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--surface);
+      }
+      pre code {
+        overflow-wrap: normal;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
+      .page,
+      .header-inner,
+      .footer-inner {
+        width: min(100% - 2rem, 75rem);
+        margin-inline: auto;
+      }
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner {
+        min-height: 3.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-block: 0.5rem;
+      }
+      .brand {
+        margin-right: auto;
+        color: var(--text);
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+      .mark {
+        border: 1px solid var(--border);
+        width: 1.75rem;
+        min-width: 1.75rem;
+        text-align: center;
+        font-family: var(--mono);
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      nav a[aria-current] {
+        color: var(--link);
+        text-decoration: underline;
+      }
+      .theme {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .theme select {
+        width: auto;
+      }
+      .skip {
+        position: absolute;
+        left: 1rem;
+        top: -5rem;
+        background: var(--surface);
+        padding: 0.5rem;
+        z-index: 2;
+      }
+      .skip:focus {
+        top: 0;
+      }
+      main {
+        flex: 1;
+        padding-block: 2rem 3rem;
+        min-width: 0;
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .uvy-button,
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.25rem;
+        padding: 0.25rem 1rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .uvy-button--primary {
+        background: var(--accent);
+        color: #22272b;
+        border-color: var(--link);
+      }
+      button:hover,
+      .uvy-button:hover {
+        outline: 1px solid var(--link);
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .uvy-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.5rem;
+      }
+      .uvy-card > :first-child {
+        margin-top: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        gap: 1rem;
+      }
+      .field {
+        display: grid;
+        gap: 0.5rem;
+        margin-block: 1rem;
+      }
+      label {
+        font-weight: 500;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 2.25rem;
+        padding: 0.25rem 0.75rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+      }
+      textarea {
+        min-height: 6rem;
+      }
+      input[aria-invalid="true"] {
+        border-color: var(--error);
+      }
+      .error {
+        color: var(--error);
+      }
+      .success {
+        color: var(--success);
+      }
+      .alert {
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+      }
+      .badge {
+        background: var(--page);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.125rem 0.5rem;
+        font-size: 0.875rem;
+      }
+      .table-wrap {
+        overflow: auto;
+        max-width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      .uvy-table--compact th,
+      .uvy-table--compact td {
+        padding: 0.25rem 0.75rem;
+      }
+      caption {
+        text-align: left;
+        font-weight: 600;
+        padding-block: 1rem;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 14rem minmax(0, 1fr);
+        gap: 2rem;
+      }
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding-right: 1rem;
+      }
+      .sidebar nav {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .article {
+        max-width: 72ch;
+        min-width: 0;
+      }
+      .article h1 {
+        margin-top: 0;
+      }
+      .hero {
+        padding-block: 2rem 3rem;
+        max-width: 48rem;
+      }
+      .hero h1 {
+        margin-top: 0;
+      }
+      .stack > * + * {
+        margin-top: 1.5rem;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .guide-note {
+        border-top: 1px solid var(--border);
+        margin-top: 3rem;
+        padding-top: 1rem;
+      }
+      @media (max-width: 48rem) {
+        .site-header nav {
+          order: 3;
+          flex-basis: 100%;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 1rem;
+        }
+        .sidebar nav {
+          display: flex;
+        }
+        .uvy-card {
+          padding: 1rem;
+        }
+      }
+      @media (pointer: coarse) {
+        button,
+        .uvy-button,
+        input,
+        select {
+          min-height: 2.75rem;
+        }
+      }
+    </style>
+    <script>
+      // Run in the head so a stored preference applies before content is painted.
+      (function () {
+        try {
+          var saved = localStorage.getItem("uvy-theme");
+          if (saved === "light" || saved === "dark")
+            document.documentElement.dataset.theme = saved;
+        } catch (_) {}
+        document.addEventListener("DOMContentLoaded", function () {
+          var picker = document.getElementById("theme");
+          picker.value = document.documentElement.dataset.theme || "system";
+          picker.parentElement.hidden = false;
+          picker.addEventListener("change", function () {
+            if (picker.value === "system")
+              delete document.documentElement.dataset.theme;
+            else document.documentElement.dataset.theme = picker.value;
+            try {
+              if (picker.value === "system")
+                localStorage.removeItem("uvy-theme");
+              else localStorage.setItem("uvy-theme", picker.value);
+            } catch (_) {}
+          });
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="landing.html"
+          ><span class="mark" aria-hidden="true">Y</span>Catalog Explorer</a
+        >
+        <nav aria-label="Example navigation">
+          <a href="components.html">Catalog</a><a href="forms.html">Forms</a
+          ><a href="panels.html">Tables</a>
+        </nav>
+        <label class="theme" hidden
+          >Theme
+          <select id="theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select></label
+        >
+      </div>
+    </header>
+    <main class="page" id="main">
+      <h1>Normalize a service identifier</h1>
+      <p>
+        Trim surrounding whitespace and convert an identifier to lowercase. All
+        processing stays in this browser.
+      </p>
+      <form id="normalize" class="uvy-card" style="max-width: 40rem">
+        <div class="field">
+          <label for="identifier">Service identifier</label
+          ><input id="identifier" required value="  Catalog.Example.COM  " />
+        </div>
+        <button class="uvy-button--primary">Normalize</button>
+        <h2>Result</h2>
+        <output id="result" for="identifier" role="status"
+          >Submit an identifier to see the result.</output
+        >
+      </form>
+      <aside class="guide-note" aria-label="Related guidance">
+        <a href="../docs/page-archetypes.md">Read the related guide</a> ·
+        <a href="../README.md">All guidance</a>
+      </aside>
+    </main>
+    <footer>
+      <div class="footer-inner">
+        UVY Design reference ·
+        <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> ·
+        <a href="../LICENSE">License</a>
+      </div>
+    </footer>
+    <script>
+      document.getElementById("normalize").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const value = document
+          .getElementById("identifier")
+          .value.trim()
+          .toLowerCase();
+        document.getElementById("result").textContent =
+          value || "Enter an identifier containing more than whitespace.";
+      });
+    </script>
+  </body>
+</html>

@@ -1,156 +1,572 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Panels, tables, and feedback — UVY Design examples</title>
-<style>
-:root, :root[data-theme="light"] {
-  color-scheme: light;
-  --page: #f3f6fc;
-  --surface: #fff;
-  --text: #182b49;
-  --muted: #50617c;
-  --border: #cfdaeb;
-  --blue: #1558ba;
-  --orange: #a83e00;
-  --orange-fill: #ff932e;
-  --focus: #1558ba;
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page: #0c1729;
-  --surface: #14243c;
-  --text: #edf3ff;
-  --muted: #b2c2da;
-  --border: #354b6b;
-  --blue: #8dbbff;
-  --orange: #ffb16d;
-  --orange-fill: #ff932e;
-  --focus: #8dbbff;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-    --page: #0c1729;
-    --surface: #14243c;
-    --text: #edf3ff;
-    --muted: #b2c2da;
-    --border: #354b6b;
-    --blue: #8dbbff;
-    --orange: #ffb16d;
-    --orange-fill: #ff932e;
-    --focus: #8dbbff;
-  }
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--page);
-  color: var(--text);
-  font: 1rem/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-a { color: var(--blue); }
-:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  min-height: 2.75rem;
-  padding: .5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: .375rem;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-}
-.button:hover { border-color: var(--blue); }
-.button:disabled { opacity: .6; cursor: not-allowed; }
-.button--primary { background: var(--orange-fill); border-color: #a83e00; color: #182b49; }
-.button--primary:hover { background: #ffad62; border-color: #873200; }
-.button--icon { width: 2.75rem; padding: .5rem; color: var(--orange); }
-.button svg { width: 1.25rem; height: 1.25rem; flex: none; }
-.actions { display: flex; flex-wrap: wrap; gap: .5rem; }
-.panel {
-  padding: 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: .5rem;
-  background: var(--surface);
-  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
-}
-.panel > :first-child { margin-top: 0; }
-.panel > :last-child { margin-bottom: 0; }
-.field { display: grid; gap: .375rem; }
-.field label { font-weight: 600; }
-.field input, .field select, .field textarea {
-  width: 100%;
-  min-height: 2.75rem;
-  padding: .5rem .75rem;
-  border: 1px solid var(--border);
-  border-radius: .375rem;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-}
-.hint { margin: 0; color: var(--muted); font-size: .875rem; }
-.error { margin: 0; color: var(--text); font-size: .875rem; font-weight: 600; }
-.field [aria-invalid="true"] { border: 2px solid var(--orange); }
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; text-align: left; }
-th, td { padding: .625rem .75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-th { font-size: .875rem; }
-.status { font-weight: 600; }
-code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
-
-
-body { min-height:100vh; display:flex; flex-direction:column; }
-.site-header { background:#174b93; color:#fff; }
-.header-inner, .page, .footer-inner { width:min(100% - 2rem, 75rem); margin-inline:auto; }
-.header-inner { display:flex; align-items:center; gap:1rem 2rem; flex-wrap:wrap; padding-block:1rem; }
-.brand { flex:1 1 auto; min-width:0; }
-.brand a { color:#fff; font-size:1.5rem; font-weight:700; line-height:1.2; text-decoration:none; }
-.brand p { margin:.35rem 0 0; color:#e1ebfa; font-size:.875rem; }
-.brand a::after { content:""; display:block; width:3rem; height:.2rem; margin-top:.45rem; background:#ff932e; }
-.site-header nav { display:flex; flex-wrap:wrap; gap:.25rem 1rem; }
-.site-header nav a { color:#fff; padding:.5rem 0; text-underline-offset:.3rem; }
-.site-header nav a[aria-current="page"] { text-decoration-thickness:.2rem; text-decoration-color:#ff932e; }
-.site-header :focus-visible { outline-color:#fff; }
-.theme-button { background:transparent; color:#fff; border-color:#b8cdea; }
-.theme-button:hover { border-color:#fff; }
-main { flex:1; padding-block:2rem 3rem; }
-h1,h2 { color:var(--blue); line-height:1.2; } h1 { font-size:2rem; margin:0; } h2 { font-size:1.5rem; margin:0 0 1rem; }
-h1::after, h2::after { content:""; display:block; width:3rem; height:.2rem; background:var(--orange); margin-top:.5rem; }
-h3 { margin-top:0; } section { margin-block:2rem; } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap:1rem; }
-.stack > * + * { margin-top:1rem; } .field { margin-block:1rem; } .field:first-child { margin-top:0; } .intro { max-width:68ch; } .table-wrap { margin-top:1rem; } .table-wrap table { min-width:36rem; }
-footer { border-top:1px solid var(--border); color:var(--muted); padding-block:1rem; font-size:.875rem; }
-@media (min-width:48rem) { .header-inner,.page,.footer-inner { width:min(100% - 4rem,75rem); } }
-@media (max-width:48rem) { .site-header nav { order:3; flex-basis:100%; } }
-</style>
-</head>
-<body>
-<header class="site-header"><div class="header-inner"><div class="brand"><a href="navigation.html">Catalog Explorer</a><p>UnitVectorY Labs</p></div><nav aria-label="Example pages"><a href="navigation.html">Navigation</a><a href="forms.html">Forms</a><a href="panels.html" aria-current="page">Panels and feedback</a></nav><button class="button theme-button" id="theme" type="button" aria-label="Toggle color theme">◐ <span>Theme</span></button></div></header>
-<main class="page"><h1>Panels, tables, and feedback</h1><p class="intro">Group related information in neutral panels. Keep status understandable in text and let wide tables scroll within their own region.</p>
-<section><h2>Results</h2><div class="panel"><p class="hint">Example catalog entries</p><div class="table-wrap" role="region" aria-label="Example results table" tabindex="0"><table><thead><tr><th scope="col">Name</th><th scope="col">Status</th><th scope="col">Identifier</th></tr></thead><tbody><tr><td>Example service</td><td>Available</td><td><code>example.service.unitvectory.dev</code></td></tr><tr><td>Another service</td><td>Pending</td><td><code>another.service.unitvectory.dev</code></td></tr></tbody></table></div></div></section>
-<section><h2>Feedback states</h2><div class="grid"><article class="panel"><h3>Empty</h3><p>No results. Try another search.</p></article><article class="panel"><h3>Loading</h3><p>Loading results…</p></article><article class="panel"><h3>Error</h3><p>Could not load results. Try again.</p><button class="button" type="button" id="retry">Retry example</button><p id="retry-status" role="status"></p></article><article class="panel"><h3>Success</h3><p>Results updated successfully.</p></article></div></section></main>
-<footer><div class="footer-inner">UVY Design examples · <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> · <a href="https://github.com/UnitVectorY-Labs/uvy-design/blob/main/LICENSE">License</a></div></footer>
-<script>
-(function () {
-  var root = document.documentElement, button = document.getElementById('theme');
-  try { var saved = localStorage.getItem('uvy-example-theme'); if (saved === 'light' || saved === 'dark') root.dataset.theme = saved; } catch (e) {}
-  function updateLabel() { var dark = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; button.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); }
-  updateLabel();
-  button.addEventListener('click', function () { var dark = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches; root.dataset.theme = dark ? 'light' : 'dark'; try { localStorage.setItem('uvy-example-theme', root.dataset.theme); } catch (e) {} updateLabel(); });
-  var form = document.getElementById('search-form');
-  if (form) { var domain = document.getElementById('domain'), error = document.getElementById('domain-error'), status = document.getElementById('form-status');
-    form.addEventListener('submit', function (event) { event.preventDefault(); var valid = /^[^\s.]+(\.[^\s.]+)+$/.test(domain.value.trim()); error.hidden = valid; if (valid) { domain.removeAttribute('aria-invalid'); domain.setAttribute('aria-describedby','domain-help'); status.textContent = 'Example search submitted; no data was sent.'; } else { domain.setAttribute('aria-invalid','true'); domain.setAttribute('aria-describedby','domain-help domain-error'); status.textContent = ''; domain.focus(); } });
-    form.addEventListener('reset', function () { error.hidden = true; domain.removeAttribute('aria-invalid'); domain.setAttribute('aria-describedby','domain-help'); status.textContent = ''; });
-    document.getElementById('demo-action').addEventListener('click', function () { document.getElementById('action-status').textContent = 'Example action completed.'; }); }
-  var retry = document.getElementById('retry'); if (retry) retry.addEventListener('click', function () { document.getElementById('retry-status').textContent = 'Example retry completed.'; });
-}());
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tables and feedback — UVY Design</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --page: #fafaf8;
+        --surface: #fff;
+        --text: #22272b;
+        --muted: #5e6671;
+        --border: #d8dbde;
+        --accent: #f97316;
+        --link: #9a3e00;
+        --control: #7c838b;
+        --error: #b42318;
+        --success: #21633b;
+        --sans: "IBM Plex Sans", system-ui, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --page: #141619;
+        --surface: #202327;
+        --text: #f2f2f0;
+        --muted: #a7afb8;
+        --border: #363b41;
+        --accent: #fb923c;
+        --link: #fdba74;
+        --control: #7d8792;
+        --error: #fda29b;
+        --success: #86d9a0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme]) {
+          color-scheme: dark;
+          --page: #141619;
+          --surface: #202327;
+          --text: #f2f2f0;
+          --muted: #a7afb8;
+          --border: #363b41;
+          --accent: #fb923c;
+          --link: #fdba74;
+          --control: #7d8792;
+          --error: #fda29b;
+          --success: #86d9a0;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--text);
+        font: 1rem/1.6 var(--sans);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 0.2em;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      :focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 3px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.25;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+      }
+      h3 {
+        font-size: 1.25rem;
+      }
+      h4 {
+        font-size: 1rem;
+      }
+      p,
+      li {
+        max-width: 72ch;
+      }
+      small,
+      .hint {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      code,
+      pre,
+      .technical {
+        font-family: var(--mono);
+      }
+      .technical {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      pre {
+        padding: 1rem;
+        overflow: auto;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--surface);
+      }
+      pre code {
+        overflow-wrap: normal;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 2rem 0;
+      }
+      .page,
+      .header-inner,
+      .footer-inner {
+        width: min(100% - 2rem, 75rem);
+        margin-inline: auto;
+      }
+      .site-header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+      }
+      .header-inner {
+        min-height: 3.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding-block: 0.5rem;
+      }
+      .brand {
+        margin-right: auto;
+        color: var(--text);
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+      .mark {
+        border: 1px solid var(--border);
+        width: 1.75rem;
+        min-width: 1.75rem;
+        text-align: center;
+        font-family: var(--mono);
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+      }
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      nav a[aria-current] {
+        color: var(--link);
+        text-decoration: underline;
+      }
+      .theme {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+      }
+      .theme select {
+        width: auto;
+      }
+      .skip {
+        position: absolute;
+        left: 1rem;
+        top: -5rem;
+        background: var(--surface);
+        padding: 0.5rem;
+        z-index: 2;
+      }
+      .skip:focus {
+        top: 0;
+      }
+      main {
+        flex: 1;
+        padding-block: 2rem 3rem;
+        min-width: 0;
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        padding-block: 1rem;
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .uvy-button,
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.25rem;
+        padding: 0.25rem 1rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .uvy-button--primary {
+        background: var(--accent);
+        color: #22272b;
+        border-color: var(--link);
+      }
+      button:hover,
+      .uvy-button:hover {
+        outline: 1px solid var(--link);
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .uvy-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.5rem;
+      }
+      .uvy-card > :first-child {
+        margin-top: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+        gap: 1rem;
+      }
+      .field {
+        display: grid;
+        gap: 0.5rem;
+        margin-block: 1rem;
+      }
+      label {
+        font-weight: 500;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        min-height: 2.25rem;
+        padding: 0.25rem 0.75rem;
+        border: 1px solid var(--control);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+      }
+      textarea {
+        min-height: 6rem;
+      }
+      input[aria-invalid="true"] {
+        border-color: var(--error);
+      }
+      .error {
+        color: var(--error);
+      }
+      .success {
+        color: var(--success);
+      }
+      .alert {
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        padding: 0.75rem 1rem;
+      }
+      .badge {
+        background: var(--page);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.125rem 0.5rem;
+        font-size: 0.875rem;
+      }
+      .table-wrap {
+        overflow: auto;
+        max-width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      .uvy-table--compact th,
+      .uvy-table--compact td {
+        padding: 0.25rem 0.75rem;
+      }
+      caption {
+        text-align: left;
+        font-weight: 600;
+        padding-block: 1rem;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 14rem minmax(0, 1fr);
+        gap: 2rem;
+      }
+      .sidebar {
+        border-right: 1px solid var(--border);
+        padding-right: 1rem;
+      }
+      .sidebar nav {
+        display: grid;
+        gap: 0.75rem;
+      }
+      .article {
+        max-width: 72ch;
+        min-width: 0;
+      }
+      .article h1 {
+        margin-top: 0;
+      }
+      .hero {
+        padding-block: 2rem 3rem;
+        max-width: 48rem;
+      }
+      .hero h1 {
+        margin-top: 0;
+      }
+      .stack > * + * {
+        margin-top: 1.5rem;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .guide-note {
+        border-top: 1px solid var(--border);
+        margin-top: 3rem;
+        padding-top: 1rem;
+      }
+      @media (max-width: 48rem) {
+        .site-header nav {
+          order: 3;
+          flex-basis: 100%;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 1rem;
+        }
+        .sidebar nav {
+          display: flex;
+        }
+        .uvy-card {
+          padding: 1rem;
+        }
+      }
+      @media (pointer: coarse) {
+        button,
+        .uvy-button,
+        input,
+        select {
+          min-height: 2.75rem;
+        }
+      }
+    </style>
+    <script>
+      // Run in the head so a stored preference applies before content is painted.
+      (function () {
+        try {
+          var saved = localStorage.getItem("uvy-theme");
+          if (saved === "light" || saved === "dark")
+            document.documentElement.dataset.theme = saved;
+        } catch (_) {}
+        document.addEventListener("DOMContentLoaded", function () {
+          var picker = document.getElementById("theme");
+          picker.value = document.documentElement.dataset.theme || "system";
+          picker.parentElement.hidden = false;
+          picker.addEventListener("change", function () {
+            if (picker.value === "system")
+              delete document.documentElement.dataset.theme;
+            else document.documentElement.dataset.theme = picker.value;
+            try {
+              if (picker.value === "system")
+                localStorage.removeItem("uvy-theme");
+              else localStorage.setItem("uvy-theme", picker.value);
+            } catch (_) {}
+          });
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="landing.html"
+          ><span class="mark" aria-hidden="true">Y</span>Catalog Explorer</a
+        >
+        <nav aria-label="Example navigation">
+          <a href="components.html">Catalog</a><a href="forms.html">Forms</a
+          ><a href="panels.html" aria-current="page">Tables</a>
+        </nav>
+        <label class="theme" hidden
+          >Theme
+          <select id="theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select></label
+        >
+      </div>
+    </header>
+    <main class="page" id="main">
+      <h1>Tables and feedback</h1>
+      <p>
+        Change density or filter by name to inspect table and empty states. All
+        rows are illustrative.
+      </p>
+      <section class="uvy-card">
+        <div class="grid">
+          <div class="field">
+            <label for="filter">Filter services</label
+            ><input
+              type="search"
+              id="filter"
+              placeholder="Name or identifier"
+            />
+          </div>
+          <div class="field">
+            <label for="density">Table density</label
+            ><select id="density">
+              <option value="comfortable">Comfortable</option>
+              <option value="compact">Compact</option>
+            </select>
+          </div>
+        </div>
+        <div
+          class="table-wrap"
+          role="region"
+          aria-label="Service catalog"
+          tabindex="0"
+        >
+          <table id="catalog">
+            <caption>
+              Example service catalog
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Service</th>
+                <th scope="col">Status</th>
+                <th scope="col">Identifier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-row>
+                <th scope="row">Catalog</th>
+                <td><span class="badge">Available</span></td>
+                <td><code>catalog.example.com</code></td>
+              </tr>
+              <tr data-row>
+                <th scope="row">Worker</th>
+                <td><span class="badge">Pending</span></td>
+                <td><code>worker.example.com</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="empty" hidden>
+          No services match. Clear the filter to see all services.
+        </p>
+        <p id="count" class="hint" role="status">2 services shown.</p>
+        <button id="clear" type="button">Clear filter</button>
+      </section>
+      <h2>Other content states</h2>
+      <div class="grid">
+        <section class="uvy-card">
+          <h3>Loading</h3>
+          <p>Loading catalog…</p>
+          <small>Static illustration of a loading message.</small>
+        </section>
+        <section class="uvy-card">
+          <h3>Error</h3>
+          <p>Could not load the catalog.</p>
+          <button id="retry" type="button">Retry demonstration</button>
+          <p id="retry-status" role="status"></p>
+        </section>
+      </div>
+      <aside class="guide-note" aria-label="Related guidance">
+        <a href="../docs/components-and-icons.md">Read the related guide</a> ·
+        <a href="../README.md">All guidance</a>
+      </aside>
+    </main>
+    <footer>
+      <div class="footer-inner">
+        UVY Design reference ·
+        <a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> ·
+        <a href="../LICENSE">License</a>
+      </div>
+    </footer>
+    <script>
+      const filter = document.getElementById("filter");
+      function update() {
+        let count = 0;
+        document.querySelectorAll("[data-row]").forEach((row) => {
+          row.hidden = !row.textContent
+            .toLowerCase()
+            .includes(filter.value.toLowerCase());
+          if (!row.hidden) count++;
+        });
+        document.getElementById("empty").hidden = count !== 0;
+        document.getElementById("count").textContent =
+          count + " services shown.";
+      }
+      filter.addEventListener("input", update);
+      document.getElementById("clear").addEventListener("click", () => {
+        filter.value = "";
+        update();
+        filter.focus();
+      });
+      document
+        .getElementById("density")
+        .addEventListener("change", (e) =>
+          document
+            .getElementById("catalog")
+            .classList.toggle(
+              "uvy-table--compact",
+              e.target.value === "compact",
+            ),
+        );
+      document
+        .getElementById("retry")
+        .addEventListener(
+          "click",
+          () =>
+            (document.getElementById("retry-status").textContent =
+              "Demonstration retry completed. The example catalog is available above."),
+        );
+    </script>
+  </body>
 </html>

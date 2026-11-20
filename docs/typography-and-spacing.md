@@ -1,41 +1,23 @@
 # Typography and spacing
 
-Use the following shared defaults when building an interface. Values are in `rem` so they respect the reader's browser font size. Adapt dense data displays where needed, but keep the hierarchy and target sizes recognizable.
+Use IBM Plex Sans for body and headings, and IBM Plex Mono for code, technical labels and occasional title treatments. Self-host licensed font files in applications that use them; retain system sans-serif and monospace fallbacks. The standalone references use these stacks without external font requests and display installed Plex fonts when available.
 
-```css
-:root {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
-  --text-small: 0.875rem; /* 14px at the default browser size */
-  --text-body: 1rem;
-  --text-large: 1.25rem;
-  --text-section: 1.5rem;
-  --text-title: 2rem;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --radius: 0.375rem;
-  --content-width: 75rem;
-}
-body { font-family: var(--font-sans); font-size: var(--text-body); line-height: 1.5; }
-code, pre, .technical-value { font-family: var(--font-mono); }
-```
+| Element | Size | Weight |
+| --- | --- | --- |
+| H1 | 32px / 2rem | 600 |
+| H2 | 24px / 1.5rem | 600 |
+| H3 | 20px / 1.25rem | 600 |
+| H4 | 16px / 1rem | 600 |
+| Body | 16px / 1rem | 400 |
+| Small text | 14px / .875rem | 400 |
+| Technical label | 12px / .75rem | 500 |
 
-Use `--text-small` for supporting labels, `--text-body` for ordinary content, `--text-large` for prominent supporting text, `--text-section` for section headings and `--text-title` for the application title. Use weight 600 for headings and controls, and 400 for body text. Headings should have a line height around 1.2; avoid fixed heights that clip wrapped text. Make page and section titles blue with a restrained orange underline. In a blue application header, use a white title with the orange underline as shown in the [header reference](header.md). Align headings left on mobile.
+Body line-height is 1.6; headings use approximately 1.25. Keep headings in primary text color. Use monospace selectively, without turning the interface into a terminal. Technical labels are brief secondary metadata, not essential instructions.
 
-Use 0.25–0.5rem between closely related label and value, 0.75–1rem between controls, 1rem between cards, and 2rem between sections. Start with 1rem card padding and 0.75rem by 1rem button padding. Use a centered content area with a maximum width of 75rem and 1rem side gutters; increase the gutters to 2rem on wider screens. Keep interactive targets at least 44 by 44 CSS pixels where practical, including icon-only actions.
+Use the spacing scale **4, 8, 12, 16, 24, 32, 48, 64px**, expressed in rem. Start with 16–24px panel padding, 8–12px control gaps and 32px between sections. Center page content within 1200px, with at least 16px side gutters. Articles should generally stay near 70 characters per line.
 
-```css
-.page { width: min(100% - 2rem, var(--content-width)); margin-inline: auto; }
-.stack > * + * { margin-block-start: var(--space-4); }
-.section + .section { margin-block-start: var(--space-8); }
-@media (min-width: 48rem) {
-  .page { width: min(100% - 4rem, var(--content-width)); }
-}
-```
+Interactive elements have 4px corners, panels 6px corners and borders are 1px solid. Omit shadows by default. Buttons and inputs are 36px high by default, using minimum heights so text can grow. Increase touch targets toward 44px on coarse pointers or add space between targets. Textareas grow with content.
 
-Allow long titles and technical values to wrap or scroll within their own region without causing page-wide horizontal overflow. Dense reference tables can be compact; forms and workspaces can have more room. Preserve useful existing responsive patterns: for example, Unreleased Commits retains its repository title and release followed by three side-by-side metric cells. Use the structure suited to each application's content.
+At narrow widths, stack columns, wrap navigation and long titles, and scroll wide tables or code within their own regions. Preserve information and workflow. Check zoom at 200% and a 320px viewport.
+
+See the [typography reference](../examples/typography.html).

@@ -4,6 +4,7 @@ from html import escape
 import re
 import shutil
 import markdown
+from site_chrome import header, navigation, backdrop
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / '_site'
@@ -42,9 +43,11 @@ def build():
         article = web_links(markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc']))
         # Wide prose tables scroll within a named, keyboard-accessible region.
         article = article.replace('<table>', '<div class="table-wrap" role="region" aria-label="Reference table" tabindex="0"><table>').replace('</table>', '</table></div>')
-        links = ''.join(f'<a href="{prefix}docs/{doc.stem}.html"'+(' aria-current="page"' if doc == source else '')+f'>{escape(doc.read_text().splitlines()[0].lstrip("# "))}</a>' for doc in DOCS)
+        links = ''.join(f'<a data-group="guide" href="{prefix}docs/{doc.stem}.html"'+(' aria-current="page"' if doc == source else '')+f'>{escape(doc.read_text().splitlines()[0].lstrip("# "))}</a>' for doc in DOCS)
+        examples = sorted((ROOT / 'examples').glob('*.html'))
+        links += ''.join(f'<a data-group="example" href="{prefix}examples/{example.name}">{escape(example.stem.replace("-", " ").title())}</a>' for example in examples)
         dest.write_text(f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{escape(title)} — Unit Vector Y Labs</title><link rel="stylesheet" href="{prefix}site/reference.css"><script src="{prefix}site/theme.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="{prefix}index.html"><span class="mark" aria-hidden="true">Y</span>UVY Design</a><nav aria-label="Main navigation"><a href="{prefix}index.html">Guide</a><a href="{prefix}examples/components.html">Examples</a></nav><label class="theme" hidden>Theme <select id="theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label></div></header><main class="page layout" id="main"><aside class="sidebar"><nav aria-label="Guide articles">{links}</nav></aside><article class="article">{article}<p class="guide-note"><a href="{prefix}{rel.as_posix()}">Standalone Markdown source</a></p></article></main><footer><div class="footer-inner"><a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> · <a href="{prefix}LICENSE">License</a></div></footer></body></html>''')
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{escape(title)} — Unit Vector Y Labs</title><link rel="stylesheet" href="{prefix}site/reference.css"><script src="{prefix}site/theme.js"></script></head><body>{header(prefix)}<main class="page layout" id="main">{navigation(links, 'Design guide')}<div class="workspace"><article class="article">{article}<p class="guide-note"><a href="{prefix}{rel.as_posix()}">Standalone Markdown source</a></p></article></div></main>{backdrop()}<footer><div class="footer-inner"><a href="https://github.com/UnitVectorY-Labs/uvy-design">Source</a> · <a href="{prefix}LICENSE">License</a> · <a href="https://tabler.io/icons">Tabler Icons</a></div></footer></body></html>''')
         shutil.copy(source, OUT / rel)
     print(f'Built {len(DOCS) + 1} guide pages and {len(list((OUT / "examples").glob("*.html")))} examples in {OUT}')
 

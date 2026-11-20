@@ -7,7 +7,7 @@ All archetypes share the [universal header](header.md). Choose a layout based on
 | Project landing page | Compact | Centered, max 1200px | [Landing](../examples/landing.html) |
 | Documentation landing page | None | Sidebar and article index | [Guide](foundations.md) |
 | Documentation article | None | Sidebar, article, optional contents | [Article](../examples/documentation.html) |
-| Public application | None | Application workspace | [Tables](../examples/panels.html) |
+| Public application | None | Application workspace | [Key details](../examples/panels.html), [repository metrics](../examples/table-records.html) |
 | Internal utility | None | Compact, task-focused | [Utility](../examples/utility.html) |
 | Design system reference | None | Component catalog | [Catalog](../examples/components.html) |
 

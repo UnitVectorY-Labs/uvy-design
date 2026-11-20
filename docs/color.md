@@ -1,6 +1,6 @@
 # Color
 
-Use neutral surfaces and text with a restrained orange signature. Avoid large orange backgrounds, decorative heading underlines and colored card edges.
+Use neutral surfaces and text with a restrained orange signature. Avoid large orange backgrounds, decorative heading underlines and colored panel edges.
 
 | Semantic token | Light mode | Dark mode |
 | --- | --- | --- |
@@ -15,10 +15,18 @@ Use neutral surfaces and text with a restrained orange signature. Avoid large or
 | Error text / outline | `#B42318` | `#FDA29B` |
 | Success text | `#21633B` | `#86D9A0` |
 
-The supplied accent is a fill or indicator, not a general small-text color. Use dark `#22272B` text on orange primary buttons and a contrast-appropriate outline to distinguish them from white surfaces. Links use the darker light-mode color above and remain underlined. Selected navigation combines accessible accent-derived text with an underline and `aria-current`.
+## Interface contrast
 
-Neutral separators are subtle and must not be the only way to identify an input. Inputs use a stronger outline (`#7C838B` in light mode, `#7D8792` in dark mode). Focus rings remain visible against both page and surface backgrounds. Check actual combinations: normal text needs 4.5:1 contrast; large text and essential control boundaries need 3:1. Disabled controls are visibly distinct and never the only explanation of an unavailable action.
+Use accent for fills and indicators, not general small text. Orange primary buttons use dark `#22272B` text and a contrast-appropriate outline. Links remain underlined. Selected navigation combines accessible accent-derived text, a visible indicator and `aria-current`.
 
-Status colors communicate status, separately from the brand accent. Pair them with concise labels and useful messages. Preserve established application data colors, scales and directions, including green–yellow–red spectra.
+Use stronger input boundaries (`#7C838B` light, `#7D8792` dark) than decorative separators. Check actual adjacent colors: normal text needs 4.5:1 contrast; large text, essential control boundaries and focus indicators need 3:1. Keep focus visible on both page and panel surfaces.
 
-Explore the [component catalog](../examples/components.html) and [form states](../examples/forms.html) in both themes.
+## Data and status
+
+Brand accent, action feedback and application data have separate meanings. Red and green lifecycle tints may distinguish inactive and active records without implying error and success. Retain the application's mapping and explicit labels; exact shades may change to fit both themes.
+
+Quantitative spectra retain their direction, scale, thresholds and units. Show numeric values and a legend; unknown or unavailable values remain distinct from zero. Use the same scale wherever values are compared. Do not replace a meaningful spectrum with brand orange.
+
+Use semantic surface tokens for row tints and spectrum steps. Check every foreground against each tint, including links and secondary text; use primary text where needed. Never rely on color alone.
+
+See [lifecycle highlighting](../examples/panels.html), [quantitative record highlighting](../examples/table-records.html) and [form feedback](../examples/forms.html).

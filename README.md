@@ -23,16 +23,17 @@ Open any HTML file directly in a browser. Each contains its own styles and scrip
 | [Documentation article](examples/documentation.html) | Sidebar, readable article and code |
 | [Compact utility](examples/utility.html) | Local input, action and output |
 | [Forms and actions](examples/forms.html) | Validation, reset, inputs, select, textarea and alerts |
-| [Tables and feedback](examples/panels.html) | Density control, filtering, empty and feedback states |
+| [Key detail panels](examples/panels.html) | Endpoint summaries, lifecycle row tints, comparison tables and empty states |
+| [Repository metrics](examples/table-records.html) | Long table, mobile record cards, sorting and independent metric spectra |
 | [Typography and content](examples/typography.html) | Headings, lists, links and code |
-| [Universal header](examples/navigation.html) | Identity, responsive navigation and theme control |
+| [Universal header](examples/navigation.html) | Top-left Tabler theme icon, searchable left navigation and mobile drawer |
 | [Component catalog](examples/components.html) | Common components and routes to complete examples |
 
 Related-guide links in the examples point to Markdown when opened locally. The web build converts these links to rendered guide pages. Original Markdown is also available from every rendered article.
 
 ## Preview and publish
 
-The GitHub Pages build renders the Markdown and copies the standalone examples into one static site. Generated output is ignored; edit the Markdown, HTML and presentation sources instead. `site/reference.css` and `site/theme.js` style the published guide; the examples deliberately embed their own copies so each HTML file remains portable. When changing common styling or theme behavior, update both the presentation sources and embedded examples.
+The GitHub Pages build renders the Markdown and copies the standalone examples into one static site. Generated output is ignored; edit the Markdown, HTML and presentation sources instead. `site/reference.css` and `site/theme.js` style the published guide; the examples deliberately embed their own copies so each HTML file remains portable. After changing common CSS or shell behavior, run `python3 scripts/sync_examples.py` to refresh the embedded copies. Page content remains authored HTML.
 
 ```sh
 python3 -m venv .venv
@@ -42,8 +43,10 @@ python3 -m venv .venv
 .venv/bin/python -m http.server 8000 --directory _site
 ```
 
+For browser regression checks, install `requirements-browser.txt`, run `python -m playwright install --with-deps chromium`, then `python scripts/check_browser.py` in the virtual environment. CI runs the same layout, keyboard, theme, data-contrast and interaction checks before publishing.
+
 Open `http://localhost:8000`. Relative links also work under GitHub Pages repository subpaths and custom domains. The site needs no runtime JavaScript to read guides or navigate; JavaScript enables appearance controls and example interactions.
 
 In repository **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. The included workflow checks pull requests and publishes pushes to `main`, or manual workflow runs. GitHub environment protection rules may require deployment approval. See [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-The expected project URL is [unitvectory-labs.github.io/uvy-design](https://unitvectory-labs.github.io/uvy-design/); availability depends on the repository's Pages configuration and a successful workflow run.
+The published project URL is [unitvectory-labs.github.io/uvy-design](https://unitvectory-labs.github.io/uvy-design/); availability depends on the repository's Pages configuration and a successful workflow run.

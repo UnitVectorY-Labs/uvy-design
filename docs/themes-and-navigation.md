@@ -1,11 +1,15 @@
 # Themes and navigation
 
-Every site supports light and dark modes. Without an explicit choice, follow the operating system preference, including changes made while the page is open. Manual selection overrides the system and persists where storage is available. Provide a System option to clear the override.
+Follow the operating-system theme initially and respond to system changes while no override is set. The [header's sun/moon button](header.md) switches directly to the opposite theme and persists that choice where storage is available. “Use system theme” clears the override. Keep the page usable without storage or JavaScript; hide inactive controls.
 
-Use semantic variables for every component color. Set `color-scheme` so native controls match the theme. Apply stored preferences early to reduce flashes. Catch storage failures and keep the page functional without storage or JavaScript. Show theme controls only when their behavior is available.
+Use semantic color variables and `color-scheme` throughout. Apply saved preferences before painting where practical. Keep text, native controls, icons and focus indicators readable in both themes.
 
-Keep the [universal header](header.md) consistent across page archetypes. Use real links for destinations and buttons for actions. Selected navigation has a visible cue and `aria-current`. Documentation sidebars retain clear article labels and collapse naturally into a stacked layout on narrow screens.
+## Sidebar navigation
 
-Include a compact footer with the project's source and license. It must never cover content. Serve interface assets locally; font fallbacks keep text readable offline.
+Use a persistent left sidebar around 15rem wide on desktop. Keep search and task-relevant filters above an independently scrolling link list; do not invent filters for short menus. Keep the current destination marked when visible in the filtered list, using `aria-current` and an accent-derived indicator.
 
-All [examples](../examples/components.html) contain their own CSS and theme behavior. Their shared preference key lets a choice carry across pages on the same origin; direct-file storage behavior depends on the browser.
+At widths of 768px or less, use a left drawer no wider than 18rem and leave a tappable backdrop visible. The header menu button opens it. Provide an explicit close button; close on Escape, backdrop click, destination selection and a change to desktop layout. Trap focus while open, keep the background inactive, and restore focus to the trigger on dismissal. Prevent background scrolling while allowing the drawer to scroll.
+
+Use normal links and retain usable navigation without JavaScript. Preserve useful search, filter and scroll state when updating content. See the working [navigation](../examples/navigation.html) and [documentation](../examples/documentation.html) examples.
+
+Include a compact footer linking to the project's source and license without covering content. Serve assets locally. Standalone examples embed their styles and behavior; shared theme storage carries choices between pages on the same origin, subject to browser storage support.

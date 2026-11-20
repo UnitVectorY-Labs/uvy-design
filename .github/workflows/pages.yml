@@ -21,6 +21,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python scripts/build_site.py
       - run: python scripts/check_site.py
+      - run: pip install -r requirements-browser.txt
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/check_browser.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

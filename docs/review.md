@@ -1,14 +1,15 @@
 # Review
 
-Review every reference and application in light and dark themes at desktop and mobile widths. A useful matrix includes 1280px desktop, 375px mobile, 320px narrow layouts and 200% zoom.
+Review light and dark themes at 1280px, 375px and 320px, plus 200% zoom. Compare the original application to preserve purpose, data meaning and workflows.
 
 - Confirm neutral surfaces, restrained orange, thin borders and no default shadows or decorative gradients.
-- Compare header anatomy, navigation selection, spacing, typography and control geometry.
-- Check text contrast (4.5:1 for normal text), essential boundaries and focus indicators (3:1), using actual adjacent colors.
-- Use the keyboard for links, theme selection, forms and scrolling table/code regions. Check visible focus, labels, errors, announcements and heading order.
-- Test System, Light and Dark choices, reload persistence, OS preference changes, unavailable storage and JavaScript disabled.
-- Exercise valid and invalid form submission, reset, utility input, table filtering, density and empty states.
-- Confirm long names wrap, content remains available and only wide data/code regions scroll horizontally.
-- Compare the original application: preserve purpose, data meaning, links, fields and normal workflows.
+- Check header alignment, spacing, typography, control geometry and consistent Tabler outline icons. The theme button sits at the top left and names its next action.
+- Test theme toggling, system reset, reload persistence, OS preference changes and unavailable storage. Without JavaScript, content and navigation remain usable.
+- Open the mobile navigation drawer by keyboard. Check focus placement and containment, Escape, backdrop and link dismissal, focus restoration and resizing to desktop.
+- Check normal text contrast (4.5:1), essential boundaries and focus indicators (3:1), including foregrounds on every status or spectrum fill. Lifecycle labels retain their application meaning rather than becoming generic success/error states.
+- Verify spectrum direction, per-column normalization, units and visible values. Explain the scale; do not substitute brand orange for data colors.
+- Check mobile record cards: identity and release span the width, followed by three labeled metrics. Retain all data, links and sort fields in both layouts. Comparison tables scroll within their own keyboard-accessible region.
+- Exercise form validation and reset, utility input, sorting, filtering, density and empty states. Check visible focus, labels, announcements and heading order.
+- Confirm long names wrap, page content stays within the viewport and only wide table/code regions scroll horizontally.
 
-The required references are [landing](../examples/landing.html), [documentation](../examples/documentation.html), [utility](../examples/utility.html), [forms](../examples/forms.html), [tables](../examples/panels.html) and [typography](../examples/typography.html). The [catalog](../examples/components.html) and [header](../examples/navigation.html) support focused inspection. Automated checks supplement hands-on review; they do not establish accessibility compliance.
+Use the working [landing](../examples/landing.html), [documentation](../examples/documentation.html), [utility](../examples/utility.html), [forms](../examples/forms.html), [comparison tables](../examples/panels.html), [record tables](../examples/table-records.html), [typography](../examples/typography.html), [catalog](../examples/components.html) and [header](../examples/navigation.html) references. Automated checks supplement hands-on review; they do not establish accessibility compliance.

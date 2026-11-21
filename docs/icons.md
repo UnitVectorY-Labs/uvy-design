@@ -1,6 +1,6 @@
 # Icons
 
-Use **[Tabler Icons](https://tabler.io/icons)** in the outline style. **Any outline icon from the full Tabler Icons library is allowed** — the compact sprite in `site/icons.inc` is only a starter subset for this guide. Copy only the Tabler SVG symbols an application actually uses and keep Tabler's MIT license comment alongside the SVG source rather than in the application footer.
+Use **[Tabler Icons](https://tabler.io/icons)** in the outline style. **Any outline icon from the full Tabler Icons library is allowed** — the compact sprite in `site/icons.inc` is only a starter subset for this guide. Copy only the Tabler SVG symbols an application actually uses and keep Tabler's MIT license comment alongside the SVG source (note that Go `html/template` strips HTML comments at render time, so keeping the notice in the source template or static asset file is sufficient) rather than in the application footer. For multi-thousand-row indexes, prefer lightweight CSS semantic dots over repeating thousands of `<svg><use>` instances.
 
 ## Sizing and stroke
 

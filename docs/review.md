@@ -27,4 +27,4 @@ Review every adapted application in **light and dark modes** at **1280px**, **37
 - Lifecycle tints remain distinct from operational health verdicts; quantitative spectra retain direction, per-column scaling, units, legend and distinct unknown values; charts read `--uvy-chart-1..6`.
 - Comparison tables scroll inside keyboard-focusable `.table-wrap` regions; mobile record tables reflow cleanly; zero horizontal page overflow occurs at 320px or 200% zoom; `prefers-reduced-motion: reduce` disables transitions and spinner rotation.
 
-Run `scripts/check_site.py` and `scripts/check_browser.py`, then inspect rendered screenshots in both light and dark modes before shipping.
+Run `scripts/check_site.py` and `scripts/check_browser.py`, then inspect rendered screenshots in both light and dark modes before shipping. When capturing full-page Playwright screenshots on tall pages, resize the viewport height to the document height (or capture viewport-sized frames) so the sticky `.site-footer` docks at the bottom instead of painting mid-page.

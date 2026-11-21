@@ -5,7 +5,7 @@ Unit Vector Y Labs builds software for engineers inspecting infrastructure, cert
 ## Core principles
 
 - **Flat surfaces, deep contrast.** Light mode uses crisp cool paper (`#F5F7FA` canvas, `#FFFFFF` panels); dark mode uses a deep midnight blue-slate (`#090D16` canvas, `#111827` panels) whose cool blue undertone naturally complements bright signal orange. Omit decorative gradients and ambient shadows; reserve shadows strictly for overlays such as dialogs and drawers.
-- **One unmistakable orange signature.** Bright signal orange (`#F25C05` light / `#FF7A1A` dark) marks the physics **j-hat** brand tile, primary actions, keyboard focus, and a bold `3px` active rule on header navigation, sidebars, tabs, callouts and terminal output wells.
+- **One unmistakable orange signature.** Bright signal orange (`#F25C05` light / `#FF7A1A` dark) crowns the top face of the [isometric unit cube mark](logo.md) (`#F25C05`), primary actions, keyboard focus, and a bold `3px` active rule on header navigation, sidebars, tabs, callouts and terminal output wells.
 - **Subtle terminal instrumentation.** Set readable prose in universally supported `system-ui` sans-serif, and use crisp fixed-width `ui-monospace` for structural instrumentation: header brand titles, breadcrumbs, table headers, stat figures, badges, timestamps, counts, identifiers and code/output wells. Never turn prose paragraphs into a wall of monospace.
 - **Structure encodes meaning.** Group related controls and tables in flat `.uvy-panel` containers without nesting panels inside panels. Avoid uniform SaaS card grids where a hairline directory or table scans faster. Avoid tracked-out ALL-CAPS eyebrows and trailing arrows on buttons.
 - **Purposeful motion.** Transitions answer direct interaction (120ms hover/focus, 180ms drawer slide) and stop cleanly under `prefers-reduced-motion`.
@@ -21,4 +21,4 @@ Unit Vector Y Labs builds software for engineers inspecting infrastructure, cert
 4. **Choose container width to fit the app.** Use the default centered `.page` (`75rem` max) for reading, forms and detail pages, or add `.page--wide` (with `.site-header--wide` and `.site-footer--wide`) for dense full-width dashboards and matrices.
 5. **The guide follows itself.** The rendered documentation site in this repository is built directly on `site/uvy.css` and `site/uvy.js` as the flagship reference implementation.
 
-See [color](color.md), [components](components-and-icons.md), [page archetypes](page-archetypes.md), the [examples index](../examples/index.html) and the [review checklist](review.md).
+See [logo](logo.md), [color](color.md), [components](components-and-icons.md), [page archetypes](page-archetypes.md), the [examples index](../examples/index.html) and the [review checklist](review.md).

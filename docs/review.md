@@ -12,7 +12,8 @@ Review every adapted application in **light and dark modes** at **1280px**, **37
 
 ## Shell, cookie themes and footer
 
-- Header is `60px` desktop with the orange physics j-hat mark + `18px` monospace title left, full-height nav links with `3px` orange active bar, and a single borderless sun/moon toggle flush right on row 1 at every width. No “Use system theme” clutter button.
+- Header is `60px` desktop with the `28×28` isometric unit cube mark (transparent standalone geometry adapting to light and dark surfaces) + `18px` monospace title left, full-height nav links with `3px` orange active bar, and a single borderless sun/moon toggle flush right on row 1 at every width. No “Use system theme” clutter button.
+- Brand logo assets use the official square-canvas SVGs from `assets/` (standalone marks for transparent headers, favicons and READMEs; avatar marks with `11px` optical margin for profile images and rounded/circular crops controlled in CSS).
 - Clicking the theme toggle switches immediately and persists via the `uvy-theme` cookie across pages (while forced specimen pages like `light.html` / `dark.html` keep their mode without overwriting the cookie). Content and navigation stay usable without JavaScript or cookies.
 - Sticky sidebar layouts scroll naturally with the page and convert to an accessible focus-trapped mobile drawer below `768px`. Top-bar layouts without a sidebar keep search and filters clear in `.uvy-toolbar`.
 - Footer has generous `32px` vertical padding on `--uvy-surface`, well-spaced `|` separators, calm muted links, monospace bold repository name(s), and omits the optional `.version` line completely from HTML when disabled.

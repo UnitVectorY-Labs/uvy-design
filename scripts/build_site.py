@@ -119,6 +119,7 @@ def build():
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir()
+    shutil.copytree(ROOT / 'assets', OUT / 'assets')
     shutil.copytree(ROOT / 'site', OUT / 'site')
     shutil.copytree(ROOT / 'examples', OUT / 'examples')
     shutil.copy(ROOT / 'LICENSE', OUT / 'LICENSE')
@@ -147,6 +148,8 @@ def build():
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{escape(title)} — Unit Vector Y Labs</title>
+    <link rel="icon" type="image/svg+xml" href="{prefix}assets/uvy-standalone-mark-light.svg" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="{prefix}assets/uvy-standalone-mark-dark.svg" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="{prefix}site/uvy.css" />
     <script src="{prefix}site/uvy.js"></script>
   </head>

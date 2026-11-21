@@ -4,4 +4,4 @@ This repository holds human-readable brand and design guidance for UnitVectorY L
 
 The documentation site rendered from this repository is the flagship reference implementation of UVY Design and must strictly obey every rule in the guide itself. Never introduce guide-only styling that contradicts the guidance.
 
-When applying this design language to another UnitVectorY Labs application, copy/embed `site/uvy.css`, `site/uvy.js`, and only the Tabler outline icons needed. Each application owns its implementation; preserve its purpose, data semantics and workflows.
+When applying this design language to another UnitVectorY Labs application, copy/embed `site/uvy.css`, `site/uvy.js`, the official logo assets in `assets/` as needed, and only the Tabler outline icons needed. Each application owns its implementation; preserve its purpose, data semantics and workflows.

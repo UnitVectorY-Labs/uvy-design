@@ -5,6 +5,7 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parents[1] / 'site'
 GUIDES = [
     ('foundations', 'Foundations'),
+    ('logo', 'Logo'),
     ('color', 'Color'),
     ('typography-and-spacing', 'Typography and spacing'),
     ('header', 'Header'),
@@ -18,6 +19,7 @@ GUIDES = [
 EXAMPLES = [
     ('light', 'Light mode', 'Crisp cool light surfaces, dark ink, signal orange and controls.'),
     ('dark', 'Dark mode', 'Deep midnight blue-slate surfaces paired with bright signal orange.'),
+    ('logo', 'Logo', 'Official isometric unit cube variants, theme-adaptive header mark and CSS avatar framing.'),
     ('typography', 'Typography', 'System UI sans paired with fixed-width monospace instrumentation.'),
     ('icons', 'Icons', 'Any Tabler outline icon, size tiers, semantic color usage and copy actions.'),
     ('navigation', 'Sidebar navigation & search', 'Sticky left sidebar with search filter, mobile drawer, breadcrumbs and tabs.'),
@@ -36,11 +38,14 @@ EXAMPLES = [
 
 
 def uvy_mark():
-    """Physics j-hat unit vector monogram on a bright signal-orange tile."""
+    """UnitVectorY-Labs geometric isometric unit cube mark (transparent standalone geometry)."""
     return (
-        '<svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28">'
-        '<rect class="uvy-mark__tile" width="28" height="28" rx="5"/>'
-        '<path class="uvy-mark__glyph" d="M9.2 9.4L14.2 5.2L19.2 9.4M15.4 12.6V19.2C15.4 21.6 13.9 23 11.4 23C10.1 23 9.2 22.6 8.6 21.9"/>'
+        '<svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 100 100">'
+        '<g stroke-width="4" stroke-linejoin="round">'
+        '<polygon class="uvy-mark__top" points="50,8 82.5,26.75 50,45.5 17.5,26.75"/>'
+        '<polygon class="uvy-mark__left" points="12.3,35.75 44.8,54.5 44.8,92 12.3,73.25"/>'
+        '<polygon class="uvy-mark__right" points="55.2,54.5 87.7,35.75 87.7,73.25 55.2,92"/>'
+        '</g>'
         '</svg>'
     )
 

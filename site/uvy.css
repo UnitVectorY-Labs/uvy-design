@@ -34,7 +34,7 @@
   --uvy-text-muted: light-dark(#4b5565, #9aa8bf);
   --uvy-text-faint: light-dark(#697486, #77869e);
 
-  /* Signal orange: primary actions, 3px active rules, brand mark and focus */
+  /* Signal orange: primary actions, 3px active rules, logo top face and focus */
   --uvy-accent: light-dark(#f25c05, #ff7a1a);
   --uvy-accent-hover: light-dark(#db4f00, #ff9140);
   --uvy-on-accent: light-dark(#111622, #0b0f19);
@@ -493,25 +493,29 @@ time,
   text-decoration: none;
   overflow-wrap: anywhere;
 }
-.brand:hover .uvy-mark__tile {
+.brand:hover .uvy-mark__top {
   fill: var(--uvy-accent-hover);
+  stroke: var(--uvy-accent-hover);
 }
-/* The physics j-hat unit vector mark on signal orange. */
+/* UnitVectorY-Labs isometric unit cube mark (transparent standalone geometry). */
 .uvy-mark {
   width: 1.75rem;
   height: 1.75rem;
   flex: none;
 }
-.uvy-mark__tile {
-  fill: var(--uvy-accent);
-  transition: fill var(--uvy-duration) var(--uvy-ease);
+.uvy-mark__top {
+  fill: #f25c05;
+  stroke: #f25c05;
+  transition: fill var(--uvy-duration) var(--uvy-ease),
+    stroke var(--uvy-duration) var(--uvy-ease);
 }
-.uvy-mark__glyph {
-  fill: none;
-  stroke: var(--uvy-on-accent);
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.uvy-mark__left {
+  fill: light-dark(#697486, #f0f4fa);
+  stroke: light-dark(#697486, #f0f4fa);
+}
+.uvy-mark__right {
+  fill: light-dark(#111827, #9aa8bf);
+  stroke: light-dark(#111827, #9aa8bf);
 }
 .header-inner > nav {
   display: flex;
@@ -1572,6 +1576,98 @@ td.num {
   gap: var(--uvy-space-5);
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-sm);
+}
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--uvy-space-4);
+  margin-block: var(--uvy-space-5);
+}
+.logo-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--uvy-border);
+  border-radius: var(--uvy-radius-panel);
+  background: var(--uvy-surface);
+  overflow: hidden;
+}
+.logo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8.5rem;
+  padding: var(--uvy-space-5);
+  border-bottom: 1px solid var(--uvy-border);
+}
+.logo-stage--light {
+  background: #ffffff;
+}
+.logo-stage--dark {
+  background: #090d16;
+}
+.logo-stage img,
+.logo-stage svg {
+  display: block;
+  width: 5.5rem;
+  height: 5.5rem;
+}
+.logo-stage--light .logo-boxed {
+  border: 1px solid #d8dfe8;
+}
+.logo-stage--dark .logo-boxed {
+  border: 1px solid #1f2b40;
+}
+.logo-meta {
+  display: grid;
+  gap: var(--uvy-space-1);
+  padding: var(--uvy-space-3) var(--uvy-space-4);
+  font-size: var(--uvy-text-sm);
+}
+.logo-meta strong {
+  color: var(--uvy-text);
+  font-weight: 600;
+}
+.logo-meta code {
+  justify-self: start;
+  font-size: var(--uvy-text-xs);
+}
+.logo-meta span {
+  color: var(--uvy-text-muted);
+  font-size: var(--uvy-text-xs);
+  line-height: 1.45;
+}
+.logo-frames {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--uvy-space-5);
+}
+.logo-frames figure {
+  display: grid;
+  gap: var(--uvy-space-2);
+  justify-items: center;
+  margin: 0;
+  color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+}
+.logo-frames figcaption {
+  text-align: center;
+}
+.logo-avatar {
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid var(--uvy-border);
+}
+.logo-avatar--rounded {
+  border-radius: var(--uvy-radius-panel);
+}
+.logo-avatar--squircle {
+  border-radius: 22%;
+}
+.logo-avatar--circle {
+  border-radius: 50%;
 }
 
 /* 10. Feedback and overlays ----------------------------------------------- */

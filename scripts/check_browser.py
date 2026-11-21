@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def check_layout(page):
     assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), f'Page overflow: {page.url}'
     assert page.locator('h1').count() == 1, page.url
+    assert page.locator('.site-header .uvy-mark polygon').count() == 3, page.url
     assert page.locator('#theme svg:visible').count() == 1, page.url
     assert page.locator('#theme-reset').count() == 0, f'Unexpected theme reset control: {page.url}'
     # The theme switch stays in the first header row at its right edge.
@@ -211,9 +212,21 @@ try:
         page.goto((ROOT / '_site/docs/footer.html').as_uri())
         assert page.locator('#sidebar nav a').evaluate_all('links=>links.map(link=>link.getAttribute("href"))') == guide_links
 
+        page.goto((ROOT / '_site/docs/logo.html').as_uri())
+        assert page.locator('.logo-stage img').count() == 4
+        assert all(page.locator('.logo-stage img').evaluate_all('imgs=>imgs.map(img=>img.complete && img.naturalWidth>0)'))
+
+        page.goto((ROOT / 'examples/logo.html').as_uri())
+        assert page.locator('.logo-stage img').count() == 4
+        assert all(page.locator('.logo-stage img').evaluate_all('imgs=>imgs.map(img=>img.complete && img.naturalWidth>0)'))
+        page.locator('#avatar-variant-light').click()
+        assert 'uvy-avatar-light.svg' in page.locator('.logo-frames img').first.get_attribute('src')
+        page.locator('#avatar-variant-dark').click()
+        assert 'uvy-avatar-dark.svg' in page.locator('.logo-frames img').first.get_attribute('src')
+
         page.goto((ROOT / 'examples/index.html').as_uri())
         assert page.locator('#sidebar').count() == 0
-        assert page.locator('.example-link').count() == 16
+        assert page.locator('.example-link').count() == 17
 
         page.goto((ROOT / 'examples/footer.html').as_uri())
         assert page.locator('.site-footer .version').count() == 0

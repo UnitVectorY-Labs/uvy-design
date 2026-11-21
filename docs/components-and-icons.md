@@ -50,11 +50,13 @@ Build with semantic HTML first and apply the namespaced `uvy-*` patterns from `s
 ## Loading, HTMX updates, empty states and dialogs
 
 - Keep `.uvy-spinner` or `aria-busy="true"` next to the region being updated; reveal `.htmx-indicator` inline without blocking unrelated controls.
+- `site/uvy.js` delegates `.uvy-copy` (`[data-copy-target]`, `[data-copy-text]`) and `[role="tablist"]` interactions at the `document` level and re-enhances `[data-enable-with-js]` / `[data-requires-js]` automatically on `htmx:afterSwap` and `htmx:after:swap` (and exposes `window.uvyEnhance(root)` for client-rendered fragments).
 - `.uvy-empty` explains why nothing is shown and offers a direct next action.
 - Native `<dialog>` overlays use `.uvy-dialog__header`, `.uvy-dialog__body` and `.uvy-dialog__footer` with `--uvy-shadow-overlay`, an explicit close button and Escape dismissal.
 
 ## Charts and diagrams
 
-Read `--uvy-chart-1..6`, `--uvy-chart-grid`, `--uvy-chart-axis`, `--uvy-surface` and `--uvy-text` via `getComputedStyle(document.documentElement)` when initializing uPlot, Chart.js or Mermaid, and re-apply them whenever `data-theme` or `prefers-color-scheme` changes.
+- For canvas libraries (uPlot, Chart.js), read `--uvy-chart-1..6`, `--uvy-chart-grid`, `--uvy-chart-axis`, `--uvy-surface` and `--uvy-text` via `getComputedStyle(document.documentElement)` and re-apply them whenever `data-theme` or `prefers-color-scheme` changes.
+- For SVG diagrams (including Mermaid), bind node fills, strokes, edges and cluster borders directly to `--uvy-*` CSS custom properties (`light-dark()`) so theme toggles recolor the diagram immediately without re-rendering.
 
 See [components](../examples/components.html), [forms](../examples/forms.html), [comparison table](../examples/table.html), [record table](../examples/table-records.html), [detail panels](../examples/panels.html) and [utility](../examples/utility.html).

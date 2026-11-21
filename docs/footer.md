@@ -5,8 +5,9 @@ Every page keeps a compact, calm, centered footer **always visible at the bottom
 **UnitVectorY-Labs | license | named GitHub repository link(s)**
 
 - Link `UnitVectorY-Labs` to `https://github.com/UnitVectorY-Labs`.
-- Name and link the project's actual license (such as `MIT License` or `Apache-2.0 License`).
+- Name and link the project's actual license (such as `MIT License` or `Apache-2.0 License`). When deploying a subdirectory (such as `./app` on GitHub Pages) where `LICENSE` is not published at the site root, link directly to the repository's GitHub license URL (`https://github.com/UnitVectorY-Labs/<repo>/blob/main/LICENSE`).
 - Link each contributing repository by name in `<strong>` (rendered in fixed-width monospace primary ink), joined with “and” when multiple repositories apply, followed by “on GitHub”.
+- Variants compose naturally when needed—for example, a catalog backed by a separate observer repository combines multiple repository links on line 1 with `.footer-meta` (`Last updated`) on line 2.
 - Keep third-party asset notices (such as Tabler Icons) with their source assets rather than crowding the footer.
 
 ## Always-visible layout and compact sizing

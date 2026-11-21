@@ -16,30 +16,31 @@ GUIDES = [
     ('review', 'Review'),
 ]
 EXAMPLES = [
-    ('light', 'Light mode', 'Cool graphite surfaces, dark ink, signal orange action and inputs.'),
-    ('dark', 'Dark mode', 'The same tokens and controls in dark mode.'),
-    ('typography', 'Typography', 'Type scale, measure, lists, inline code, timestamps and blockquotes.'),
-    ('icons', 'Icons', 'Tabler outline sizing, neutral and status coloring, and copy actions.'),
-    ('navigation', 'Header, sidebar and tabs', 'Persistent sidebar, mobile drawer, breadcrumbs and tabs.'),
-    ('footer', 'Footer', 'Organization, license, repository links and optional version line.'),
-    ('components', 'Components', 'Buttons, status pills, badges, alerts, empty states and loading.'),
+    ('light', 'Light mode', 'Crisp cool light surfaces, dark ink, signal orange and controls.'),
+    ('dark', 'Dark mode', 'Deep midnight blue-slate surfaces paired with bright signal orange.'),
+    ('typography', 'Typography', 'System UI sans paired with fixed-width monospace instrumentation.'),
+    ('icons', 'Icons', 'Any Tabler outline icon, size tiers, semantic color usage and copy actions.'),
+    ('navigation', 'Sidebar navigation & search', 'Sticky left sidebar with search filter, mobile drawer, breadcrumbs and tabs.'),
+    ('topbar', 'Top-bar navigation & search', 'No-sidebar wide layout with header links, inline search toolbar and category tabs.'),
+    ('footer', 'Footer', 'Generously spaced centered footer with repository links and optional version.'),
+    ('components', 'Components', 'Buttons, status pills, badges, alerts, empty states and loading indicators.'),
     ('forms', 'Form', 'Labels, hints, inline validation, reset and status feedback.'),
-    ('table', 'Comparison table', 'Toolbar filtering, compact density, pagination and local overflow.'),
-    ('table-records', 'Mobile record table', 'Framed summary strip, quantitative spectra, sorting and mobile cards.'),
+    ('table', 'Comparison table', 'Toolbar filtering, compact density, pagination and local horizontal scroll.'),
+    ('table-records', 'Mobile record table', 'Framed stat strip, quantitative spectra, sorting and mobile record cards.'),
     ('panels', 'Detail panels', 'Key/value datasheet, lifecycle rows, payload tabs and copyable JSON.'),
     ('landing', 'Landing page', 'Typographic hero and rule-divided capabilities without card grids.'),
-    ('documentation', 'Static article', 'Readable technical prose with local section navigation and code.'),
+    ('documentation', 'Static article', 'Readable technical prose with sticky local navigation and code blocks.'),
     ('application', 'Dynamic application', 'Live filters, status lanes using structured lists and a detail dialog.'),
-    ('utility', 'Utility', 'Compact input, action, output and copy workflow.'),
+    ('utility', 'Utility', 'Compact input, action, terminal-style output well and copy workflow.'),
 ]
 
 
 def uvy_mark():
+    """Physics j-hat unit vector monogram on a bright signal-orange tile."""
     return (
-        '<svg class="uvy-mark" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">'
-        '<rect class="uvy-mark__tile" width="24" height="24" rx="5"/>'
-        '<circle class="uvy-mark__origin" cx="7.5" cy="16.5" r="1.75"/>'
-        '<path class="uvy-mark__vector" d="M9.5 14.5L16.5 7.5M11.5 7.5H16.5V12.5"/>'
+        '<svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28">'
+        '<rect class="uvy-mark__tile" width="28" height="28" rx="5"/>'
+        '<path class="uvy-mark__glyph" d="M9.2 9.4L14.2 5.2L19.2 9.4M15.4 12.6V19.2C15.4 21.6 13.9 23 11.4 23C10.1 23 9.2 22.6 8.6 21.9"/>'
         '</svg>'
     )
 
@@ -53,29 +54,26 @@ def icon(name, mode='', cls='icon'):
     )
 
 
-def header(prefix='', identity='UVY Design', home='index.html', sidebar=True, current='guide', mark=True):
+def header(prefix='', identity='UVY Design', home='index.html', sidebar=True, current='guide', mark=True, wide=False):
     icons = (SITE / 'icons.inc').read_text().strip()
     menu = (
         f'<button id="menu" class="icon-button menu-button" type="button" '
         f'aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false" hidden>'
         f'{icon("menu")}</button>'
     ) if sidebar else ''
-    reset = (
-        '' if sidebar
-        else '<button id="theme-reset" class="uvy-button--quiet uvy-button--small theme-reset" type="button" hidden>Use system theme</button>'
-    )
     guide_current = ' aria-current="page"' if current == 'guide' else ''
     examples_current = ' aria-current="page"' if current == 'examples' else ''
     brand_mark = uvy_mark() if mark else ''
+    hdr_cls = 'site-header site-header--wide' if wide else 'site-header'
     return (
         f'<a class="skip" href="#main">Skip to content</a>\n'
-        f'<header class="site-header"><div class="header-inner">{icons}'
+        f'<header class="{hdr_cls}"><div class="header-inner">{icons}'
         f'<div class="header-identity">{menu}'
         f'<a class="brand" href="{prefix}{home}">{brand_mark}<span>{escape(identity)}</span></a></div>'
         f'<nav aria-label="Main navigation">'
         f'<a href="{prefix}index.html"{guide_current}>Guide</a>'
         f'<a href="{prefix}examples/index.html"{examples_current}>Examples</a>'
-        f'{reset}</nav>'
+        f'</nav>'
         f'<button id="theme" class="icon-button" type="button" aria-label="Switch color theme" hidden>'
         f'{icon("moon", "moon")}{icon("sun", "sun")}</button>'
         f'</div></header>'
@@ -97,9 +95,7 @@ def navigation(links, title='Navigation', filters=False):
         f'{icon("x")}</button></div>{search}</div>'
         f'<nav aria-label="{escape(title)}">{links}</nav>'
         f'<p id="nav-empty" class="uvy-hint" hidden>No sections match. Clear the search.</p>'
-        f'<div class="sidebar-footer">'
-        f'<button id="theme-reset" class="uvy-button--quiet uvy-button--small theme-reset" type="button" hidden>Use system theme</button>'
-        f'</div></aside>'
+        f'</aside>'
     )
 
 
@@ -107,7 +103,7 @@ def backdrop():
     return '<button id="menu-backdrop" class="menu-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>'
 
 
-def footer(prefix='', repositories=None, version=None, show_version=False):
+def footer(prefix='', repositories=None, version=None, show_version=False, wide=False):
     """The server/build decides whether to render an application version at all."""
     repositories = repositories or [('uvy-design', 'https://github.com/UnitVectorY-Labs/uvy-design')]
     links = ' and '.join(
@@ -115,8 +111,9 @@ def footer(prefix='', repositories=None, version=None, show_version=False):
         for name, url in repositories
     )
     version_line = f'<p class="version">Version {escape(version)}</p>' if show_version and version else ''
+    ftr_cls = 'site-footer site-footer--wide' if wide else 'site-footer'
     return (
-        f'<footer class="site-footer"><div class="footer-inner">'
+        f'<footer class="{ftr_cls}"><div class="footer-inner">'
         f'<p><a href="https://github.com/UnitVectorY-Labs">UnitVectorY-Labs</a>'
         f'<span class="footer-sep" aria-hidden="true">|</span>'
         f'<a href="{prefix}LICENSE">MIT License</a>'

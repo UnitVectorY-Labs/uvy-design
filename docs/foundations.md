@@ -1,25 +1,24 @@
 # Foundations
 
-Unit Vector Y Labs software is made for engineers inspecting infrastructure, security posture, certificates, signing keys and repositories. Interfaces take their cues from precision measuring instruments and technical datasheets: quiet graphite surfaces, crisp typography, disciplined spacing and clear information hierarchy.
+Unit Vector Y Labs builds software for engineers inspecting infrastructure, certificates, signing keys, policies and repositories. Interfaces combine the clarity of technical documentation with subtle fixed-width terminal precision: cool light surfaces, deep midnight blue-slate dark mode, crisp hairlines and a bold 3px signal-orange accent rule.
 
 ## Core principles
 
-- **Flat, cool graphite surfaces.** Let contrast between page canvas, elevated surface and sunken code wells organize the screen. Omit decorative gradients, glassmorphism and ambient shadows; reserve shadows strictly for overlays such as dialogs and mobile drawers.
-- **One disciplined accent.** Signal orange marks primary actions, keyboard focus and a crisp 2px active-location rule in navigation and tabs. Keep chrome, icons, headings and footers neutral so orange retains its signal value.
-- **Structure encodes meaning.** Use hairline borders, tables, key/value datasheets and grouped panels only where they clarify hierarchy. Do not wrap every paragraph or link in identical rounded cards, do not nest panels inside panels, and do not add numbered markers unless the content is an ordered sequence.
-- **Restrained typography.** Set interfaces in IBM Plex Sans and reserve IBM Plex Mono for actual technical values (identifiers, domains, SHAs, versions, endpoints and code). Avoid tracked-out all-caps eyebrow labels, decorative single-word color accents in headings, and arrow glyphs appended to button labels.
-- **Purposeful motion.** Motion answers a direct user action (opening a drawer, confirming a copy, hovering a control) in 120–180ms. Avoid scroll-triggered section entrances, floating hover lifts and ambient animations. Always honor `prefers-reduced-motion`.
-- **Direct writing.** Write in sentence case and active voice from the user's perspective. Name buttons for what they do (“Check domain”, “Save changes”, not “Submit”). Errors explain what failed and how to recover without apologizing. Empty states state what is absent and offer the next step.
-- **First-class light and dark modes.** Follow the operating system by default, allow an instant toggle, and verify contrast in both modes.
+- **Flat surfaces, deep contrast.** Light mode uses crisp cool paper (`#F5F7FA` canvas, `#FFFFFF` panels); dark mode uses a deep midnight blue-slate (`#090D16` canvas, `#111827` panels) whose cool blue undertone naturally complements bright signal orange. Omit decorative gradients and ambient shadows; reserve shadows strictly for overlays such as dialogs and drawers.
+- **One unmistakable orange signature.** Bright signal orange (`#F25C05` light / `#FF7A1A` dark) marks the physics **j-hat** brand tile, primary actions, keyboard focus, and a bold `3px` active rule on header navigation, sidebars, tabs, callouts and terminal output wells.
+- **Subtle terminal instrumentation.** Set readable prose in universally supported `system-ui` sans-serif, and use crisp fixed-width `ui-monospace` for structural instrumentation: header brand titles, breadcrumbs, table headers, stat figures, badges, timestamps, counts, identifiers and code/output wells. Never turn prose paragraphs into a wall of monospace.
+- **Structure encodes meaning.** Group related controls and tables in flat `.uvy-panel` containers without nesting panels inside panels. Avoid uniform SaaS card grids where a hairline directory or table scans faster. Avoid tracked-out ALL-CAPS eyebrows and trailing arrows on buttons.
+- **Purposeful motion.** Transitions answer direct interaction (120ms hover/focus, 180ms drawer slide) and stop cleanly under `prefers-reduced-motion`.
+- **Direct writing.** Write in sentence case and active voice (“Check domain”, “Save changes”, not “Submit”). Errors explain what failed and how to recover without apologizing. Empty states state what is absent and provide the next action.
 
-## Adopting this guide in an application
+## Single-CSS adoption contract
 
-This repository is an unversioned, human-readable reference rather than a distributed CSS framework. Go `html/template` apps, HTMX servers, Jekyll sites and static catalogs all share the same visual contract while owning their own markup and build pipelines:
+`site/uvy.css` is designed as **one self-contained, zero-dependency stylesheet** that any Unit Vector Y Labs application can embed directly (for example via Go `//go:embed`, a static `<link>`, or an inline `<style>`):
 
-1. **Preserve the application.** Keep the application's product name, purpose, navigation structure, data semantics, workflows and meaningful visualization colors. Do not hide useful columns or fields behind extra clicks for appearance alone.
-2. **Use the semantic token contract.** Copy the `--uvy-*` custom properties and `color-scheme: light dark` / `light-dark()` definitions from `site/reference.css`. Project-specific CSS should reference those tokens instead of hardcoding colors or spacing.
-3. **Standardize theme storage.** Store explicit theme overrides under the `uvy-theme` key (`"light"` or `"dark"`) on `localStorage`, reflect them on `<html data-theme="...">`, and keep the theme switch button at the top right of the header.
-4. **Reuse namespaced primitives.** Use semantic HTML first, then adopt `uvy-*` classes (`uvy-panel`, `uvy-kv`, `uvy-stats`, `uvy-status`, `uvy-badge`, `uvy-toolbar`, `uvy-code`, `uvy-alert`, `uvy-empty`, `uvy-tabs`, `uvy-list`) where shared patterns apply.
-5. **Preserve proven application layouts.** Retain the [DNS CAA Catalog](https://dns-caa-catalog.unitvectorylabs.com/) sidebar/drawer, [Cert Observatory](https://cert-observatory.unitvectory-labs.net/) direct icon theme switch, [JWKS Catalog](https://jwks-catalog.unitvectorylabs.com/service-3d-systems.html) grouped detail and lifecycle labels, and [Unreleased Commits](https://unreleasedcommits.unitvectorylabs.com/) mobile record layout and metric semantics, styled with this guide's palette, type and geometry.
+1. **Copy `site/uvy.css` and `site/uvy.js` verbatim.** Because they rely on universally supported system font stacks and inline SVG icons, they require no external CDNs, build pipelines or bundled font directories.
+2. **Keep every application's identity and semantics.** Retain the product's own title, workflows, navigation model (sidebar or top-bar), fields and meaningful visualization colors.
+3. **Standardize cookie theme persistence.** Use the single sun/moon toggle in the header and store the choice in the `uvy-theme` cookie (`light` or `dark`), mirrored on `<html data-theme="...">`.
+4. **Choose container width to fit the app.** Use the default centered `.page` (`75rem` max) for reading, forms and detail pages, or add `.page--wide` (with `.site-header--wide` and `.site-footer--wide`) for dense full-width dashboards and matrices.
+5. **The guide follows itself.** The rendered documentation site in this repository is built directly on `site/uvy.css` and `site/uvy.js` as the flagship reference implementation.
 
 See [color](color.md), [components](components-and-icons.md), [page archetypes](page-archetypes.md), the [examples index](../examples/index.html) and the [review checklist](review.md).

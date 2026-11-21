@@ -6,142 +6,93 @@
     <title>Detail panels — UVY Design examples</title>
     <style data-uvy-reference>
 /*
-  UVY Design reference stylesheet.
+  UVY Design — single embeddable stylesheet for UnitVectorY Labs applications.
 
-  This file is the canonical, copyable implementation of the guide. It is not a
-  distributed package: applications copy the token block and the patterns they
-  need, then own the result. Sections run from general to specific:
+  Copy or embed this file verbatim into any application (Go html/template,
+  HTMX, static HTML, Jekyll, SPA). It has zero external dependencies and uses
+  universally supported system fonts with a subtle fixed-width terminal accent.
 
-    1. Fonts          5. Header and footer   9.  Data display
-    2. Tokens         6. Navigation          10. Feedback and overlays
-    3. Base           7. Controls            11. Page patterns
-    4. Layout         8. Panels              12. Guide presentation (this site only)
+  Sections:
+    1. Tokens         5. Header and footer   9.  Data display
+    2. Base           6. Navigation          10. Feedback and overlays
+    3. Layout         7. Controls            11. Page patterns
+    4. Typography     8. Panels              12. Responsive & reduced motion
 
-  Colors use light-dark(); the root color-scheme selects the theme. Saved
-  preferences set data-theme="light" or data-theme="dark" on <html>.
+  Themes use CSS light-dark() driven by color-scheme. Explicit user choices
+  set data-theme="light" or data-theme="dark" on <html> (persisted via cookie).
 */
 
-/* 1. Fonts ---------------------------------------------------------------- */
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local("IBM Plex Sans"), local("IBMPlexSans"),
-    url("../site/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: local("IBM Plex Sans Italic"), local("IBMPlexSans-Italic"),
-    url("../site/fonts/ibm-plex-sans-latin-400-italic.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local("IBM Plex Sans Medium"), local("IBMPlexSans-Medium"),
-    url("../site/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local("IBM Plex Sans SemiBold"), local("IBMPlexSans-SemiBold"),
-    url("../site/fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local("IBM Plex Mono"), local("IBMPlexMono"),
-    url("../site/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "IBM Plex Mono";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local("IBM Plex Mono Medium"), local("IBMPlexMono-Medium"),
-    url("../site/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
-}
-
-/* 2. Tokens --------------------------------------------------------------- */
+/* 1. Tokens --------------------------------------------------------------- */
 
 :root {
   color-scheme: light dark;
 
-  /* Neutral graphite surfaces */
-  --uvy-bg: light-dark(#f6f7f8, #121418);
-  --uvy-surface: light-dark(#ffffff, #1a1d22);
-  --uvy-sunken: light-dark(#f0f2f4, #0e1013);
-  --uvy-hover: light-dark(#eceef1, #23272d);
-  --uvy-border: light-dark(#dfe2e6, #2c3138);
-  --uvy-border-emphasis: light-dark(#c9ced5, #3d434b);
-  --uvy-border-input: light-dark(#858c95, #6c7580);
+  /* Surfaces: crisp cool light / deep midnight blue-slate dark */
+  --uvy-bg: light-dark(#f5f7fa, #090d16);
+  --uvy-surface: light-dark(#ffffff, #111827);
+  --uvy-sunken: light-dark(#eceff4, #060911);
+  --uvy-hover: light-dark(#e6eaf0, #1b2538);
+  --uvy-border: light-dark(#d8dfe8, #1f2b40);
+  --uvy-border-emphasis: light-dark(#bfc8d6, #2e3f5c);
+  --uvy-border-input: light-dark(#7a8596, #6b7d99);
 
-  /* Text */
-  --uvy-text: light-dark(#1a1e23, #eceef1);
-  --uvy-text-muted: light-dark(#59616b, #9aa3ae);
-  --uvy-text-faint: light-dark(#7d858f, #78818c);
+  /* Ink */
+  --uvy-text: light-dark(#111827, #f0f4fa);
+  --uvy-text-muted: light-dark(#4b5565, #9aa8bf);
+  --uvy-text-faint: light-dark(#697486, #77869e);
 
-  /* Signal orange: actions, current location and focus only */
-  --uvy-accent: light-dark(#ee6418, #ff8a3d);
-  --uvy-accent-hover: light-dark(#e25c14, #ff9d5c);
-  --uvy-on-accent: #1a1e23;
-  --uvy-accent-subtle: light-dark(#fdefe5, #33241a);
-  --uvy-link: light-dark(#a8430a, #ffb07a);
-  --uvy-focus: light-dark(#c24e0c, #ff9a55);
+  /* Signal orange: primary actions, 3px active rules, brand mark and focus */
+  --uvy-accent: light-dark(#f25c05, #ff7a1a);
+  --uvy-accent-hover: light-dark(#db4f00, #ff9140);
+  --uvy-on-accent: light-dark(#111622, #0b0f19);
+  --uvy-accent-subtle: light-dark(#fff0e6, #2e1a0c);
+  --uvy-link: light-dark(#b84200, #ff9a4d);
+  --uvy-focus: light-dark(#d94e00, #ff8a33);
 
-  /* Feedback status */
-  --uvy-ok: light-dark(#1f6b3d, #7fd69b);
-  --uvy-ok-bg: light-dark(#e6f4ea, #14301f);
-  --uvy-warn: light-dark(#7f5300, #edc167);
-  --uvy-warn-bg: light-dark(#fbf1d9, #352a12);
-  --uvy-danger: light-dark(#b42318, #ff9c94);
-  --uvy-danger-bg: light-dark(#fcebea, #3b1e20);
-  --uvy-info: light-dark(#1e5aa8, #8cb8f0);
-  --uvy-info-bg: light-dark(#e8f0fb, #16253a);
+  /* Semantic status */
+  --uvy-ok: light-dark(#166534, #6ee798);
+  --uvy-ok-bg: light-dark(#e7f6ec, #0e2a1c);
+  --uvy-warn: light-dark(#854d0e, #facc55);
+  --uvy-warn-bg: light-dark(#fef5d8, #2d230b);
+  --uvy-danger: light-dark(#b91c1c, #ff8a8a);
+  --uvy-danger-bg: light-dark(#fdecec, #34151b);
+  --uvy-info: light-dark(#1d4ed8, #7bb2ff);
+  --uvy-info-bg: light-dark(#e8f0fe, #102342);
 
-  /* Application data: lifecycle and quantitative scales keep their own names */
+  /* Domain data: lifecycle states & quantitative spectra stay independent */
   --uvy-active: var(--uvy-ok);
-  --uvy-active-bg: light-dark(#e9f5ec, #16301f);
+  --uvy-active-bg: light-dark(#e9f6ed, #0f2b1d);
   --uvy-inactive: var(--uvy-danger);
-  --uvy-inactive-bg: light-dark(#fcedec, #3a1f21);
-  --uvy-scale-low: light-dark(#dcefe2, #1f3f2a);
-  --uvy-scale-mid: light-dark(#f6e8bf, #43381a);
-  --uvy-scale-high: light-dark(#f6d4d0, #4b2629);
+  --uvy-inactive-bg: light-dark(#fdeeee, #34161d);
+  --uvy-scale-low: light-dark(#d9f0e1, #143624);
+  --uvy-scale-mid: light-dark(#f7e9bc, #3b3012);
+  --uvy-scale-high: light-dark(#f7d2ce, #471d25);
 
-  /* Charts: categorical series, then structure */
-  --uvy-chart-1: light-dark(#2f6fba, #6fa3e8);
-  --uvy-chart-2: light-dark(#1f8a84, #4cc2b9);
-  --uvy-chart-3: light-dark(#b07a06, #e6b04a);
-  --uvy-chart-4: light-dark(#7a5bc7, #a58bea);
-  --uvy-chart-5: light-dark(#c44e73, #e57fa0);
-  --uvy-chart-6: light-dark(#5b6573, #9aa3ae);
+  /* Categorical charts (uPlot, Chart.js, Mermaid) */
+  --uvy-chart-1: light-dark(#2563eb, #60a5fa);
+  --uvy-chart-2: light-dark(#0d9488, #2dd4bf);
+  --uvy-chart-3: light-dark(#ca8a04, #facc15);
+  --uvy-chart-4: light-dark(#7c3aed, #a78bfa);
+  --uvy-chart-5: light-dark(#db2777, #f472b6);
+  --uvy-chart-6: light-dark(#475569, #94a3b8);
   --uvy-chart-grid: var(--uvy-border);
   --uvy-chart-axis: var(--uvy-text-muted);
 
-  /* Type */
-  --uvy-font-sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --uvy-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
-    Consolas, "Liberation Mono", monospace;
-  --uvy-text-xs: 0.75rem; /* 12px labels, captions */
-  --uvy-text-sm: 0.875rem; /* 14px secondary text, controls, tables */
-  --uvy-text-md: 1rem; /* 16px body */
-  --uvy-text-lg: 1.125rem; /* 18px lead, H3 */
-  --uvy-text-xl: 1.5rem; /* 24px H2, stat values */
-  --uvy-text-2xl: 2.25rem; /* 36px H1 */
-  --uvy-text-3xl: 3rem; /* 48px landing display */
+  /* Universally supported typography: system UI sans + crisp fixed-width mono */
+  --uvy-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --uvy-font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo,
+    Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
 
-  /* Space: 4, 8, 12, 16, 24, 32, 48, 64 */
+  --uvy-text-xs: 0.75rem; /* 12px labels, table headers */
+  --uvy-text-sm: 0.875rem; /* 14px controls, tables, metadata */
+  --uvy-text-md: 1rem; /* 16px body prose */
+  --uvy-text-lg: 1.125rem; /* 18px lead, H3, header brand */
+  --uvy-text-xl: 1.5rem; /* 24px H2, stat values */
+  --uvy-text-2xl: 2.5rem; /* 40px H1 */
+  --uvy-text-3xl: 3.25rem; /* 52px landing display */
+
+  /* Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64 */
   --uvy-space-1: 0.25rem;
   --uvy-space-2: 0.5rem;
   --uvy-space-3: 0.75rem;
@@ -151,24 +102,24 @@
   --uvy-space-7: 3rem;
   --uvy-space-8: 4rem;
 
-  /* Geometry */
+  /* Crisp technical geometry */
   --uvy-radius-tag: 3px;
   --uvy-radius-control: 4px;
-  --uvy-radius-panel: 6px;
-  --uvy-radius-overlay: 8px;
-  --uvy-stroke: 2px; /* the accent indicator */
+  --uvy-radius-panel: 5px;
+  --uvy-radius-overlay: 6px;
+  --uvy-stroke: 3px; /* bold orange indicator rule */
   --uvy-control-height: 2.25rem;
-  --uvy-shadow-overlay: 0 1px 2px rgb(0 0 0 / 0.08),
-    0 12px 32px -4px light-dark(rgb(10 12 15 / 0.16), rgb(0 0 0 / 0.55));
+  --uvy-shadow-overlay: 0 2px 4px rgb(0 0 0 / 0.12),
+    0 16px 36px -6px light-dark(rgb(15 23 42 / 0.18), rgb(0 0 0 / 0.65));
 
   /* Layout */
   --uvy-page-max: 75rem;
   --uvy-gutter: clamp(1rem, 3vw, 2rem);
   --uvy-measure: 70ch;
-  --uvy-sidebar: 15rem;
-  --uvy-header-height: 3.5rem;
+  --uvy-sidebar: 15.5rem;
+  --uvy-header-height: 3.75rem;
 
-  /* Motion answers an action; it is never ambient */
+  /* Purposeful motion only */
   --uvy-duration: 120ms;
   --uvy-ease: cubic-bezier(0.2, 0, 0, 1);
 }
@@ -179,7 +130,7 @@
   color-scheme: dark;
 }
 
-/* 3. Base ----------------------------------------------------------------- */
+/* 2. Base ----------------------------------------------------------------- */
 
 *,
 *::before,
@@ -197,14 +148,142 @@ body {
   flex-direction: column;
   background: var(--uvy-bg);
   color: var(--uvy-text);
-  font: 400 var(--uvy-text-md) / 1.6 var(--uvy-font-sans);
+  font: 400 var(--uvy-text-md) / 1.65 var(--uvy-font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 ::selection {
-  background: light-dark(#fbd5bc, #6b3a1a);
+  background: light-dark(#ffd4b3, #7a3b0e);
+  color: var(--uvy-text);
 }
+a {
+  color: var(--uvy-link);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--uvy-duration) var(--uvy-ease),
+    color var(--uvy-duration) var(--uvy-ease);
+}
+a:hover {
+  text-decoration-color: currentColor;
+}
+:focus-visible {
+  outline: 2px solid var(--uvy-focus);
+  outline-offset: 2px;
+}
+img,
+svg,
+video {
+  max-width: 100%;
+}
+[hidden] {
+  display: none !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.skip {
+  position: absolute;
+  top: var(--uvy-space-2);
+  left: var(--uvy-space-2);
+  z-index: 20;
+  padding: var(--uvy-space-2) var(--uvy-space-3);
+  border: 1px solid var(--uvy-border-emphasis);
+  border-radius: var(--uvy-radius-control);
+  background: var(--uvy-surface);
+  color: var(--uvy-text);
+  font-size: var(--uvy-text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: var(--uvy-shadow-overlay);
+  transform: translateY(-200%);
+}
+.skip:focus {
+  transform: none;
+}
+
+/* 3. Layout --------------------------------------------------------------- */
+
+.page,
+.header-inner,
+.footer-inner {
+  width: min(100% - 2 * var(--uvy-gutter), var(--uvy-page-max));
+  margin-inline: auto;
+}
+/* Opt-in fluid width for wide dashboards, matrices and top-bar apps. */
+.page--wide,
+.site-header--wide .header-inner,
+.site-footer--wide .footer-inner {
+  --uvy-page-max: 100%;
+}
+main {
+  flex: 1;
+  min-width: 0;
+  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+}
+main > :first-child,
+.workspace > :first-child,
+.uvy-panel > :first-child:not(.uvy-panel__header),
+.article > :first-child {
+  margin-top: 0;
+}
+.uvy-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--uvy-grid-min, 16rem)), 1fr)
+  );
+  gap: var(--uvy-space-4);
+}
+.uvy-grid > .uvy-panel + .uvy-panel {
+  margin-top: 0;
+}
+.uvy-stack > * + * {
+  margin-top: var(--uvy-space-5);
+}
+.uvy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--uvy-space-2);
+}
+.article {
+  max-width: var(--uvy-measure);
+  min-width: 0;
+}
+.article > .uvy-panel,
+.article > .uvy-code,
+.article > .uvy-index {
+  max-width: 100%;
+}
+
+/* Sticky sidebar layout: natural page scroll so footer never slices text. */
+.layout {
+  display: grid;
+  grid-template-columns: var(--uvy-sidebar) minmax(0, 1fr);
+  gap: var(--uvy-space-7);
+  align-items: start;
+}
+main.layout {
+  padding-block: 0;
+}
+.workspace {
+  min-width: 0;
+  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+}
+
+/* 4. Typography ----------------------------------------------------------- */
+
 h1,
 h2,
 h3,
@@ -216,15 +295,15 @@ h4 {
   text-wrap: balance;
 }
 h1 {
-  font-size: clamp(1.875rem, 1.5rem + 1.25vw, var(--uvy-text-2xl));
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 1.65rem + 1.4vw, var(--uvy-text-2xl));
+  line-height: 1.12;
+  letter-spacing: -0.025em;
 }
 h2 {
   margin-top: var(--uvy-space-7);
   font-size: var(--uvy-text-xl);
   line-height: 1.25;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 h3 {
   margin-top: var(--uvy-space-6);
@@ -268,21 +347,6 @@ b {
 small {
   font-size: var(--uvy-text-sm);
 }
-a {
-  color: var(--uvy-link);
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
-  text-underline-offset: 0.2em;
-  transition: text-decoration-color var(--uvy-duration) var(--uvy-ease);
-}
-a:hover {
-  text-decoration-color: currentColor;
-}
-:focus-visible {
-  outline: 2px solid var(--uvy-focus);
-  outline-offset: 2px;
-}
 code,
 kbd,
 samp,
@@ -291,7 +355,8 @@ pre {
   font-size: 0.875em;
 }
 :not(pre) > code {
-  padding: 0.0625em 0.3125em;
+  padding: 0.08em 0.35em;
+  border: 1px solid var(--uvy-border);
   border-radius: var(--uvy-radius-tag);
   background: var(--uvy-sunken);
   overflow-wrap: anywhere;
@@ -299,10 +364,11 @@ pre {
   -webkit-box-decoration-break: clone;
 }
 kbd {
-  padding: 0.0625em 0.375em;
+  padding: 0.0625em 0.4em;
   border: 1px solid var(--uvy-border-emphasis);
   border-bottom-width: 2px;
   border-radius: var(--uvy-radius-tag);
+  background: var(--uvy-surface);
   font-size: var(--uvy-text-xs);
 }
 pre {
@@ -312,7 +378,7 @@ pre {
   border-radius: var(--uvy-radius-panel);
   background: var(--uvy-sunken);
   font-size: 0.8125rem;
-  line-height: 1.6;
+  line-height: 1.65;
   tab-size: 2;
 }
 hr {
@@ -322,58 +388,30 @@ hr {
 }
 blockquote {
   margin-inline: 0;
-  padding-left: var(--uvy-space-4);
-  border-left: 1px solid var(--uvy-border-emphasis);
+  padding: var(--uvy-space-1) 0 var(--uvy-space-1) var(--uvy-space-4);
+  border-left: var(--uvy-stroke) solid var(--uvy-accent);
   color: var(--uvy-text-muted);
 }
-img,
-svg,
-video {
-  max-width: 100%;
+blockquote > :last-child {
+  margin-bottom: 0;
 }
 time,
 .num {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875em;
   font-variant-numeric: tabular-nums;
-}
-[hidden] {
-  display: none !important;
-}
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-.skip {
-  position: absolute;
-  top: var(--uvy-space-2);
-  left: var(--uvy-space-2);
-  z-index: 10;
-  padding: var(--uvy-space-2) var(--uvy-space-3);
-  border-radius: var(--uvy-radius-control);
-  background: var(--uvy-surface);
-  box-shadow: var(--uvy-shadow-overlay);
-  transform: translateY(-200%);
-}
-.skip:focus {
-  transform: none;
 }
 .uvy-hint,
 .hint {
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-sm);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .uvy-lead {
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-lg);
   line-height: 1.55;
-  max-width: 60ch;
+  max-width: 62ch;
 }
 .uvy-mono {
   font-family: var(--uvy-font-mono);
@@ -381,10 +419,13 @@ time,
 }
 .uvy-label {
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
   font-weight: 500;
   letter-spacing: 0.01em;
 }
+
+/* Icons: Tabler outline, neutral by default with semantic color helpers. */
 .icon {
   width: 1.25rem;
   height: 1.25rem;
@@ -403,75 +444,25 @@ time,
 .icon-muted {
   color: var(--uvy-text-muted);
 }
+.icon-accent {
+  color: var(--uvy-accent);
+}
+.icon-ok {
+  color: var(--uvy-ok);
+}
+.icon-warn {
+  color: var(--uvy-warn);
+}
+.icon-danger {
+  color: var(--uvy-danger);
+}
+.icon-info {
+  color: var(--uvy-info);
+}
 .with-icon {
   display: inline-flex;
   align-items: center;
   gap: var(--uvy-space-2);
-}
-
-/* 4. Layout --------------------------------------------------------------- */
-
-.page,
-.header-inner,
-.footer-inner {
-  width: min(100% - 2 * var(--uvy-gutter), var(--uvy-page-max));
-  margin-inline: auto;
-}
-main {
-  flex: 1;
-  min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
-}
-main > :first-child,
-.workspace > :first-child,
-.uvy-panel > :first-child:not(.uvy-panel__header),
-.article > :first-child {
-  margin-top: 0;
-}
-.uvy-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, var(--uvy-grid-min, 16rem)), 1fr)
-  );
-  gap: var(--uvy-space-4);
-}
-.uvy-grid > .uvy-panel + .uvy-panel {
-  margin-top: 0;
-}
-.uvy-stack > * + * {
-  margin-top: var(--uvy-space-5);
-}
-.uvy-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--uvy-space-2);
-}
-.article {
-  max-width: var(--uvy-measure);
-  min-width: 0;
-}
-
-/* Sidebar layout: header and footer fixed, sidebar and workspace scroll. */
-body:has(> main > .sidebar) {
-  height: 100dvh;
-}
-.layout {
-  display: grid;
-  grid-template-columns: var(--uvy-sidebar) minmax(0, 1fr);
-  gap: var(--uvy-space-7);
-}
-main.layout {
-  min-height: 0;
-  padding-block: 0;
-  overflow: hidden;
-}
-.workspace {
-  min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
-  overflow-y: auto;
-  scrollbar-gutter: stable;
 }
 
 /* 5. Header and footer ---------------------------------------------------- */
@@ -498,38 +489,36 @@ main.layout {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.75rem;
   min-width: 0;
   color: var(--uvy-text);
-  font-size: 0.9375rem;
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-lg);
   font-weight: 600;
-  letter-spacing: -0.005em;
-  line-height: 1.25;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   text-decoration: none;
   overflow-wrap: anywhere;
 }
 .brand:hover .uvy-mark__tile {
-  fill: color-mix(in srgb, var(--uvy-text) 88%, var(--uvy-bg));
+  fill: var(--uvy-accent-hover);
 }
-/* The UVY mark: a unit vector rising from its origin. */
+/* The physics j-hat unit vector mark on signal orange. */
 .uvy-mark {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   flex: none;
 }
 .uvy-mark__tile {
-  fill: var(--uvy-text);
+  fill: var(--uvy-accent);
   transition: fill var(--uvy-duration) var(--uvy-ease);
 }
-.uvy-mark__vector {
+.uvy-mark__glyph {
   fill: none;
-  stroke: var(--uvy-accent);
-  stroke-width: 2.25;
+  stroke: var(--uvy-on-accent);
+  stroke-width: 2.6;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-.uvy-mark__origin {
-  fill: var(--uvy-bg);
 }
 .header-inner > nav {
   display: flex;
@@ -562,46 +551,52 @@ main.layout {
   height: var(--uvy-stroke);
   background: var(--uvy-accent);
 }
-.header-inner > nav .theme-reset {
-  align-self: center;
-  margin-left: var(--uvy-space-2);
-}
 .header-inner > #theme {
   grid-column: 3;
 }
 
 .site-footer {
+  margin-top: auto;
   border-top: 1px solid var(--uvy-border);
-  padding-block: var(--uvy-space-4);
+  background: var(--uvy-surface);
+  padding-block: var(--uvy-space-6);
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-sm);
-  line-height: 1.5;
+  line-height: 1.7;
 }
-.site-footer .footer-inner,
-.footer-preview {
+.site-footer .footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--uvy-space-2);
   text-align: center;
 }
-.site-footer p,
-.footer-preview p {
+.site-footer p {
   max-width: none;
   margin: 0;
 }
-.site-footer a,
-.footer-preview a {
-  color: inherit;
-  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+.site-footer a {
+  color: var(--uvy-text-muted);
+  text-decoration: none;
 }
-.site-footer a:hover,
-.footer-preview a:hover {
+.site-footer a:hover {
   color: var(--uvy-text);
-  text-decoration-color: currentColor;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+.site-footer a strong {
+  color: var(--uvy-text);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875em;
+  font-weight: 600;
 }
 .footer-sep {
-  margin-inline: var(--uvy-space-2);
+  display: inline-block;
+  margin-inline: var(--uvy-space-3);
   color: var(--uvy-border-emphasis);
+  user-select: none;
 }
 .version {
-  margin-top: var(--uvy-space-1) !important;
   color: var(--uvy-text-faint);
   font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
@@ -611,8 +606,10 @@ main.layout {
 /* 6. Navigation ----------------------------------------------------------- */
 
 .sidebar {
-  min-height: 0;
-  padding: var(--uvy-space-5) var(--uvy-space-2) var(--uvy-space-5) 0;
+  position: sticky;
+  top: 0;
+  max-height: 100dvh;
+  padding: var(--uvy-space-6) var(--uvy-space-3) var(--uvy-space-6) 0;
   border-right: 1px solid var(--uvy-border);
   overflow-y: auto;
   scrollbar-width: thin;
@@ -620,7 +617,7 @@ main.layout {
 }
 .sidebar-tools {
   position: sticky;
-  top: calc(-1 * var(--uvy-space-5));
+  top: calc(-1 * var(--uvy-space-6));
   z-index: 1;
   margin-top: calc(-1 * var(--uvy-space-2));
   padding-block: var(--uvy-space-2) var(--uvy-space-3);
@@ -638,6 +635,7 @@ main.layout {
 .sidebar-group {
   margin: 0;
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -651,12 +649,12 @@ main.layout {
 }
 .sidebar nav {
   display: grid;
-  gap: 1px;
+  gap: 2px;
 }
 .sidebar nav a {
   position: relative;
   display: block;
-  padding: 0.375rem var(--uvy-space-3);
+  padding: 0.4375rem var(--uvy-space-3);
   border-radius: var(--uvy-radius-control);
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-sm);
@@ -678,15 +676,10 @@ main.layout {
 .sidebar nav a[aria-current]::before {
   content: "";
   position: absolute;
-  inset: 0.375rem auto 0.375rem 0;
+  inset: 0.3125rem auto 0.3125rem 0;
   width: var(--uvy-stroke);
   border-radius: 1px;
   background: var(--uvy-accent);
-}
-.sidebar-footer {
-  margin-top: var(--uvy-space-5);
-  padding: var(--uvy-space-4) 0 0 var(--uvy-space-3);
-  border-top: 1px solid var(--uvy-border);
 }
 .sidebar-close,
 .menu-button {
@@ -701,16 +694,16 @@ main.layout {
   padding: 0;
   border: 0;
   border-radius: 0;
-  background: rgb(10 12 15 / 0.45);
+  background: rgb(6 9 17 / 0.55);
 }
 .menu-backdrop:hover {
-  background: rgb(10 12 15 / 0.45);
+  background: rgb(6 9 17 / 0.55);
 }
 body.drawer-open {
   overflow: hidden;
 }
 
-/* Breadcrumbs: the path to the current page, current item last. */
+/* Breadcrumbs: fixed-width path notation. */
 .uvy-breadcrumbs ol {
   display: flex;
   flex-wrap: wrap;
@@ -718,10 +711,12 @@ body.drawer-open {
   padding: 0;
   list-style: none;
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
 }
 .uvy-breadcrumbs li {
   margin: 0;
+  max-width: none;
   overflow-wrap: anywhere;
 }
 .uvy-breadcrumbs li + li::before {
@@ -741,7 +736,7 @@ body.drawer-open {
   color: var(--uvy-text);
 }
 
-/* Tabs: the selected tab carries the same accent stroke as navigation. */
+/* Tabs: 3px signal-orange active indicator matching header & sidebar. */
 .uvy-tabs {
   display: flex;
   gap: var(--uvy-space-1);
@@ -819,13 +814,14 @@ button:hover,
 }
 button:active,
 .uvy-button:active {
-  background: color-mix(in srgb, var(--uvy-hover) 70%, var(--uvy-text) 6%);
+  background: color-mix(in srgb, var(--uvy-hover) 70%, var(--uvy-text) 8%);
 }
 .uvy-button--primary,
 button.uvy-button--primary {
   border-color: color-mix(in srgb, var(--uvy-accent) 82%, #000);
   background: var(--uvy-accent);
   color: var(--uvy-on-accent);
+  font-weight: 600;
 }
 .uvy-button--primary:hover,
 button.uvy-button--primary:hover {
@@ -867,24 +863,9 @@ button.uvy-button--primary:hover {
 }
 button:disabled,
 .uvy-button[aria-disabled="true"] {
-  opacity: 0.5;
+  opacity: 0.48;
   cursor: not-allowed;
   pointer-events: none;
-}
-.uvy-link-button {
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--uvy-link);
-  font-weight: 400;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
-  text-underline-offset: 0.2em;
-}
-.uvy-link-button:hover {
-  background: none;
-  text-decoration-color: currentColor;
 }
 
 /* Fields */
@@ -999,7 +980,7 @@ input[type="search"]::-webkit-search-cancel-button {
   color: var(--uvy-ok);
 }
 
-/* Toolbar: the controls that shape a result set, aligned on one baseline. */
+/* Toolbar: search, filters, actions and result counts on one baseline. */
 .uvy-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -1010,7 +991,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .uvy-toolbar .uvy-field {
   margin: 0;
   flex: 1 1 12rem;
-  max-width: 22rem;
+  max-width: 24rem;
 }
 .uvy-toolbar .uvy-field--fit {
   flex: 0 0 auto;
@@ -1024,11 +1005,12 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .uvy-count {
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
   font-variant-numeric: tabular-nums;
 }
 
-/* Copy: an icon button that confirms in place, then reverts. */
+/* Copy action: confirms in place, then reverts. */
 .uvy-copy {
   gap: 0.375rem;
 }
@@ -1047,7 +1029,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* 8. Panels --------------------------------------------------------------- */
 
-/* A panel groups content that belongs together. Do not nest panels. */
 .uvy-panel {
   border: 1px solid var(--uvy-border);
   border-radius: var(--uvy-radius-panel);
@@ -1080,10 +1061,14 @@ input[type="search"]::-webkit-search-cancel-button {
 .uvy-panel__header p {
   margin: var(--uvy-space-1) 0 0;
 }
-/* Tables run edge to edge inside a panel and align with its padding. */
+/* Tables bleed edge-to-edge inside a panel. */
 .uvy-panel > .table-wrap {
-  max-width: none;
+  width: calc(100% + 2 * var(--uvy-space-5));
+  max-width: calc(100% + 2 * var(--uvy-space-5));
   margin-inline: calc(-1 * var(--uvy-space-5));
+}
+.uvy-panel > .table-wrap:first-child {
+  margin-top: calc(-1 * var(--uvy-space-5));
 }
 .uvy-panel > .table-wrap:last-child,
 .uvy-panel > .table-wrap:has(+ .uvy-empty[hidden]:last-child) {
@@ -1092,9 +1077,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .uvy-panel > .table-wrap:last-child tr:last-child > *,
 .uvy-panel > .table-wrap:has(+ .uvy-empty[hidden]:last-child) tr:last-child > * {
   border-bottom: 0;
-}
-.table-wrap > table {
-  margin-bottom: 0;
 }
 .uvy-panel > .table-wrap th:first-child,
 .uvy-panel > .table-wrap td:first-child {
@@ -1160,11 +1142,13 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .uvy-list__meta {
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
   font-weight: 400;
 }
 .uvy-panel__footer {
-  margin: var(--uvy-space-5) calc(-1 * var(--uvy-space-5)) calc(-1 * var(--uvy-space-5));
+  margin: var(--uvy-space-5) calc(-1 * var(--uvy-space-5))
+    calc(-1 * var(--uvy-space-5));
   padding: var(--uvy-space-3) var(--uvy-space-5);
   border-top: 1px solid var(--uvy-border);
 }
@@ -1177,11 +1161,14 @@ input[type="search"]::-webkit-search-cancel-button {
   scrollbar-width: thin;
   scrollbar-color: var(--uvy-border-emphasis) transparent;
 }
+.table-wrap > table {
+  margin-bottom: 0;
+}
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--uvy-text-sm);
-  line-height: 1.45;
+  line-height: 1.5;
   font-variant-numeric: tabular-nums;
   text-align: left;
 }
@@ -1193,13 +1180,15 @@ caption {
 }
 th,
 td {
-  padding: 0.625rem var(--uvy-space-3);
+  padding: 0.6875rem var(--uvy-space-3);
   border-bottom: 1px solid var(--uvy-border);
   vertical-align: top;
 }
 thead th {
   border-bottom-color: var(--uvy-border-emphasis);
+  background: var(--uvy-sunken);
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -1212,6 +1201,7 @@ tbody th {
 td code,
 th code {
   padding: 0;
+  border: 0;
   background: none;
   font-size: 0.8125rem;
 }
@@ -1225,7 +1215,7 @@ td.num {
 }
 .uvy-table--compact th,
 .uvy-table--compact td {
-  padding-block: 0.3125rem;
+  padding-block: 0.375rem;
 }
 .uvy-table--comparison {
   min-width: 42rem;
@@ -1253,10 +1243,10 @@ td.num {
   font-style: italic;
 }
 
-/* Key/value list: the datasheet of a detail page. */
+/* Key/value datasheet */
 .uvy-kv {
   display: grid;
-  grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr);
+  grid-template-columns: minmax(8.5rem, max-content) minmax(0, 1fr);
   margin: 0 0 var(--uvy-space-4);
   font-size: var(--uvy-text-sm);
   line-height: 1.5;
@@ -1284,11 +1274,12 @@ td.num {
 }
 .uvy-kv dd code {
   padding: 0;
+  border: 0;
   background: none;
   font-size: 0.8125rem;
 }
 
-/* Summary values: one framed strip, not a row of cards. */
+/* Summary values: single framed strip with monospace tabular figures. */
 .uvy-stats {
   display: flex;
   flex-wrap: wrap;
@@ -1308,26 +1299,21 @@ td.num {
 }
 .uvy-stats dt {
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
   line-height: 1.4;
 }
 .uvy-stats dd {
   margin: var(--uvy-space-1) 0 0;
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xl);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
-.uvy-stats dd small {
-  margin-left: var(--uvy-space-1);
-  color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
-  font-weight: 400;
-  letter-spacing: 0;
-}
 
-/* Status: a state that can change. Dot and words, never color alone. */
+/* Status pill: colored dot + text, never color alone. */
 .uvy-status {
   --uvy-status-fg: var(--uvy-text-muted);
   --uvy-status-bg: var(--uvy-sunken);
@@ -1338,9 +1324,10 @@ td.num {
   border-radius: 999px;
   background: var(--uvy-status-bg);
   color: var(--uvy-status-fg);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.55;
   white-space: nowrap;
 }
 .uvy-status::before {
@@ -1376,14 +1363,14 @@ td.num {
   --uvy-status-bg: var(--uvy-inactive-bg);
 }
 .uvy-status--critical {
-  --uvy-status-fg: light-dark(#fff, #1a1e23);
+  --uvy-status-fg: light-dark(#fff, #0b0f19);
   --uvy-status-bg: var(--uvy-danger);
 }
 .uvy-status--running::before {
-  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, currentColor 25%, transparent);
+  box-shadow: 0 0 0 0.1875rem color-mix(in srgb, currentColor 28%, transparent);
 }
 
-/* Badge: a fixed attribute such as an algorithm, type or region. */
+/* Badge: fixed technical property in monospace. */
 .uvy-badge,
 .badge {
   display: inline-flex;
@@ -1396,13 +1383,13 @@ td.num {
   color: var(--uvy-text-muted);
   font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
-  line-height: 1.6;
+  line-height: 1.65;
   white-space: nowrap;
 }
 
-/* Code block with a caption bar and copy action. */
+/* Code / terminal block with caption bar and copy action. */
 .uvy-code {
-  margin: 0 0 var(--uvy-space-4);
+  margin: 0 0 var(--uvy-space-5);
   overflow: hidden;
   border: 1px solid var(--uvy-border);
   border-radius: var(--uvy-radius-panel);
@@ -1418,6 +1405,7 @@ td.num {
   border-bottom: 1px solid var(--uvy-border);
   background: var(--uvy-surface);
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
 }
 .uvy-code pre {
@@ -1429,8 +1417,27 @@ td.num {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+/* Subtle terminal output well for CLI/utility results. */
+.uvy-output {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--uvy-space-3);
+  padding: var(--uvy-space-3) var(--uvy-space-4);
+  border: 1px solid var(--uvy-border);
+  border-left: var(--uvy-stroke) solid var(--uvy-accent);
+  border-radius: var(--uvy-radius-control);
+  background: var(--uvy-sunken);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-sm);
+}
+.uvy-output__prompt {
+  color: var(--uvy-accent);
+  user-select: none;
+  margin-right: var(--uvy-space-2);
+}
 
-/* Lifecycle rows tint every cell; the state text still names the state. */
+/* Lifecycle row tints */
 .lifecycle-active > * {
   background: var(--uvy-active-bg);
 }
@@ -1465,24 +1472,26 @@ td.num {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--uvy-space-2) var(--uvy-space-4);
+  gap: var(--uvy-space-2) var(--uvy-space-3);
   margin: 0 0 var(--uvy-space-3);
   padding: 0;
   list-style: none;
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
 }
 .legend li {
   margin: 0;
+  max-width: none;
 }
 .legend span {
   display: inline-block;
-  padding: 0 var(--uvy-space-2);
+  padding: 0.125rem var(--uvy-space-2);
   border: 1px solid var(--uvy-border);
   border-radius: var(--uvy-radius-tag);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* Long record table: reflows into labeled records on narrow screens. */
+/* Mobile-reflowing record table */
 .mobile-label {
   display: none;
 }
@@ -1495,10 +1504,81 @@ td.num {
 }
 .record-table td.metric {
   text-align: right;
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
 }
 .record-table .release {
   font-family: var(--uvy-font-mono);
   font-size: 0.8125rem;
+}
+
+/* Color swatch & specimen utilities (for palette docs & style specimens) */
+.color-swatch {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: var(--uvy-space-2);
+  border-radius: var(--uvy-radius-tag);
+  box-shadow: inset 0 0 0 1px rgb(127 127 127 / 0.4);
+  vertical-align: -0.25rem;
+}
+.palette-table td:has(.color-swatch) {
+  white-space: nowrap;
+}
+.palette-label {
+  display: none;
+}
+.uvy-specimen {
+  margin-block: var(--uvy-space-5);
+  padding: var(--uvy-space-5);
+  border: 1px solid var(--uvy-border);
+  border-radius: var(--uvy-radius-panel);
+  background: var(--uvy-surface);
+}
+.type-preview {
+  display: grid;
+  gap: var(--uvy-space-3);
+}
+.type-preview > span {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--uvy-space-4);
+  line-height: 1.25;
+}
+.type-preview > span > small {
+  color: var(--uvy-text-faint);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+  font-weight: 400;
+}
+.spacing-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--uvy-space-5);
+}
+.spacing-preview > div {
+  display: grid;
+  gap: var(--uvy-space-2);
+  justify-items: start;
+  color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+}
+.spacing-preview i {
+  display: block;
+  height: var(--uvy-space-4);
+  border-radius: 1px;
+  background: var(--uvy-accent);
+}
+.icon-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--uvy-space-5);
+  color: var(--uvy-text-muted);
+  font-size: var(--uvy-text-sm);
 }
 
 /* 10. Feedback and overlays ----------------------------------------------- */
@@ -1512,7 +1592,8 @@ td.num {
   gap: var(--uvy-space-1) var(--uvy-space-3);
   margin: 0 0 var(--uvy-space-4);
   padding: var(--uvy-space-3) var(--uvy-space-4);
-  border: 1px solid color-mix(in srgb, var(--uvy-alert-fg) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--uvy-alert-fg) 32%, transparent);
+  border-left: var(--uvy-stroke) solid var(--uvy-alert-fg);
   border-radius: var(--uvy-radius-panel);
   background: var(--uvy-alert-bg);
   color: var(--uvy-text);
@@ -1546,7 +1627,6 @@ td.num {
   --uvy-alert-bg: var(--uvy-danger-bg);
 }
 
-/* Empty state: says what is missing and how to get it. */
 .uvy-empty {
   padding: var(--uvy-space-6) var(--uvy-space-5);
   border: 1px dashed var(--uvy-border-emphasis);
@@ -1568,7 +1648,6 @@ td.num {
   font-size: var(--uvy-text-md);
 }
 
-/* Loading */
 .uvy-spinner {
   display: inline-block;
   width: 1rem;
@@ -1590,19 +1669,18 @@ td.num {
   transition: opacity var(--uvy-duration) var(--uvy-ease);
 }
 
-/* Dialog */
 dialog {
   width: min(36rem, calc(100% - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 0;
-  border: 1px solid var(--uvy-border);
+  border: 1px solid var(--uvy-border-emphasis);
   border-radius: var(--uvy-radius-overlay);
   background: var(--uvy-surface);
   color: var(--uvy-text);
   box-shadow: var(--uvy-shadow-overlay);
 }
 dialog::backdrop {
-  background: rgb(10 12 15 / 0.45);
+  background: rgb(6 9 17 / 0.55);
 }
 .uvy-dialog__header,
 .uvy-dialog__body,
@@ -1622,9 +1700,6 @@ dialog::backdrop {
   font-size: var(--uvy-text-md);
   letter-spacing: 0;
 }
-.uvy-dialog__header .icon-button {
-  margin-right: calc(-1 * var(--uvy-space-2));
-}
 .uvy-dialog__body > :last-child {
   margin-bottom: 0;
 }
@@ -1639,7 +1714,6 @@ dialog::backdrop {
 
 /* 11. Page patterns ------------------------------------------------------- */
 
-/* Page header: what this page is, then its page-level actions. */
 .uvy-page-header {
   display: flex;
   flex-wrap: wrap;
@@ -1647,10 +1721,12 @@ dialog::backdrop {
   justify-content: space-between;
   gap: var(--uvy-space-4) var(--uvy-space-6);
   margin-bottom: var(--uvy-space-6);
+  padding-bottom: var(--uvy-space-5);
+  border-bottom: 1px solid var(--uvy-border);
 }
 .uvy-page-header > div {
   min-width: 0;
-  flex: 1 1 32rem;
+  flex: 1 1 30rem;
 }
 .uvy-page-header h1 {
   margin-bottom: var(--uvy-space-2);
@@ -1662,23 +1738,9 @@ dialog::backdrop {
   margin-top: var(--uvy-space-2);
 }
 
-/* Section heading row with a related action */
-.uvy-section-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--uvy-space-2) var(--uvy-space-4);
-  margin: var(--uvy-space-7) 0 var(--uvy-space-3);
-}
-.uvy-section-header h2 {
-  margin: 0;
-}
-
-/* Landing hero: reserved for a project landing page. */
 .hero {
-  max-width: 46rem;
-  padding-block: var(--uvy-space-7) var(--uvy-space-7);
+  max-width: 48rem;
+  padding-block: var(--uvy-space-7);
 }
 .hero h1 {
   margin-bottom: var(--uvy-space-4);
@@ -1690,7 +1752,6 @@ dialog::backdrop {
   margin-bottom: var(--uvy-space-5);
 }
 
-/* Capability list: concrete things the product does, divided by rules. */
 .uvy-features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
@@ -1716,7 +1777,7 @@ dialog::backdrop {
   font-size: var(--uvy-text-sm);
 }
 
-/* Index list: a directory of destinations with one-line descriptions. */
+/* Directory index list */
 .uvy-index {
   margin: 0 0 var(--uvy-space-6);
   padding: 0;
@@ -1743,7 +1804,7 @@ dialog::backdrop {
   background: var(--uvy-hover);
 }
 .uvy-index strong {
-  font-weight: 500;
+  font-weight: 600;
 }
 .uvy-index a:hover strong {
   color: var(--uvy-link);
@@ -1751,10 +1812,19 @@ dialog::backdrop {
 .uvy-index span {
   color: var(--uvy-text-muted);
   font-size: var(--uvy-text-sm);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
-/* Responsive behavior ------------------------------------------------------ */
+.uvy-source-note {
+  margin-top: var(--uvy-space-7);
+  padding-top: var(--uvy-space-4);
+  border-top: 1px solid var(--uvy-border);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+  color: var(--uvy-text-muted);
+}
+
+/* 12. Responsive, touch & reduced motion ---------------------------------- */
 
 @media (max-width: 48rem) {
   .header-inner {
@@ -1777,19 +1847,10 @@ dialog::backdrop {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
-  body:has(> main > .sidebar) {
-    height: auto;
-  }
-  main.layout {
-    overflow: visible;
-  }
-  .workspace {
-    overflow: visible;
-    scrollbar-gutter: auto;
-  }
   .sidebar {
+    position: static;
     max-height: 24rem;
-    padding-right: 0;
+    padding: var(--uvy-space-4) 0;
     border-right: 0;
     border-bottom: 1px solid var(--uvy-border);
   }
@@ -1825,15 +1886,22 @@ dialog::backdrop {
     padding: var(--uvy-space-4);
   }
   .uvy-panel__header {
-    margin: calc(-1 * var(--uvy-space-4)) calc(-1 * var(--uvy-space-4)) var(--uvy-space-4);
+    margin: calc(-1 * var(--uvy-space-4)) calc(-1 * var(--uvy-space-4))
+      var(--uvy-space-4);
     padding-inline: var(--uvy-space-4);
   }
   .uvy-panel__footer {
-    margin: var(--uvy-space-4) calc(-1 * var(--uvy-space-4)) calc(-1 * var(--uvy-space-4));
+    margin: var(--uvy-space-4) calc(-1 * var(--uvy-space-4))
+      calc(-1 * var(--uvy-space-4));
     padding-inline: var(--uvy-space-4);
   }
   .uvy-panel > .table-wrap {
+    width: calc(100% + 2 * var(--uvy-space-4));
+    max-width: calc(100% + 2 * var(--uvy-space-4));
     margin-inline: calc(-1 * var(--uvy-space-4));
+  }
+  .uvy-panel > .table-wrap:first-child {
+    margin-top: calc(-1 * var(--uvy-space-4));
   }
   .uvy-panel > .table-wrap:last-child,
   .uvy-panel > .table-wrap:has(+ .uvy-empty[hidden]:last-child) {
@@ -1861,6 +1929,8 @@ dialog::backdrop {
     padding: 0 0 var(--uvy-space-3);
   }
   .uvy-panel > .table-wrap:has(.record-table) {
+    width: 100%;
+    max-width: 100%;
     margin-inline: 0;
   }
   .uvy-panel > .table-wrap:has(.record-table):last-child {
@@ -1891,6 +1961,13 @@ dialog::backdrop {
   .uvy-index a {
     grid-template-columns: minmax(0, 1fr);
   }
+  .type-preview > span {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--uvy-space-1);
+  }
+  .type-preview > span > * {
+    overflow-wrap: anywhere;
+  }
   .uvy-toolbar .uvy-field {
     max-width: none;
   }
@@ -1899,7 +1976,7 @@ dialog::backdrop {
     flex-basis: 100%;
   }
 
-  /* Record table → labeled records */
+  /* Record table -> labeled mobile cards */
   .record-table,
   .record-table tbody {
     display: block;
@@ -1966,6 +2043,39 @@ dialog::backdrop {
     font-size: var(--uvy-text-xs);
     font-weight: 400;
   }
+  .palette-table,
+  .palette-table tbody {
+    display: block;
+  }
+  .palette-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .palette-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-block: var(--uvy-space-3);
+    border-bottom: 1px solid var(--uvy-border);
+  }
+  .palette-table td {
+    display: block;
+    padding: var(--uvy-space-1) var(--uvy-space-2);
+    border: 0;
+    white-space: normal;
+  }
+  .palette-table td:first-child {
+    grid-column: 1 / -1;
+    font-weight: 500;
+  }
+  .palette-label {
+    display: block;
+    margin-bottom: var(--uvy-space-1);
+    color: var(--uvy-text-muted);
+    font-size: var(--uvy-text-xs);
+  }
 }
 @media (pointer: coarse) {
   button,
@@ -2012,148 +2122,55 @@ dialog::backdrop {
     color: #000;
   }
 }
-
-/* 12. Guide presentation (this site only; not an application pattern) ---- */
-
-.guide-note {
-  margin-top: var(--uvy-space-7);
-  padding-top: var(--uvy-space-4);
-  border-top: 1px solid var(--uvy-border);
-  font-size: var(--uvy-text-sm);
-}
-.article h2 {
-  padding-top: var(--uvy-space-2);
-}
-.article > table,
-.article .table-wrap {
-  margin-bottom: var(--uvy-space-5);
-}
-.color-swatch {
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: var(--uvy-space-2);
-  border-radius: var(--uvy-radius-tag);
-  box-shadow: inset 0 0 0 1px rgb(127 127 127 / 0.35);
-  vertical-align: -0.3125rem;
-}
-.palette-table .color-swatch + code {
-  white-space: nowrap;
-}
-.palette-table td:has(.color-swatch) {
-  white-space: nowrap;
-}
-.palette-label {
-  display: none;
-}
-.type-preview,
-.icon-preview,
-.spacing-preview {
-  margin-block: var(--uvy-space-5);
-  padding: var(--uvy-space-5);
-  border: 1px solid var(--uvy-border);
-  border-radius: var(--uvy-radius-panel);
-  background: var(--uvy-surface);
-}
-.type-preview {
-  display: grid;
-  gap: var(--uvy-space-3);
-}
-.type-preview > span {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--uvy-space-4);
-  line-height: 1.25;
-}
-.type-preview > span > small {
-  color: var(--uvy-text-faint);
-  font-family: var(--uvy-font-mono);
-  font-size: var(--uvy-text-xs);
-  font-weight: 400;
-  letter-spacing: 0;
-}
-.spacing-preview {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: var(--uvy-space-5);
-}
-.spacing-preview > div {
-  display: grid;
-  gap: var(--uvy-space-2);
-  justify-items: start;
-  color: var(--uvy-text-muted);
-  font-family: var(--uvy-font-mono);
-  font-size: var(--uvy-text-xs);
-}
-.spacing-preview i {
-  display: block;
-  height: var(--uvy-space-4);
-  border-radius: 1px;
-  background: var(--uvy-accent);
-}
-.icon-preview {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--uvy-space-6);
-  color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
-}
-.icon-preview .icon {
-  color: var(--uvy-text);
-}
-.theme-reset {
-  min-height: 2rem;
-  font-size: var(--uvy-text-xs);
-}
-@media (max-width: 48rem) {
-  .palette-table,
-  .palette-table tbody {
-    display: block;
-  }
-  .palette-table thead {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-  .palette-table tbody tr {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-block: var(--uvy-space-3);
-    border-bottom: 1px solid var(--uvy-border);
-  }
-  .palette-table td {
-    display: block;
-    padding: var(--uvy-space-1) var(--uvy-space-2);
-    border: 0;
-    white-space: normal;
-  }
-  .palette-table td:first-child {
-    grid-column: 1 / -1;
-    font-weight: 500;
-  }
-  .palette-label {
-    display: block;
-    margin-bottom: var(--uvy-space-1);
-    color: var(--uvy-text-muted);
-    font-size: var(--uvy-text-xs);
-  }
-}
 </style>
     <script data-uvy-shell>
-// Apply the saved preference before content is painted. CSS handles the OS default.
+// Apply the saved theme preference before first paint. CSS handles the OS default.
 (function () {
   const root = document.documentElement;
   root.classList.add("js");
-  try {
-    const saved =
-      root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
-    if (saved === "light" || saved === "dark") root.dataset.theme = saved;
-  } catch (_) {}
+  const COOKIE = "uvy-theme";
+
+  function readCookie() {
+    try {
+      const m = document.cookie.match(/(?:^|; )uvy-theme=([^;]*)/);
+      const val = m ? decodeURIComponent(m[1]) : null;
+      return val === "light" || val === "dark" ? val : null;
+    } catch (_) {
+      return null;
+    }
+  }
+  function readSaved() {
+    const fromCookie = readCookie();
+    if (fromCookie) return fromCookie;
+    try {
+      const val = localStorage.getItem(COOKIE);
+      return val === "light" || val === "dark" ? val : null;
+    } catch (_) {
+      return null;
+    }
+  }
+  function writeSaved(value) {
+    try {
+      document.cookie =
+        COOKIE +
+        "=" +
+        encodeURIComponent(value) +
+        "; path=/; max-age=31536000; SameSite=Lax";
+    } catch (_) {}
+    try {
+      localStorage.setItem(COOKIE, value);
+    } catch (_) {}
+  }
+
+  // Forced-theme specimens (light.html / dark.html) stay locked without overwriting the cookie.
+  const forced = root.dataset.exampleTheme;
+  if (forced === "light" || forced === "dark") {
+    root.dataset.theme = forced;
+  } else {
+    const saved = readSaved();
+    if (saved) root.dataset.theme = saved;
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-enable-with-js]").forEach((control) => {
       control.disabled = false;
@@ -2161,9 +2178,9 @@ dialog::backdrop {
     document.querySelectorAll("[data-requires-js]").forEach((control) => {
       control.hidden = false;
     });
+
     const system = matchMedia("(prefers-color-scheme: dark)");
     const theme = document.getElementById("theme");
-    const reset = document.getElementById("theme-reset");
     function updateTheme() {
       const dark = root.dataset.theme
         ? root.dataset.theme === "dark"
@@ -2175,16 +2192,6 @@ dialog::backdrop {
       theme.title = theme.getAttribute("aria-label");
       theme.querySelector("[data-icon=moon]").toggleAttribute("hidden", dark);
       theme.querySelector("[data-icon=sun]").toggleAttribute("hidden", !dark);
-      if (reset) reset.hidden = !root.dataset.theme;
-    }
-    function chooseTheme(value) {
-      if (value) root.dataset.theme = value;
-      else delete root.dataset.theme;
-      try {
-        if (value) localStorage.setItem("uvy-theme", value);
-        else localStorage.removeItem("uvy-theme");
-      } catch (_) {}
-      updateTheme();
     }
     if (theme) {
       theme.hidden = false;
@@ -2193,22 +2200,16 @@ dialog::backdrop {
         const dark = root.dataset.theme
           ? root.dataset.theme === "dark"
           : system.matches;
-        chooseTheme(dark ? "light" : "dark");
+        const next = dark ? "light" : "dark";
+        root.dataset.theme = next;
+        if (!forced) writeSaved(next);
+        updateTheme();
       });
-      if (reset) {
-        reset.addEventListener("click", function () {
-          chooseTheme(null);
-          if (sidebar && sidebar.hasAttribute("data-open"))
-            setOpen(false, false);
-          theme.focus();
-        });
-      }
       system.addEventListener("change", updateTheme);
       window.addEventListener("storage", function (event) {
-        if (event.key === "uvy-theme") {
+        if (!forced && event.key === COOKIE) {
           if (event.newValue === "light" || event.newValue === "dark")
             root.dataset.theme = event.newValue;
-          else delete root.dataset.theme;
           updateTheme();
         }
       });
@@ -2465,12 +2466,22 @@ SOFTWARE.
   <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
   <path d="M11 13l9 -9" />
   <path d="M15 4h5v5" />
-</symbol></svg><div class="header-identity"><a class="brand" href="../examples/index.html"><svg class="uvy-mark" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"><rect class="uvy-mark__tile" width="24" height="24" rx="5"/><circle class="uvy-mark__origin" cx="7.5" cy="16.5" r="1.75"/><path class="uvy-mark__vector" d="M9.5 14.5L16.5 7.5M11.5 7.5H16.5V12.5"/></svg><span>Design examples</span></a></div><nav aria-label="Main navigation"><a href="../README.md">Guide</a><a href="../examples/index.html" aria-current="page">Examples</a><button id="theme-reset" class="uvy-button--quiet uvy-button--small theme-reset" type="button" hidden>Use system theme</button></nav><button id="theme" class="icon-button" type="button" aria-label="Switch color theme" hidden><svg class="icon" aria-hidden="true" data-icon="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-moon"></use></svg><svg class="icon" aria-hidden="true" data-icon="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-sun"></use></svg></button></div></header>
+</symbol><symbol id="tabler-shield-check" viewBox="0 0 24 24">
+  <path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" />
+  <path d="M15 19l2 2l4 -4" />
+</symbol><symbol id="tabler-terminal-2" viewBox="0 0 24 24">
+  <path d="M8 9l3 3l-3 3" />
+  <path d="M13 15l3 0" />
+  <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+</symbol><symbol id="tabler-key" viewBox="0 0 24 24">
+  <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" />
+  <path d="M15 9h.01" />
+</symbol></svg><div class="header-identity"><a class="brand" href="../examples/index.html"><svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 28 28"><rect class="uvy-mark__tile" width="28" height="28" rx="5"/><path class="uvy-mark__glyph" d="M9.2 9.4L14.2 5.2L19.2 9.4M15.4 12.6V19.2C15.4 21.6 13.9 23 11.4 23C10.1 23 9.2 22.6 8.6 21.9"/></svg><span>UVY Examples</span></a></div><nav aria-label="Main navigation"><a href="../README.md">Guide</a><a href="../examples/index.html" aria-current="page">Examples</a></nav><button id="theme" class="icon-button" type="button" aria-label="Switch color theme" hidden><svg class="icon" aria-hidden="true" data-icon="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-moon"></use></svg><svg class="icon" aria-hidden="true" data-icon="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-sun"></use></svg></button></div></header>
     <main class="page" id="main">
       <nav class="uvy-breadcrumbs" aria-label="Breadcrumb">
         <ol>
-          <li><a href="index.html">Examples</a></li>
-          <li><a href="table-records.html">Catalog</a></li>
+          <li><a href="index.html">examples</a></li>
+          <li><a href="table-records.html">catalog</a></li>
           <li aria-current="page">identity.example.com</li>
         </ol>
       </nav>

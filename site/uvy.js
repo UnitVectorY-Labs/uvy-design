@@ -1,12 +1,50 @@
-// Apply the saved preference before content is painted. CSS handles the OS default.
+// Apply the saved theme preference before first paint. CSS handles the OS default.
 (function () {
   const root = document.documentElement;
   root.classList.add("js");
-  try {
-    const saved =
-      root.dataset.exampleTheme || localStorage.getItem("uvy-theme");
-    if (saved === "light" || saved === "dark") root.dataset.theme = saved;
-  } catch (_) {}
+  const COOKIE = "uvy-theme";
+
+  function readCookie() {
+    try {
+      const m = document.cookie.match(/(?:^|; )uvy-theme=([^;]*)/);
+      const val = m ? decodeURIComponent(m[1]) : null;
+      return val === "light" || val === "dark" ? val : null;
+    } catch (_) {
+      return null;
+    }
+  }
+  function readSaved() {
+    const fromCookie = readCookie();
+    if (fromCookie) return fromCookie;
+    try {
+      const val = localStorage.getItem(COOKIE);
+      return val === "light" || val === "dark" ? val : null;
+    } catch (_) {
+      return null;
+    }
+  }
+  function writeSaved(value) {
+    try {
+      document.cookie =
+        COOKIE +
+        "=" +
+        encodeURIComponent(value) +
+        "; path=/; max-age=31536000; SameSite=Lax";
+    } catch (_) {}
+    try {
+      localStorage.setItem(COOKIE, value);
+    } catch (_) {}
+  }
+
+  // Forced-theme specimens (light.html / dark.html) stay locked without overwriting the cookie.
+  const forced = root.dataset.exampleTheme;
+  if (forced === "light" || forced === "dark") {
+    root.dataset.theme = forced;
+  } else {
+    const saved = readSaved();
+    if (saved) root.dataset.theme = saved;
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll("[data-enable-with-js]").forEach((control) => {
       control.disabled = false;
@@ -14,9 +52,9 @@
     document.querySelectorAll("[data-requires-js]").forEach((control) => {
       control.hidden = false;
     });
+
     const system = matchMedia("(prefers-color-scheme: dark)");
     const theme = document.getElementById("theme");
-    const reset = document.getElementById("theme-reset");
     function updateTheme() {
       const dark = root.dataset.theme
         ? root.dataset.theme === "dark"
@@ -28,16 +66,6 @@
       theme.title = theme.getAttribute("aria-label");
       theme.querySelector("[data-icon=moon]").toggleAttribute("hidden", dark);
       theme.querySelector("[data-icon=sun]").toggleAttribute("hidden", !dark);
-      if (reset) reset.hidden = !root.dataset.theme;
-    }
-    function chooseTheme(value) {
-      if (value) root.dataset.theme = value;
-      else delete root.dataset.theme;
-      try {
-        if (value) localStorage.setItem("uvy-theme", value);
-        else localStorage.removeItem("uvy-theme");
-      } catch (_) {}
-      updateTheme();
     }
     if (theme) {
       theme.hidden = false;
@@ -46,22 +74,16 @@
         const dark = root.dataset.theme
           ? root.dataset.theme === "dark"
           : system.matches;
-        chooseTheme(dark ? "light" : "dark");
+        const next = dark ? "light" : "dark";
+        root.dataset.theme = next;
+        if (!forced) writeSaved(next);
+        updateTheme();
       });
-      if (reset) {
-        reset.addEventListener("click", function () {
-          chooseTheme(null);
-          if (sidebar && sidebar.hasAttribute("data-open"))
-            setOpen(false, false);
-          theme.focus();
-        });
-      }
       system.addEventListener("change", updateTheme);
       window.addEventListener("storage", function (event) {
-        if (event.key === "uvy-theme") {
+        if (!forced && event.key === COOKIE) {
           if (event.newValue === "light" || event.newValue === "dark")
             root.dataset.theme = event.newValue;
-          else delete root.dataset.theme;
           updateTheme();
         }
       });

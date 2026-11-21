@@ -1,34 +1,41 @@
 # Themes and navigation
 
-## Light and dark themes
+## Cookie-persisted light and dark themes
 
-Follow the operating system preference initially via `color-scheme: light dark` and `light-dark()` tokens, and react immediately to OS changes while no user override is set.
+Follow the operating system theme initially via `color-scheme: light dark` and `light-dark()`. When the user clicks the header sun/moon button, switch immediately and remember the choice across every page on the site:
 
-- Store explicit choices in `localStorage` under the shared key `uvy-theme` (`"light"` or `"dark"`) and mirror them onto `<html data-theme="light|dark">`.
-- Run the small theme bootstrap script synchronously in `<head>` so saved choices apply before first paint without a flash of the wrong theme.
-- The header sun/moon button switches directly to the opposite theme; “Use system theme” deletes `data-theme` and removes `uvy-theme`.
-- Keep all pages readable and navigable when JavaScript or `localStorage` is unavailable; hide JS-only controls with `hidden` until enhanced.
-- Listen to `window`'s `storage` event so open tabs on the same origin stay synchronized.
+- Save the choice in a first-party cookie: `uvy-theme=light|dark; path=/; max-age=31536000; SameSite=Lax` (mirroring to `localStorage` as a fallback when opening standalone HTML files over `file://`).
+- Apply the saved cookie synchronously in `<head>` via `site/uvy.js` before first paint so pages never flash the wrong theme.
+- Keep the control simple: one direct sun/moon toggle in the header. Do not add a “Use system theme” reset button or multi-option dropdown.
+- The isolated [light](../examples/light.html) and [dark](../examples/dark.html) specimen pages set `data-example-theme="light|dark"` on `<html>` to force their respective modes without overwriting the user's `uvy-theme` cookie.
+- All content and links remain usable when JavaScript, cookies or storage are unavailable; hide `#theme` until enhanced.
 
-The isolated [light](../examples/light.html) and [dark](../examples/dark.html) examples lock their initial mode with `data-example-theme` so side-by-side comparison stays predictable.
+## Two navigation & search models
 
-## Guide and example separation
+Applications across Unit Vector Y Labs use two primary navigation patterns — choose the one that fits the site's information architecture:
 
-Keep documentation chapters and full-page examples in separate destinations. A documentation sidebar lists chapters in one stable conceptual order without mixing local anchors, examples or unnecessary search boxes into a short menu.
+### 1. Persistent sticky sidebar + search
 
-## Application sidebars and drawers
+Best for multi-chapter documentation, large domain catalogs and entity trees (`dns-caa-catalog`, `jwks-catalog`, this design guide):
 
-Use a persistent `15rem` left sidebar on desktop separated by a `1px` vertical border. Inside the sidebar:
+- A `15.5rem` sticky left sidebar (`position: sticky; top: 0; max-height: 100dvh; overflow-y: auto`) beside a naturally scrolling main column — never trap the whole viewport in `height: 100dvh; overflow: hidden`, which clips content above the footer.
+- Keep search inputs sticky inside `.sidebar-tools` for long lists; omit search on short menus.
+- Mark the current destination with `aria-current="page"` (or `"location"`), `--uvy-hover` fill and a bold `3px` `--uvy-accent` left bar.
+- At `768px` or narrower, convert the sidebar into an accessible left drawer (`max-width: 18rem`) with close button, `Escape` and backdrop dismissal, Tab focus trapping, `inert` background and focus restoration. Without JavaScript, the sidebar renders inline above content.
 
-- Keep section search or domain filters sticky above an independently scrolling link list; omit filters when a sidebar has fewer than ~12 links.
-- Mark the active destination with `aria-current="page"` (or `"location"` for in-page sections), `--uvy-hover` fill, `--uvy-text` ink and a `2px` `--uvy-accent` left bar — the vertical counterpart of the header's 2px bottom bar.
-- At `768px` or narrower, collapse the sidebar into a left slide-over drawer (`max-width: 18rem`, leaving a visible tappable backdrop). Provide an explicit close button; dismiss on `Escape`, backdrop click, link activation or resize back to desktop. Set `role="dialog"`, `aria-modal="true"`, trap keyboard Tab focus, mark background landmarks `inert`, lock body scroll and restore focus to the menu button on close.
-- Without JavaScript, render the sidebar inline above the content so every link remains reachable.
+See [sidebar navigation & search](../examples/navigation.html).
+
+### 2. Top-bar navigation + inline search (no sidebar)
+
+Best for single-workspace observatories, repository dashboards, lookup tools and wide tables (`unreleasedcommits`, `cert-observatory`, `ghadashboard`, `ghscanscope`):
+
+- Omit the sidebar completely and optionally use `.page--wide` (with `.site-header--wide` and `.site-footer--wide`) so tables and boards can breathe across wide monitors.
+- Put top-level destinations in the header nav (with the `3px` orange bottom rule) and place search, category tabs and filters directly above the results in a `.uvy-toolbar`.
+
+See [top-bar navigation & search](../examples/topbar.html).
 
 ## Breadcrumbs, tabs and pagination
 
-- **Breadcrumbs** (`.uvy-breadcrumbs`): Use on nested entity detail pages, metadata browsers and documentation hierarchies (`Catalog / Service / Key`). Separate items with a quiet `/` and mark the final item `aria-current="page"`.
-- **Tabs** (`.uvy-tabs`): Use `role="tablist"` and `role="tab"` to switch between closely related views of the same entity (for example, formatted claims vs. raw JSON payload). The selected tab (`aria-selected="true"`) carries the same `2px` `--uvy-accent` bottom rule as header navigation. Support `ArrowLeft`, `ArrowRight`, `Home` and `End` keys. Never hide primary content behind tabs purely to shorten a page.
-- **Pagination** (`.uvy-pagination`): Show the current visible range in tabular numerals on the left and quiet Previous / Next links or buttons on the right.
-
-See [header, sidebar and tabs](../examples/navigation.html), [detail panels](../examples/panels.html) and [static article](../examples/documentation.html).
+- **Breadcrumbs** (`.uvy-breadcrumbs`): Monospace path segments separated by `/` (`guide / color` or `examples / catalog / identity.example.com`) with `aria-current="page"` on the current item.
+- **Tabs** (`.uvy-tabs`): `role="tablist"` with the same `3px` `--uvy-accent` bottom rule on `aria-selected="true"`, supporting `ArrowLeft`, `ArrowRight`, `Home` and `End`.
+- **Pagination** (`.uvy-pagination`): Tabular visible range on the left and compact Previous / Next controls on the right.

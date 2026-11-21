@@ -1,10 +1,10 @@
 # Icons
 
-Use [Tabler Icons](https://tabler.io/icons) in the outline style. Inline an SVG sprite or serve local SVG files; no icon font or external CDN is required. Keep Tabler's MIT license comment inside the sprite source rather than adding attribution to the application footer.
+Use **[Tabler Icons](https://tabler.io/icons)** in the outline style. **Any outline icon from the full Tabler Icons library is allowed** — the compact sprite in `site/icons.inc` is only a starter subset for this guide. Copy only the Tabler SVG symbols an application actually uses and keep Tabler's MIT license comment alongside the SVG source rather than in the application footer.
 
 ## Sizing and stroke
 
-Preserve the original `24 × 24` viewBox, `stroke-width="2"`, `stroke-linecap="round"`, `stroke-linejoin="round"`, `fill="none"` and `stroke="currentColor"`.
+Preserve Tabler's original `24 × 24` viewBox, `stroke-width="2"`, `stroke-linecap="round"`, `stroke-linejoin="round"`, `fill="none"` and `stroke="currentColor"`.
 
 | Size | Class | Context |
 | --- | --- | --- |
@@ -12,27 +12,32 @@ Preserve the original `24 × 24` viewBox, `stroke-width="2"`, `stroke-linecap="r
 | `20px` (`1.25rem`) | `.icon` | Default interface icons: header controls, buttons, alerts |
 | `24px` (`1.5rem`) | `.icon-large` | Sparse standalone section or empty-state symbol |
 
-<div class="icon-preview"><span class="with-icon"><svg class="icon icon-small" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 16px</span><span class="with-icon"><svg class="icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 20px</span><span class="with-icon"><svg class="icon icon-large" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 24px</span></div>
+<div class="uvy-specimen icon-preview"><span class="with-icon"><svg class="icon icon-small" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 16px</span><span class="with-icon"><svg class="icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 20px</span><span class="with-icon"><svg class="icon icon-large" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-file-text"></use></svg> 24px</span></div>
 
-Keep the icon's rendered size separate from its clickable target: icon buttons remain `36px` square (`44px` on coarse pointers) regardless of whether the inner glyph is 16px or 20px.
+Keep an icon's visual size separate from its button hit area: icon-only buttons stay `36px` square (`44px` on coarse pointers).
 
-## Color and restraint
+## Using icons in different colors
 
-Keep icons neutral by default so signal orange remains meaningful:
+Icons inherit `currentColor` by default so they follow surrounding text automatically. When an icon communicates meaning — status, emphasis or category — pair it with one of the semantic color classes in `site/uvy.css` (all calibrated for ≥ 3:1 contrast in both light and dark modes):
 
-- **Header and chrome controls** (theme toggle, menu trigger, close button): `--uvy-text-muted`, transitioning to `--uvy-text` on `--uvy-hover`.
-- **Primary buttons**: inherit `--uvy-on-accent` (`#1A1E23`).
-- **Secondary and quiet buttons**: inherit button text color.
-- **Status alerts and copy confirmation**: inherit the matching semantic token (`--uvy-ok`, `--uvy-warn`, `--uvy-danger`, `--uvy-info`).
-- **Provider marks and badges**: preserve meaningful third-party provider logos and repository status badges rather than replacing them with generic outline icons.
+| Class | Token | When to use |
+| --- | --- | --- |
+| *(default)* | `currentColor` (`--uvy-text`) | Standard buttons, navigation links, primary actions (dark ink on orange) |
+| `.icon-muted` | `--uvy-text-muted` | Quiet chrome (theme toggle, menu button), metadata, secondary hints |
+| `.icon-accent` | `--uvy-accent` | Highlighted terminal cues, active feature callouts, selected indicators |
+| `.icon-ok` | `--uvy-ok` | Passed checks, verified signatures, copy confirmation |
+| `.icon-warn` | `--uvy-warn` | Expiring certificates, degraded services, cautions |
+| `.icon-danger` | `--uvy-danger` | Failed checks, invalid fields, critical alerts |
+| `.icon-info` | `--uvy-info` | Running jobs, informational notices, scheduled metadata |
 
-Essential icons need at least **3:1** contrast against their adjacent background.
+<div class="uvy-specimen icon-preview"><span class="with-icon"><svg class="icon" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-terminal-2"></use></svg> Default</span><span class="with-icon"><svg class="icon icon-muted" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-search"></use></svg> Muted</span><span class="with-icon"><svg class="icon icon-accent" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-key"></use></svg> Accent</span><span class="with-icon"><svg class="icon icon-ok" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-shield-check"></use></svg> Ok</span><span class="with-icon"><svg class="icon icon-warn" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-alert-triangle"></use></svg> Warn</span><span class="with-icon"><svg class="icon icon-danger" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-alert-circle"></use></svg> Danger</span><span class="with-icon"><svg class="icon icon-info" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-info-circle"></use></svg> Info</span></div>
+
+Preserve third-party provider logos and repository status badges rather than replacing them with generic icons.
 
 ## Accessibility
 
-- Use `<button>` for actions and `<a href>` for navigation.
-- Icon-only buttons require an action-specific `aria-label` and matching `title` (for example, “Switch to dark theme” or “Copy endpoint URL”).
-- Mark decorative icons and icons paired with visible text `aria-hidden="true"`.
-- Never rely on an icon alone to convey an error, status or unfamiliar action.
+- Use `<button>` for actions and `<a href>` for destinations.
+- Icon-only buttons need an action-specific `aria-label` and matching `title` (such as “Switch to dark theme” or “Copy endpoint URL”).
+- Mark decorative icons and icons paired with visible text `aria-hidden="true"`. Never rely on an icon or color alone to explain an error or status.
 
-See [icons](../examples/icons.html) and [header controls](../examples/navigation.html).
+See the [icons example](../examples/icons.html) for interactive colored icon scenarios.

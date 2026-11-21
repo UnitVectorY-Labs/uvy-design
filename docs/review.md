@@ -1,29 +1,27 @@
 # Review
 
-Review every adapted application in **light and dark modes** at **1280px**, **375px** and **320px**, plus **200% zoom**. Compare against the original application to verify its purpose, data semantics and workflows remain intact.
+Review every adapted application in **light and dark modes** at **1280px**, **375px** and **320px**, plus **200% zoom**. Compare against the original application to confirm its purpose, data semantics and workflows remain intact.
 
-## Visual restraint and craft
+## Visual craft and restraint
 
-- Cool graphite surfaces (`#F6F7F8` / `#121418` canvas, `#FFFFFF` / `#1A1D22` surface), no warm-cream tint, no decorative gradients, and shadows limited strictly to dialogs and drawers.
-- Signal orange appears only on primary actions, keyboard focus, prose links (accessible `--uvy-link`) and the 2px active indicator in header nav, sidebar and tabs. Icons, headings and footers stay neutral.
-- No nested panels inside panels, no uniform SaaS card grids where a table or index list fits better, no ALL-CAPS labels or decorative eyebrows, and no arrow glyphs appended to buttons.
-- IBM Plex Sans renders for UI/prose and IBM Plex Mono appears only for actual technical identifiers, timestamps and code. Tables and stat strips use `tabular-nums` with right-aligned numbers.
-- Copy uses sentence case, active verbs, and direct non-apologetic error and empty states.
+- Light mode uses crisp cool surfaces (`#F5F7FA` / `#FFFFFF`); dark mode uses deep midnight blue-slate (`#090D16` / `#111827`) paired with bright signal orange (`#F25C05` / `#FF7A1A`).
+- `3px` signal-orange rules appear consistently on active header nav links, active sidebar links, active tabs, blockquotes, alerts and `.uvy-output` wells. No decorative gradients or ambient card shadows.
+- Universally supported `system-ui` sans handles prose and forms; fixed-width `ui-monospace` handles the header brand, breadcrumbs, table headers, stat figures, badges, status pills, counts, timestamps and code/output wells.
+- No nested `.uvy-panel` boxes, no uniform SaaS card grids where a hairline directory or table fits better, no ALL-CAPS eyebrows and no trailing arrows on buttons.
+- Copy uses sentence case, active verbs and direct, non-apologetic error and empty states.
 
-## Shell, navigation and themes
+## Shell, cookie themes and footer
 
-- Header height is `56px` desktop, with product identity left, full-height nav links with 2px active bar, and borderless theme toggle flush right on the first row at every width.
-- Theme toggle switches immediately between light and dark, persists to `localStorage["uvy-theme"]`, updates its `aria-label` and `title` to the next action, syncs across tabs, and falls back gracefully when storage or JavaScript is unavailable. “Use system theme” clears the override.
-- Mobile drawer (`≤ 768px`) opens from the header menu button, traps focus, sets `aria-modal="true"` and background `inert`, closes via close button, Escape, backdrop click, link activation or resize to desktop, and restores focus cleanly.
-- Centered footer shows `UnitVectorY-Labs | actual license | named GitHub repository link(s)` in quiet muted text, with optional monospace version line omitted completely from HTML when disabled.
+- Header is `60px` desktop with the orange physics j-hat mark + `18px` monospace title left, full-height nav links with `3px` orange active bar, and a single borderless sun/moon toggle flush right on row 1 at every width. No “Use system theme” clutter button.
+- Clicking the theme toggle switches immediately and persists via the `uvy-theme` cookie across pages (while forced specimen pages like `light.html` / `dark.html` keep their mode without overwriting the cookie). Content and navigation stay usable without JavaScript or cookies.
+- Sticky sidebar layouts scroll naturally with the page and convert to an accessible focus-trapped mobile drawer below `768px`. Top-bar layouts without a sidebar keep search and filters clear in `.uvy-toolbar`.
+- Footer has generous `32px` vertical padding on `--uvy-surface`, well-spaced `|` separators, calm muted links, monospace bold repository name(s), and omits the optional `.version` line completely from HTML when disabled.
 
 ## Contrast, data and accessibility
 
-- Normal text meets **4.5:1** contrast on every surface, including tinted lifecycle rows, status pills, alerts and quantitative spectrum cells. Input borders, focus rings, 2px active rules and essential icons meet **3:1**. Primary buttons use `#1A1E23` dark ink.
-- Status pills combine dot + explicit label; lifecycle states remain distinct from error/success verdicts; quantitative spectra keep direction, per-column normalization, units, legend and distinct unknown values.
-- Charts and diagrams use `--uvy-chart-1..6` and update cleanly when the theme switches.
-- Forms keep visible labels, `aria-describedby` hints/errors, `aria-invalid="true"` on failure, focus on first invalid field and `role="status"` / `role="alert"` announcements.
-- Comparison tables scroll inside keyboard-focusable `.table-wrap` regions; mobile record tables reflow cleanly with all values and links preserved.
-- Long identifiers and URLs wrap cleanly with zero page-level horizontal overflow at 320px and 200% zoom, and `prefers-reduced-motion: reduce` disables transitions and spinner rotation.
+- Normal text meets **4.5:1** contrast on every surface, including lifecycle rows, status pills, alerts and quantitative spectrum cells. Essential borders, focus rings, `3px` indicators and meaningful icons (including colored Tabler icons) meet **3:1**. Primary orange buttons use dark `--uvy-on-accent` ink.
+- Any Tabler outline icon used preserves its 24×24 viewBox, 2px stroke and accessible labeling (or `aria-hidden="true"` when paired with text).
+- Lifecycle tints remain distinct from operational health verdicts; quantitative spectra retain direction, per-column scaling, units, legend and distinct unknown values; charts read `--uvy-chart-1..6`.
+- Comparison tables scroll inside keyboard-focusable `.table-wrap` regions; mobile record tables reflow cleanly; zero horizontal page overflow occurs at 320px or 200% zoom; `prefers-reduced-motion: reduce` disables transitions and spinner rotation.
 
-Automated checks (`scripts/check_site.py`, `scripts/check_browser.py`) supplement hands-on visual inspection; always inspect rendered pages in both themes before shipping.
+Run `scripts/check_site.py` and `scripts/check_browser.py`, then inspect rendered screenshots in both light and dark modes before shipping.

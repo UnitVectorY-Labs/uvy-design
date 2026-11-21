@@ -20,11 +20,14 @@ EXAMPLES = [
     ('light', 'Light mode', 'Crisp cool light surfaces, dark ink, signal orange and controls.'),
     ('dark', 'Dark mode', 'Deep midnight blue-slate surfaces paired with bright signal orange.'),
     ('logo', 'Logo', 'Official isometric unit cube variants, theme-adaptive header mark and CSS avatar framing.'),
-    ('typography', 'Typography', 'System UI sans paired with fixed-width monospace instrumentation.'),
+    ('typography', 'Typography', 'Fixed-width monospace terminal headings and controls paired with system UI sans prose.'),
     ('icons', 'Icons', 'Any Tabler outline icon, size tiers, semantic color usage and copy actions.'),
     ('navigation', 'Sidebar navigation & search', 'Sticky left sidebar with search filter, mobile drawer, breadcrumbs and tabs.'),
     ('topbar', 'Top-bar navigation & search', 'No-sidebar wide layout with header links, inline search toolbar and category tabs.'),
-    ('footer', 'Footer', 'Generously spaced centered footer with repository links and optional version.'),
+    ('footer', 'Footer — Standard', 'Compact always-visible sticky footer with license and single repository link.'),
+    ('footer-repositories', 'Footer — Multiple repositories', 'Compact always-visible sticky footer citing multiple contributing repositories.'),
+    ('footer-updated', 'Footer — Last updated', 'Compact always-visible sticky footer with an ISO-8601 UTC Last updated line.'),
+    ('footer-version', 'Footer — Application version', 'Compact always-visible sticky footer with a server-configured build version line.'),
     ('components', 'Components', 'Buttons, status pills, badges, alerts, empty states and loading indicators.'),
     ('forms', 'Form', 'Labels, hints, inline validation, reset and status feedback.'),
     ('table', 'Comparison table', 'Toolbar filtering, compact density, pagination and local horizontal scroll.'),
@@ -59,7 +62,7 @@ def icon(name, mode='', cls='icon'):
     )
 
 
-def header(prefix='', identity='UVY Design', home='index.html', sidebar=True, current='guide', mark=True, wide=False):
+def header(prefix='', identity='UnitVectorY-Labs Design Guide', home='index.html', sidebar=True, current='guide', mark=True, wide=False):
     icons = (SITE / 'icons.inc').read_text().strip()
     menu = (
         f'<button id="menu" class="icon-button menu-button" type="button" '
@@ -108,14 +111,20 @@ def backdrop():
     return '<button id="menu-backdrop" class="menu-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>'
 
 
-def footer(prefix='', repositories=None, version=None, show_version=False, wide=False):
-    """The server/build decides whether to render an application version at all."""
+def footer(prefix='', repositories=None, updated=None, version=None, show_version=False, wide=False):
+    """The server/build decides whether to render an updated timestamp or application version."""
     repositories = repositories or [('uvy-design', 'https://github.com/UnitVectorY-Labs/uvy-design')]
     links = ' and '.join(
         f'<a href="{escape(url, quote=True)}"><strong>{escape(name)}</strong></a>'
         for name, url in repositories
     )
-    version_line = f'<p class="version">Version {escape(version)}</p>' if show_version and version else ''
+    meta_lines = []
+    if updated:
+        meta_lines.append(
+            f'<p class="footer-meta">Last updated: <time datetime="{escape(updated, quote=True)}">{escape(updated)}</time></p>'
+        )
+    if show_version and version:
+        meta_lines.append(f'<p class="version">Version {escape(version)}</p>')
     ftr_cls = 'site-footer site-footer--wide' if wide else 'site-footer'
     return (
         f'<footer class="{ftr_cls}"><div class="footer-inner">'
@@ -123,5 +132,5 @@ def footer(prefix='', repositories=None, version=None, show_version=False, wide=
         f'<span class="footer-sep" aria-hidden="true">|</span>'
         f'<a href="{prefix}LICENSE">MIT License</a>'
         f'<span class="footer-sep" aria-hidden="true">|</span>'
-        f'{links} on GitHub</p>{version_line}</div></footer>'
+        f'{links} on GitHub</p>{"".join(meta_lines)}</div></footer>'
     )

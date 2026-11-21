@@ -7,7 +7,7 @@ The official UnitVectorY-Labs mark is a geometric isometric unit cube constructe
 - **Dimensionality and origin.** The isometric unit cube anchors the brand in three-dimensional coordinate space—a quiet nod to the standard physics basis vectors (*î*, *ĵ*, *k̂*) behind the name *UnitVectorY-Labs*, without literal arrows or mathematical lettering.
 - **Negative-space Y.** Rather than printing a letterform, the **Y** is carved directly out of the uniform gap between the three faces. It ties the mark to *UnitVectorY* while keeping the silhouette crisp and legible down to `16px` favicon sizes.
 - **Signal orange cap.** The top face is rendered in signal orange (`#F25C05`), emphasizing the upward vertical axis and subtly echoing the unit-vector “hat” (*ĵ*) notation.
-- **Directional depth and softened vertices.** The two lower faces use two-tone UVY blue-slate values—lighter on the left, deeper on the right—to establish top-left lighting and physical volume without gradients or drop shadows. A same-color `stroke-linejoin="round"` subtly softens the 60° polygon vertices so the mark pairs naturally with rounded Tabler outline icons.
+- **Directional depth and softened vertices.** The two lower faces use two-tone UnitVectorY-Labs blue-slate values—lighter on the left, deeper on the right—to establish top-left lighting and physical volume without gradients or drop shadows. A same-color `stroke-linejoin="round"` subtly softens the 60° polygon vertices so the mark pairs naturally with rounded Tabler outline icons.
 - **Square canvas rule.** Every SVG asset ships on a strictly square `100×100` canvas with unrounded corners (no `rx` attribute). Framing such as rounded tiles or circular avatar masks is always applied via CSS (`border-radius`) in the consuming application or platform.
 
 ## Official asset variants
@@ -87,7 +87,7 @@ The avatar variants reduce the cube to **78%** of the `100×100` viewBox (`strok
 
 ## Color mapping
 
-Every face maps directly to calibrated UVY Design colors so the mark harmonizes with light and midnight blue-slate dark interfaces:
+Every face maps directly to calibrated UnitVectorY-Labs Design colors so the mark harmonizes with light and midnight blue-slate dark interfaces:
 
 | Face / surface | Light mode | Dark mode |
 | --- | --- | --- |
@@ -96,14 +96,14 @@ Every face maps directly to calibrated UVY Design colors so the mark harmonizes 
 | Right face (shaded) | <span class="color-swatch" style="background:#111827" aria-hidden="true"></span> `#111827` (`--uvy-text`) | <span class="color-swatch" style="background:#9AA8BF" aria-hidden="true"></span> `#9AA8BF` (`--uvy-text-muted`) |
 | Background (avatar only) | <span class="color-swatch" style="background:#F5F7FA" aria-hidden="true"></span> `#F5F7FA` (`--uvy-bg`) | <span class="color-swatch" style="background:#111827" aria-hidden="true"></span> `#111827` (`--uvy-surface`) |
 
-The top face holds `#F25C05` in both light and dark modes for cross-surface brand consistency, while interactive UI elements use `--uvy-accent` (`#F25C05` light / `#FF7A1A` dark) and hover states transition to `--uvy-accent-hover`.
+The top face holds `#F25C05` in both light and dark modes for cross-surface brand consistency and never changes color on hover.
 
 ## Sizing, clear space and CSS framing
 
-- **Standard header size:** Render the standalone mark at `28×28` (`1.75rem`) in `.site-header`, paired with the `18px` (`1.125rem`) semibold `--uvy-font-mono` product title separated by `12px` (`0.75rem`).
+- **Standard header size:** Render the standalone mark at `28×28` (`1.75rem`) in `.site-header`, paired with the semibold `--uvy-font-mono` product title separated by `10px` (`0.625rem`).
 - **Minimum size:** `16×16` for favicons and compact badges. Do not render smaller than `16px`, where the negative-space Y begins to close.
 - **Clear space:** Maintain at least 25% of the mark's width in clear space around standalone placements. Avatar files already bake in an 11% internal margin on all sides.
-- **Framing in CSS:** Keep all source SVG files strictly square and control corner rounding in CSS—`0` for crisp square tiles, `var(--uvy-radius-panel)` (`5px`) for UVY panels/tiles, `22%` for app icons, or `50%` for circular avatars:
+- **Framing in CSS:** Keep all source SVG files strictly square and control corner rounding in CSS—`0` for crisp square tiles, `var(--uvy-radius-panel)` (`5px`) for panels and tiles, `22%` for app icons, or `50%` for circular avatars:
 
 <div class="uvy-specimen logo-frames">
   <figure>
@@ -126,9 +126,11 @@ The top face holds `#F25C05` in both light and dark modes for cross-surface bran
 
 ## Brand guardrails
 
-- **Do** use the theme-adaptive inline `.uvy-mark` SVG inside UVY web apps so the mark responds instantly to the sun/moon theme toggle and `prefers-color-scheme`.
+- **Do** use the theme-adaptive inline `.uvy-mark` SVG inside UnitVectorY-Labs web applications so the mark responds instantly to the sun/moon theme toggle and `prefers-color-scheme`.
 - **Do** pair light variants strictly with light surfaces and dark variants strictly with dark surfaces.
 - **Do** keep the exact `100×100` coordinate geometry, uniform negative-space Y and `stroke-linejoin="round"` vertex softening.
+- **Do** spell out `UnitVectorY-Labs` in titles, headers and references; never abbreviate the brand to “UVY” in user-facing copy.
+- **Don't** change, shift, tint or animate any polygon color of the logo mark on hover—hovering `.brand` leaves `.uvy-mark` completely static.
 - **Don't** bake `rx` rounded corners or `<clipPath>` circles into the source SVGs; apply framing in CSS.
 - **Don't** recolor the signal-orange top face, swap the left/right lighting direction, or add gradients, outlines or drop shadows.
 - **Don't** stretch, rotate or skew the cube, and do not reintroduce the retired literal `ĵ` tile in new or updated applications.

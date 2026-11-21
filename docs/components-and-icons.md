@@ -1,6 +1,6 @@
 # Components
 
-Build with semantic HTML first and apply the namespaced `uvy-*` patterns from `site/uvy.css`. Copy the stylesheet verbatim so every Unit Vector Y Labs project shares identical controls, spacing and states.
+Build with semantic HTML first and apply the namespaced `uvy-*` patterns from `site/uvy.css`. Copy the stylesheet verbatim so every UnitVectorY-Labs project shares identical controls, spacing and states.
 
 | Component | Classes | Role |
 | --- | --- | --- |
@@ -21,7 +21,7 @@ Build with semantic HTML first and apply the namespaced `uvy-*` patterns from `s
 
 - Use one `.uvy-button--primary` per task or screen. Name buttons with plain active verbs (“Check domain”, “Save changes”, “Normalize”), never generic “Submit” or trailing arrows.
 - Destructive actions use `.uvy-button--danger` and confirm inside a native `<dialog>` whose action repeats the destructive verb.
-- Keep visible `<label>` elements above inputs in `.uvy-field`. Connect hints and inline errors via `aria-describedby`. On validation failure, set `aria-invalid="true"`, show `.uvy-field-error` with a Tabler `alert-circle` icon, focus the first invalid field and retain entered values.
+- Keep visible `<label>` elements above inputs in `.uvy-field` (rendered in fixed-width monospace). Add `.uvy-input--mono` to inputs that hold technical identifiers such as domains, endpoints, hashes or search filters. Connect hints and inline errors via `aria-describedby`. On validation failure, set `aria-invalid="true"`, show `.uvy-field-error` with a Tabler `alert-circle` icon, focus the first invalid field and retain entered values.
 - Place search inputs, selects, sort controls and `.uvy-count` inside `.uvy-toolbar` directly above the results they filter.
 
 ## Panels, datasheets and summary strips

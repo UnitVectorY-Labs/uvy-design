@@ -1,4 +1,4 @@
-"""Render the UVY Design guide site following its own style guide strictly."""
+"""Render the UnitVectorY-Labs Design Guide site following its own style guide strictly."""
 from pathlib import Path
 from html import escape
 import re
@@ -24,7 +24,7 @@ def web_links(html):
 
 
 def apply_uvy_components(html, stem, title, prefix):
-    """Apply UVY page-header, panel, code-block and directory patterns to rendered Markdown."""
+    """Apply UnitVectorY-Labs page-header, panel, code-block and directory patterns to rendered Markdown."""
     # 1. Opening H1 + lead paragraph -> .uvy-page-header with optional breadcrumb.
     crumb = ''
     if stem != 'README':
@@ -141,13 +141,14 @@ def build():
             + f'>{escape(label)}</a>'
             for slug, label in GUIDES
         )
+        page_title = title if source.name == 'README.md' else f'{title} — UnitVectorY-Labs Design Guide'
         dest.write_text(
             f'''<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{escape(title)} — Unit Vector Y Labs</title>
+    <title>{escape(page_title)}</title>
     <link rel="icon" type="image/svg+xml" href="{prefix}assets/uvy-standalone-mark-light.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="{prefix}assets/uvy-standalone-mark-dark.svg" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="{prefix}site/uvy.css" />

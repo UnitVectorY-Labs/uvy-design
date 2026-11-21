@@ -2,21 +2,23 @@
 
 Review every adapted application in **light and dark modes** at **1280px**, **375px** and **320px**, plus **200% zoom**. Compare against the original application to confirm its purpose, data semantics and workflows remain intact.
 
-## Visual craft and restraint
+## Visual craft, brand naming and typography
 
 - Light mode uses crisp cool surfaces (`#F5F7FA` / `#FFFFFF`); dark mode uses deep midnight blue-slate (`#090D16` / `#111827`) paired with bright signal orange (`#F25C05` / `#FF7A1A`).
 - `3px` signal-orange rules appear consistently on active header nav links, active sidebar links, active tabs, blockquotes, alerts and `.uvy-output` wells. No decorative gradients or ambient card shadows.
-- Universally supported `system-ui` sans handles prose and forms; fixed-width `ui-monospace` handles the header brand, breadcrumbs, table headers, stat figures, badges, status pills, counts, timestamps and code/output wells.
+- Fixed-width `ui-monospace` drives headings (`H1`–`H4`), header brand, navigation, tabs, buttons, form labels, datasheet keys, table headers, directory titles, stat figures, badges, status pills, counts, timestamps, technical inputs (`.uvy-input--mono`) and code/output wells; `system-ui` sans handles body prose, lead text, hints and narrative descriptions.
+- User-facing titles, headers, headings and references spell out **UnitVectorY-Labs** and never abbreviate the brand to “UVY”.
+- Hovering the header `.brand` link **never** changes the color of the `.uvy-mark` isometric cube faces.
 - No nested `.uvy-panel` boxes, no uniform SaaS card grids where a hairline directory or table fits better, no ALL-CAPS eyebrows and no trailing arrows on buttons.
 - Copy uses sentence case, active verbs and direct, non-apologetic error and empty states.
 
 ## Shell, cookie themes and footer
 
-- Header is `60px` desktop with the `28×28` isometric unit cube mark (transparent standalone geometry adapting to light and dark surfaces) + `18px` monospace title left, full-height nav links with `3px` orange active bar, and a single borderless sun/moon toggle flush right on row 1 at every width. No “Use system theme” clutter button.
+- Header is `60px` desktop with the `28×28` isometric unit cube mark (transparent standalone geometry adapting to light and dark surfaces, static on hover) + monospace title left, full-height monospace nav links with `3px` orange active bar, and a single borderless sun/moon toggle flush right on row 1 at every width. No “Use system theme” clutter button.
 - Brand logo assets use the official square-canvas SVGs from `assets/` (standalone marks for transparent headers, favicons and READMEs; avatar marks with `11px` optical margin for profile images and rounded/circular crops controlled in CSS).
 - Clicking the theme toggle switches immediately and persists via the `uvy-theme` cookie across pages (while forced specimen pages like `light.html` / `dark.html` keep their mode without overwriting the cookie). Content and navigation stay usable without JavaScript or cookies.
 - Sticky sidebar layouts scroll naturally with the page and convert to an accessible focus-trapped mobile drawer below `768px`. Top-bar layouts without a sidebar keep search and filters clear in `.uvy-toolbar`.
-- Footer has generous `32px` vertical padding on `--uvy-surface`, well-spaced `|` separators, calm muted links, monospace bold repository name(s), and omits the optional `.version` line completely from HTML when disabled.
+- Footer is compact (`10px` vertical padding on `--uvy-surface`) and stays **always visible at the bottom of the viewport** (`position: sticky; bottom: 0`), with calm muted links, monospace bold repository name(s), optional `.footer-meta` (`Last updated: …`) for static catalogs, and optional `.version` omitted completely from HTML when disabled.
 
 ## Contrast, data and accessibility
 

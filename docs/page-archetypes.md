@@ -19,8 +19,8 @@ All archetypes share `site/uvy.css`, `site/uvy.js`, the [universal header](heade
 
 ## Theming Jekyll documentation (`just-the-docs` and `minima`)
 
-Sites built on `just-the-docs` or Jekyll `minima` can match UVY Design cleanly through their custom stylesheet (`_sass/custom/custom.scss` or `assets/css/style.scss`):
+Sites built on `just-the-docs` or Jekyll `minima` can match UnitVectorY-Labs Design cleanly through their custom stylesheet (`_sass/custom/custom.scss` or `assets/css/style.scss`):
 
 - Map canvas, surface, border, text, muted text, link, code well and focus variables directly to the light (`#F5F7FA` / `#FFFFFF` / `#F25C05`) and midnight-slate dark (`#090D16` / `#111827` / `#FF7A1A`) tokens in [Color](color.md).
-- Set body font to `--uvy-font-sans` and brand/code/table headers to `--uvy-font-mono`.
-- Use the `3px` orange active bar on sidebar links and keep the centered UnitVectorY-Labs footer and sun/moon cookie toggle where the layout allows.
+- Set body prose to `--uvy-font-sans` and headings, brand, navigation, controls, code and table headers to `--uvy-font-mono`.
+- Use the `3px` orange active bar on sidebar links and keep the compact sticky centered UnitVectorY-Labs footer and sun/moon cookie toggle where the layout allows.

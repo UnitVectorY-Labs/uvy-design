@@ -14,9 +14,16 @@ def check_layout(page):
     assert page.locator('.site-header .uvy-mark polygon').count() == 3, page.url
     assert page.locator('#theme svg:visible').count() == 1, page.url
     assert page.locator('#theme-reset').count() == 0, f'Unexpected theme reset control: {page.url}'
+    # Brand naming rule: never abbreviate UnitVectorY-Labs to UVY in titles or header brand.
+    assert 'UVY' not in page.title(), f'Unexpected UVY in title: {page.title()} ({page.url})'
+    brand_text = page.locator('.site-header .brand').inner_text()
+    assert 'UVY' not in brand_text, f'Unexpected UVY in brand: {brand_text} ({page.url})'
     # The theme switch stays in the first header row at its right edge.
     assert page.evaluate("Math.abs(document.getElementById('theme').getBoundingClientRect().right-document.querySelector('.header-inner').getBoundingClientRect().right)<2"), page.url
     assert page.evaluate("document.getElementById('theme').getBoundingClientRect().top < document.querySelector('.header-inner').getBoundingClientRect().top+32"), page.url
+    # Footer is always visible at the bottom of the viewport and compact.
+    foot_rect = page.locator('.site-footer').evaluate("el => { const r = el.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, height: r.height, vh: window.innerHeight }; }")
+    assert foot_rect['top'] >= 0 and foot_rect['bottom'] <= foot_rect['vh'] + 2, f'Footer not visible in viewport: {foot_rect} ({page.url})'
     foot_text = page.locator('.site-footer').inner_text()
     assert 'UnitVectorY-Labs' in foot_text, page.url
     assert 'MIT License' in foot_text, page.url
@@ -226,16 +233,46 @@ try:
 
         page.goto((ROOT / 'examples/index.html').as_uri())
         assert page.locator('#sidebar').count() == 0
-        assert page.locator('.example-link').count() == 17
+        assert page.locator('.example-link').count() == 20
 
+        # Hovering the header logo must never alter any polygon color.
+        page.set_viewport_size({'width': 1280, 'height': 900})
+        page.goto((ROOT / 'examples/landing.html').as_uri())
+        def logo_colors():
+            return page.evaluate("""() => [...document.querySelectorAll('.site-header .uvy-mark polygon')].map(el => {
+              const s = getComputedStyle(el); return [s.fill, s.stroke];
+            })""")
+        before_hover = logo_colors()
+        page.locator('.site-header .brand').hover()
+        page.wait_for_timeout(150)
+        assert logo_colors() == before_hover, f'Logo colors changed on hover: {before_hover} -> {logo_colors()}'
+
+        # Fixed-width monospace voice on headings & buttons, sans on body paragraphs.
+        h1_font = page.locator('h1').evaluate('el => getComputedStyle(el).fontFamily')
+        p_font = page.locator('p.uvy-lead').evaluate('el => getComputedStyle(el).fontFamily')
+        assert 'mono' in h1_font.lower() or 'menlo' in h1_font.lower() or 'consolas' in h1_font.lower() or 'courier' in h1_font.lower(), h1_font
+        assert h1_font != p_font, (h1_font, p_font)
+
+        # Dedicated footer variant pages and compact height.
         page.goto((ROOT / 'examples/footer.html').as_uri())
         assert page.locator('.site-footer .version').count() == 0
-        page.locator('#footer-version-toggle').check()
-        assert 'example-build' in page.locator('.site-footer .version').inner_text()
-        page.locator('#footer-version-toggle').uncheck()
-        assert page.locator('.site-footer .version').count() == 0
-        page.locator('#footer-repositories').select_option('multiple')
+        assert page.locator('.site-footer .footer-meta').count() == 0
+        assert page.locator('.site-footer').bounding_box()['height'] <= 52
+
+        page.goto((ROOT / 'examples/footer-repositories.html').as_uri())
+        assert 'jwks-catalog' in page.locator('.site-footer').inner_text()
         assert 'jwks-observer' in page.locator('.site-footer').inner_text()
+
+        page.goto((ROOT / 'examples/footer-updated.html').as_uri())
+        assert 'Last updated:' in page.locator('.site-footer .footer-meta').inner_text()
+        assert page.locator('.site-footer .footer-meta time').count() == 1
+        assert page.locator('.site-footer').bounding_box()['height'] <= 72
+
+        page.goto((ROOT / 'examples/footer-version.html').as_uri())
+        assert 'Version v1.4.2' in page.locator('.site-footer .version').inner_text()
+        assert page.locator('.site-footer').bounding_box()['height'] <= 72
+
+        page.set_viewport_size({'width': 375, 'height': 900})
 
         page.goto((ROOT / 'examples/application.html').as_uri())
         page.locator('#run-repository').select_option('observer')

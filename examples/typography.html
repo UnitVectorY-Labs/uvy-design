@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Typography — UVY Design examples</title>
+    <title>Typography — UnitVectorY-Labs Design Examples</title>
     <link rel="icon" type="image/svg+xml" href="../assets/uvy-standalone-mark-light.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="../assets/uvy-standalone-mark-dark.svg" media="(prefers-color-scheme: dark)" />
     <style data-uvy-reference>
 /*
-  UVY Design — single embeddable stylesheet for UnitVectorY Labs applications.
+  UnitVectorY-Labs Design — single embeddable stylesheet for UnitVectorY-Labs applications.
 
   Copy or embed this file verbatim into any application (Go html/template,
-  HTMX, static HTML, Jekyll, SPA). It has zero external dependencies and uses
-  universally supported system fonts with a subtle fixed-width terminal accent.
+  HTMX, static HTML, Jekyll, SPA). It has zero external dependencies and pairs
+  fixed-width monospace headings, navigation and instrumentation with readable
+  system UI sans-serif prose.
 
   Sections:
     1. Tokens         5. Header and footer   9.  Data display
@@ -80,19 +81,19 @@
   --uvy-chart-grid: var(--uvy-border);
   --uvy-chart-axis: var(--uvy-text-muted);
 
-  /* Universally supported typography: system UI sans + crisp fixed-width mono */
+  /* Universally supported typography: crisp fixed-width mono chrome + system UI sans prose */
   --uvy-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   --uvy-font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo,
     Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
 
-  --uvy-text-xs: 0.75rem; /* 12px labels, table headers */
-  --uvy-text-sm: 0.875rem; /* 14px controls, tables, metadata */
+  --uvy-text-xs: 0.75rem; /* 12px labels, table headers, footer meta */
+  --uvy-text-sm: 0.875rem; /* 14px metadata, table prose, hints */
   --uvy-text-md: 1rem; /* 16px body prose */
-  --uvy-text-lg: 1.125rem; /* 18px lead, H3, header brand */
-  --uvy-text-xl: 1.5rem; /* 24px H2, stat values */
-  --uvy-text-2xl: 2.5rem; /* 40px H1 */
-  --uvy-text-3xl: 3.25rem; /* 52px landing display */
+  --uvy-text-lg: 1.0625rem; /* 17px lead, H3, header brand */
+  --uvy-text-xl: 1.3125rem; /* 21px H2, stat values */
+  --uvy-text-2xl: 2.125rem; /* 34px H1 */
+  --uvy-text-3xl: 2.75rem; /* 44px landing display */
 
   /* Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64 */
   --uvy-space-1: 0.25rem;
@@ -142,6 +143,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-padding-bottom: 4.5rem;
 }
 body {
   margin: 0;
@@ -231,7 +233,7 @@ video {
 main {
   flex: 1;
   min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+  padding-block: var(--uvy-space-6) var(--uvy-space-7);
 }
 main > :first-child,
 .workspace > :first-child,
@@ -281,7 +283,7 @@ main.layout {
 }
 .workspace {
   min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+  padding-block: var(--uvy-space-6) var(--uvy-space-7);
 }
 
 /* 4. Typography ----------------------------------------------------------- */
@@ -292,29 +294,32 @@ h3,
 h4 {
   margin: 0 0 var(--uvy-space-3);
   color: var(--uvy-text);
+  font-family: var(--uvy-font-mono);
   font-weight: 600;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 h1 {
-  font-size: clamp(2rem, 1.65rem + 1.4vw, var(--uvy-text-2xl));
-  line-height: 1.12;
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, var(--uvy-text-2xl));
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: -0.025em;
 }
 h2 {
   margin-top: var(--uvy-space-7);
   font-size: var(--uvy-text-xl);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
 }
 h3 {
   margin-top: var(--uvy-space-6);
   font-size: var(--uvy-text-lg);
   line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 h4 {
   margin-top: var(--uvy-space-5);
-  font-size: var(--uvy-text-md);
+  font-size: 0.9375rem;
   line-height: 1.4;
 }
 p,
@@ -491,20 +496,16 @@ time,
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.625rem;
   min-width: 0;
   color: var(--uvy-text);
   font-family: var(--uvy-font-mono);
-  font-size: var(--uvy-text-lg);
+  font-size: clamp(0.875rem, 0.8rem + 0.35vw, var(--uvy-text-lg));
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
   text-decoration: none;
   overflow-wrap: anywhere;
-}
-.brand:hover .uvy-mark__top {
-  fill: var(--uvy-accent-hover);
-  stroke: var(--uvy-accent-hover);
 }
 /* UnitVectorY-Labs isometric unit cube mark (transparent standalone geometry). */
 .uvy-mark {
@@ -515,8 +516,6 @@ time,
 .uvy-mark__top {
   fill: #f25c05;
   stroke: #f25c05;
-  transition: fill var(--uvy-duration) var(--uvy-ease),
-    stroke var(--uvy-duration) var(--uvy-ease);
 }
 .uvy-mark__left {
   fill: light-dark(#697486, #f0f4fa);
@@ -539,7 +538,8 @@ time,
   min-height: var(--uvy-header-height);
   padding-inline: var(--uvy-space-3);
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   font-weight: 500;
   text-decoration: none;
   transition: color var(--uvy-duration) var(--uvy-ease);
@@ -562,19 +562,22 @@ time,
 }
 
 .site-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
   margin-top: auto;
   border-top: 1px solid var(--uvy-border);
   background: var(--uvy-surface);
-  padding-block: var(--uvy-space-6);
+  padding-block: 0.625rem;
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
-  line-height: 1.7;
+  font-size: 0.8125rem;
+  line-height: 1.45;
 }
 .site-footer .footer-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--uvy-space-2);
+  gap: var(--uvy-space-1);
   text-align: center;
 }
 .site-footer p {
@@ -593,20 +596,25 @@ time,
 .site-footer a strong {
   color: var(--uvy-text);
   font-family: var(--uvy-font-mono);
-  font-size: 0.875em;
+  font-size: 0.923em;
   font-weight: 600;
 }
 .footer-sep {
   display: inline-block;
-  margin-inline: var(--uvy-space-3);
+  margin-inline: var(--uvy-space-2);
   color: var(--uvy-border-emphasis);
   user-select: none;
 }
+.footer-meta,
 .version {
   color: var(--uvy-text-faint);
   font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
+  line-height: 1.4;
   overflow-wrap: anywhere;
+}
+.footer-meta time {
+  font-size: inherit;
 }
 
 /* 6. Navigation ----------------------------------------------------------- */
@@ -614,7 +622,7 @@ time,
 .sidebar {
   position: sticky;
   top: 0;
-  max-height: 100dvh;
+  max-height: calc(100dvh - 3.5rem);
   padding: var(--uvy-space-6) var(--uvy-space-3) var(--uvy-space-6) 0;
   border-right: 1px solid var(--uvy-border);
   overflow-y: auto;
@@ -663,7 +671,8 @@ time,
   padding: 0.4375rem var(--uvy-space-3);
   border-radius: var(--uvy-radius-control);
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   line-height: 1.45;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -805,7 +814,7 @@ button,
   border-radius: var(--uvy-radius-control);
   background: var(--uvy-surface);
   color: var(--uvy-text);
-  font: 500 var(--uvy-text-sm) / 1.25 var(--uvy-font-sans);
+  font: 500 0.8125rem / 1.25 var(--uvy-font-mono);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -883,7 +892,8 @@ button:disabled,
 }
 label,
 legend {
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   font-weight: 500;
   line-height: 1.4;
 }
@@ -961,7 +971,13 @@ input[type="search"]::-webkit-search-cancel-button {
   display: inline-flex;
   align-items: center;
   gap: var(--uvy-space-2);
+  font-family: var(--uvy-font-sans);
+  font-size: var(--uvy-text-sm);
   font-weight: 400;
+}
+.uvy-input--mono {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875rem;
 }
 [aria-invalid="true"] {
   border-color: var(--uvy-danger);
@@ -1061,8 +1077,8 @@ input[type="search"]::-webkit-search-cancel-button {
 .uvy-panel__header h2,
 .uvy-panel__header h3 {
   margin: 0;
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-panel__header p {
   margin: var(--uvy-space-1) 0 0;
@@ -1273,6 +1289,8 @@ td.num {
 .uvy-kv dt {
   padding-right: var(--uvy-space-6);
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
 }
 .uvy-kv dd {
   min-width: 0;
@@ -1508,6 +1526,11 @@ td.num {
 .record-table thead th:first-child {
   width: 32%;
 }
+.record-table tbody th {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
 .record-table td.metric {
   text-align: right;
   font-family: var(--uvy-font-mono);
@@ -1547,7 +1570,7 @@ td.num {
 }
 .type-preview > span {
   display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
+  grid-template-columns: 7.5rem minmax(0, 1fr);
   align-items: baseline;
   gap: var(--uvy-space-4);
   line-height: 1.25;
@@ -1795,8 +1818,8 @@ dialog::backdrop {
 }
 .uvy-dialog__header h2 {
   margin: 0;
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-dialog__body > :last-child {
   margin-bottom: 0;
@@ -1837,13 +1860,13 @@ dialog::backdrop {
 }
 
 .hero {
-  max-width: 48rem;
+  max-width: 52rem;
   padding-block: var(--uvy-space-7);
 }
 .hero h1 {
   margin-bottom: var(--uvy-space-4);
-  font-size: clamp(2.25rem, 1.5rem + 3vw, var(--uvy-text-3xl));
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 1.3rem + 2.1vw, var(--uvy-text-3xl));
+  line-height: 1.12;
   letter-spacing: -0.03em;
 }
 .hero .uvy-lead {
@@ -1866,8 +1889,8 @@ dialog::backdrop {
 .uvy-features h2,
 .uvy-features h3 {
   margin: 0 0 var(--uvy-space-2);
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-features p {
   margin: 0 0 var(--uvy-space-2);
@@ -1889,7 +1912,7 @@ dialog::backdrop {
 }
 .uvy-index a {
   display: grid;
-  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
   gap: var(--uvy-space-1) var(--uvy-space-6);
   padding: var(--uvy-space-3) var(--uvy-space-2);
   margin-inline: calc(-1 * var(--uvy-space-2));
@@ -1902,6 +1925,8 @@ dialog::backdrop {
   background: var(--uvy-hover);
 }
 .uvy-index strong {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875rem;
   font-weight: 600;
 }
 .uvy-index a:hover strong {
@@ -2208,12 +2233,20 @@ dialog::backdrop {
     border-right-color: currentColor;
   }
 }
+@media (max-height: 28rem) {
+  .site-footer {
+    position: static;
+  }
+}
 @media print {
   .site-header nav,
   #theme,
   .sidebar,
   .menu-backdrop {
     display: none !important;
+  }
+  .site-footer {
+    position: static;
   }
   body {
     background: #fff;
@@ -2574,22 +2607,36 @@ SOFTWARE.
 </symbol><symbol id="tabler-key" viewBox="0 0 24 24">
   <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" />
   <path d="M15 9h.01" />
-</symbol></svg><div class="header-identity"><a class="brand" href="../examples/index.html"><svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 100 100"><g stroke-width="4" stroke-linejoin="round"><polygon class="uvy-mark__top" points="50,8 82.5,26.75 50,45.5 17.5,26.75"/><polygon class="uvy-mark__left" points="12.3,35.75 44.8,54.5 44.8,92 12.3,73.25"/><polygon class="uvy-mark__right" points="55.2,54.5 87.7,35.75 87.7,73.25 55.2,92"/></g></svg><span>UVY Examples</span></a></div><nav aria-label="Main navigation"><a href="../README.md">Guide</a><a href="../examples/index.html" aria-current="page">Examples</a></nav><button id="theme" class="icon-button" type="button" aria-label="Switch color theme" hidden><svg class="icon" aria-hidden="true" data-icon="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-moon"></use></svg><svg class="icon" aria-hidden="true" data-icon="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-sun"></use></svg></button></div></header>
+</symbol></svg><div class="header-identity"><a class="brand" href="../examples/index.html"><svg class="uvy-mark" aria-hidden="true" width="28" height="28" viewBox="0 0 100 100"><g stroke-width="4" stroke-linejoin="round"><polygon class="uvy-mark__top" points="50,8 82.5,26.75 50,45.5 17.5,26.75"/><polygon class="uvy-mark__left" points="12.3,35.75 44.8,54.5 44.8,92 12.3,73.25"/><polygon class="uvy-mark__right" points="55.2,54.5 87.7,35.75 87.7,73.25 55.2,92"/></g></svg><span>UnitVectorY-Labs Design Examples</span></a></div><nav aria-label="Main navigation"><a href="../README.md">Guide</a><a href="../examples/index.html" aria-current="page">Examples</a></nav><button id="theme" class="icon-button" type="button" aria-label="Switch color theme" hidden><svg class="icon" aria-hidden="true" data-icon="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-moon"></use></svg><svg class="icon" aria-hidden="true" data-icon="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-sun"></use></svg></button></div></header>
     <main class="page" id="main">
       <article class="article">
+        <nav class="uvy-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="index.html">examples</a></li>
+            <li aria-current="page">typography</li>
+          </ol>
+        </nav>
         <div class="uvy-page-header">
           <div>
             <h1>Typography and hierarchy</h1>
-            <p class="uvy-lead">Universally supported system sans handles readable prose while fixed-width monospace brings subtle terminal clarity to headers, paths, metrics and code.</p>
+            <p class="uvy-lead">Fixed-width monospace drives headings, navigation, controls, labels, keys and technical data for a crisp retro-terminal feel; universally supported system sans handles multi-sentence prose.</p>
           </div>
         </div>
-        <h2>Information hierarchy</h2>
-        <p>Headings describe the content that follows and stay in primary ink without decorative underlines or single-word color accents. <a href="documentation.html">Read the static article example</a> for a full documentation layout.</p>
+        <div class="uvy-specimen type-preview">
+          <span><small>Display · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:1.75rem;line-height:1.15;letter-spacing:-0.025em;font-weight:700">Inspect every certificate</strong></span>
+          <span><small>H2 · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:1.3125rem;line-height:1.28;letter-spacing:-0.02em;font-weight:600">Key observations</strong></span>
+          <span><small>Chrome · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:0.875rem;font-weight:600">UnitVectorY-Labs · Check domain · RS256</strong></span>
+          <span><small>Body · Sans</small><span>Readable system sans keeps documentation paragraphs, lead explanations and alert messages effortless to scan alongside terminal chrome.</span></span>
+          <span><small>Meta · Mono</small><span style="font-family:var(--uvy-font-mono);font-size:0.75rem;color:var(--uvy-text-muted)">2026-11-21T16:05:05Z · sha256:9f86d081 · 12 records</span></span>
+        </div>
+        <h2>Two-voice hierarchy</h2>
+        <p>Headings, buttons, tabs, form labels, datasheet keys and table headers share the same fixed-width voice so the interface reads like a cohesive engineering instrument rather than a generic template. <a href="documentation.html">Read the static article example</a> for a full documentation layout.</p>
         <h3>Practical defaults</h3>
         <ul>
-          <li>Keep prose lines within 70 characters even inside full-width dashboards.</li>
-          <li>Use sentence case for headings, buttons, table headers and labels.</li>
-          <li>Format counts and timestamps such as <time datetime="2026-11-20T08:00:00Z">2026-11-20 08:00 UTC</time> in fixed-width tabular numerals.</li>
+          <li>Keep prose paragraphs and list items in <code>--uvy-font-sans</code> within 70 characters even inside full-width dashboards.</li>
+          <li>Use sentence case for monospace headings, buttons, tabs, table headers and sidebar labels.</li>
+          <li>Apply <code>.uvy-input--mono</code> to technical inputs such as domains, endpoints and search queries.</li>
+          <li>Format counts and UTC timestamps such as <time datetime="2026-11-21T16:05:05Z">2026-11-21T16:05:05Z</time> in fixed-width tabular numerals.</li>
         </ul>
         <h4>Ordered checks</h4>
         <ol>
@@ -2607,13 +2654,14 @@ SOFTWARE.
             <span>html</span>
             <button type="button" class="uvy-button--quiet uvy-button--small uvy-copy" data-copy-target="type-code-sample" data-enable-with-js disabled aria-label="Copy HTML snippet"><span data-copy class="with-icon"><svg class="icon icon-small" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-copy"></use></svg>Copy</span><span data-copied class="with-icon"><svg class="icon icon-small" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#tabler-check"></use></svg>Copied</span></button>
           </div>
-          <pre tabindex="0" aria-label="HTML example"><code id="type-code-sample">&lt;button class="uvy-button uvy-button--primary" type="submit"&gt;Check domain&lt;/button&gt;</code></pre>
+          <pre tabindex="0" aria-label="HTML example"><code id="type-code-sample">&lt;label for="domain"&gt;Domain&lt;/label&gt;
+&lt;input id="domain" class="uvy-input--mono" placeholder="example.com" /&gt;
+&lt;button class="uvy-button uvy-button--primary" type="submit"&gt;Check domain&lt;/button&gt;</code></pre>
         </div>
         <hr />
-        <p class="uvy-hint">Supporting text uses 14px muted sans; compact labels and column headers use 12px sentence-case monospace.</p>
+        <p class="uvy-hint">Supporting descriptions stay in 14px muted sans; labels, buttons, keys, headers and metadata stay in crisp fixed-width monospace.</p>
       </article>
     </main>
-    
     <footer class="site-footer"><div class="footer-inner"><p><a href="https://github.com/UnitVectorY-Labs">UnitVectorY-Labs</a><span class="footer-sep" aria-hidden="true">|</span><a href="../LICENSE">MIT License</a><span class="footer-sep" aria-hidden="true">|</span><a href="https://github.com/UnitVectorY-Labs/uvy-design"><strong>uvy-design</strong></a> on GitHub</p></div></footer>
   </body>
 </html>

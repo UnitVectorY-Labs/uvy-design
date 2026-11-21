@@ -1,24 +1,24 @@
-# UVY Design
+# UnitVectorY-Labs Design Guide
 
-Current design guidance for Unit Vector Y Labs projects: crisp cool-light and deep midnight-slate dark interfaces, universally supported system typography with subtle fixed-width terminal instrumentation, a bold 3px signal-orange accent rule, and a single embeddable stylesheet (`site/uvy.css`).
+Current design guidance for UnitVectorY-Labs projects: crisp cool-light and deep midnight-slate dark interfaces, universally supported system typography pairing fixed-width monospace terminal headings and controls with readable sans-serif prose, a bold 3px signal-orange accent rule, an always-visible compact footer, and a single embeddable stylesheet (`site/uvy.css`).
 
 ## Read the guide
 
-- [Foundations](docs/foundations.md) — Aesthetic direction, restraint rules and single-CSS adoption contract
+- [Foundations](docs/foundations.md) — Aesthetic direction, brand naming rules, restraint principles and single-CSS adoption contract
 - [Logo](docs/logo.md) — Isometric unit cube mark, standalone and avatar SVGs, and brand usage guidelines
 - [Color](docs/color.md) — Cool light surfaces, midnight blue-slate dark mode, signal orange, status, spectra and charts
-- [Typography and spacing](docs/typography-and-spacing.md) — System UI sans, fixed-width terminal touches, scale, width flexibility and motion
+- [Typography and spacing](docs/typography-and-spacing.md) — Fixed-width terminal headings and controls paired with system UI sans prose, scale, width flexibility and motion
 - [Header](docs/header.md) — Universal top bar, isometric unit cube mark, 3px active rule and theme toggle
 - [Themes and navigation](docs/themes-and-navigation.md) — Cookie-persisted themes, sticky sidebars, top-bar search, drawers, breadcrumbs and tabs
 - [Icons](docs/icons.md) — Any Tabler outline icon, sizing, semantic color usage and accessible labeling
 - [Components](docs/components-and-icons.md) — Controls, panels, datasheets, status pills, tables, code/output wells, alerts and charts
-- [Footer](docs/footer.md) — Generously spaced centered attribution, license, repository links and optional version line
+- [Footer](docs/footer.md) — Compact always-visible sticky footer, license, repository links, `Last updated` timestamp and optional version variants
 - [Page archetypes](docs/page-archetypes.md) — Landings, catalogs, lookup tools, dashboards, admin apps and documentation
 - [Review](docs/review.md) — Visual, responsive, accessibility and fallback audit checklist
 
 ## Apply to a project
 
-UVY Design ships a single zero-dependency stylesheet ([site/uvy.css](site/uvy.css)) and optional shell script ([site/uvy.js](site/uvy.js)) so an engineer or AI agent can embed them directly into any Go `html/template`, HTMX, static HTML, Jekyll or SPA project:
+UnitVectorY-Labs Design ships a single zero-dependency stylesheet ([site/uvy.css](site/uvy.css)) and optional shell script ([site/uvy.js](site/uvy.js)) so an engineer or AI agent can embed them directly into any Go `html/template`, HTMX, static HTML, Jekyll or SPA project:
 
 1. Embed or link `site/uvy.css` (and `site/uvy.js` for the cookie-backed theme toggle, mobile drawer, tabs and copy buttons).
 2. Use the inline `.uvy-mark` isometric cube SVG in `.site-header` and the square-canvas logo assets in [assets/](docs/logo.md) for favicons, READMEs and external avatars.
@@ -27,7 +27,7 @@ UVY Design ships a single zero-dependency stylesheet ([site/uvy.css](site/uvy.cs
 
 ## Explore the examples
 
-Open the separate [examples index](examples/index.html) for 17 standalone HTML pages covering light and dark themes, official logo variants, typography, colored icons, both sidebar and top-bar navigation/search, tables, panels, forms and full page archetypes. Every example embeds `site/uvy.css` and `site/uvy.js` so it opens directly in a browser with no server or build step.
+Open the separate [UnitVectorY-Labs Design Examples](examples/index.html) for 20 standalone HTML pages covering light and dark themes, official logo variants, typography, colored icons, both sidebar and top-bar navigation/search, all four footer variants, tables, panels, forms and full page archetypes. Every example embeds `site/uvy.css` and `site/uvy.js` so it opens directly in a browser with no server or build step.
 
 ## Preview and publish
 

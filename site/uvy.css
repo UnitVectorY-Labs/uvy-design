@@ -1,9 +1,10 @@
 /*
-  UVY Design — single embeddable stylesheet for UnitVectorY Labs applications.
+  UnitVectorY-Labs Design — single embeddable stylesheet for UnitVectorY-Labs applications.
 
   Copy or embed this file verbatim into any application (Go html/template,
-  HTMX, static HTML, Jekyll, SPA). It has zero external dependencies and uses
-  universally supported system fonts with a subtle fixed-width terminal accent.
+  HTMX, static HTML, Jekyll, SPA). It has zero external dependencies and pairs
+  fixed-width monospace headings, navigation and instrumentation with readable
+  system UI sans-serif prose.
 
   Sections:
     1. Tokens         5. Header and footer   9.  Data display
@@ -71,19 +72,19 @@
   --uvy-chart-grid: var(--uvy-border);
   --uvy-chart-axis: var(--uvy-text-muted);
 
-  /* Universally supported typography: system UI sans + crisp fixed-width mono */
+  /* Universally supported typography: crisp fixed-width mono chrome + system UI sans prose */
   --uvy-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   --uvy-font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo,
     Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
 
-  --uvy-text-xs: 0.75rem; /* 12px labels, table headers */
-  --uvy-text-sm: 0.875rem; /* 14px controls, tables, metadata */
+  --uvy-text-xs: 0.75rem; /* 12px labels, table headers, footer meta */
+  --uvy-text-sm: 0.875rem; /* 14px metadata, table prose, hints */
   --uvy-text-md: 1rem; /* 16px body prose */
-  --uvy-text-lg: 1.125rem; /* 18px lead, H3, header brand */
-  --uvy-text-xl: 1.5rem; /* 24px H2, stat values */
-  --uvy-text-2xl: 2.5rem; /* 40px H1 */
-  --uvy-text-3xl: 3.25rem; /* 52px landing display */
+  --uvy-text-lg: 1.0625rem; /* 17px lead, H3, header brand */
+  --uvy-text-xl: 1.3125rem; /* 21px H2, stat values */
+  --uvy-text-2xl: 2.125rem; /* 34px H1 */
+  --uvy-text-3xl: 2.75rem; /* 44px landing display */
 
   /* Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64 */
   --uvy-space-1: 0.25rem;
@@ -133,6 +134,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-padding-bottom: 4.5rem;
 }
 body {
   margin: 0;
@@ -222,7 +224,7 @@ video {
 main {
   flex: 1;
   min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+  padding-block: var(--uvy-space-6) var(--uvy-space-7);
 }
 main > :first-child,
 .workspace > :first-child,
@@ -272,7 +274,7 @@ main.layout {
 }
 .workspace {
   min-width: 0;
-  padding-block: var(--uvy-space-6) var(--uvy-space-8);
+  padding-block: var(--uvy-space-6) var(--uvy-space-7);
 }
 
 /* 4. Typography ----------------------------------------------------------- */
@@ -283,29 +285,32 @@ h3,
 h4 {
   margin: 0 0 var(--uvy-space-3);
   color: var(--uvy-text);
+  font-family: var(--uvy-font-mono);
   font-weight: 600;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 h1 {
-  font-size: clamp(2rem, 1.65rem + 1.4vw, var(--uvy-text-2xl));
-  line-height: 1.12;
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, var(--uvy-text-2xl));
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: -0.025em;
 }
 h2 {
   margin-top: var(--uvy-space-7);
   font-size: var(--uvy-text-xl);
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
 }
 h3 {
   margin-top: var(--uvy-space-6);
   font-size: var(--uvy-text-lg);
   line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 h4 {
   margin-top: var(--uvy-space-5);
-  font-size: var(--uvy-text-md);
+  font-size: 0.9375rem;
   line-height: 1.4;
 }
 p,
@@ -482,20 +487,16 @@ time,
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.625rem;
   min-width: 0;
   color: var(--uvy-text);
   font-family: var(--uvy-font-mono);
-  font-size: var(--uvy-text-lg);
+  font-size: clamp(0.875rem, 0.8rem + 0.35vw, var(--uvy-text-lg));
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.2;
   text-decoration: none;
   overflow-wrap: anywhere;
-}
-.brand:hover .uvy-mark__top {
-  fill: var(--uvy-accent-hover);
-  stroke: var(--uvy-accent-hover);
 }
 /* UnitVectorY-Labs isometric unit cube mark (transparent standalone geometry). */
 .uvy-mark {
@@ -506,8 +507,6 @@ time,
 .uvy-mark__top {
   fill: #f25c05;
   stroke: #f25c05;
-  transition: fill var(--uvy-duration) var(--uvy-ease),
-    stroke var(--uvy-duration) var(--uvy-ease);
 }
 .uvy-mark__left {
   fill: light-dark(#697486, #f0f4fa);
@@ -530,7 +529,8 @@ time,
   min-height: var(--uvy-header-height);
   padding-inline: var(--uvy-space-3);
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   font-weight: 500;
   text-decoration: none;
   transition: color var(--uvy-duration) var(--uvy-ease);
@@ -553,19 +553,22 @@ time,
 }
 
 .site-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
   margin-top: auto;
   border-top: 1px solid var(--uvy-border);
   background: var(--uvy-surface);
-  padding-block: var(--uvy-space-6);
+  padding-block: 0.625rem;
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
-  line-height: 1.7;
+  font-size: 0.8125rem;
+  line-height: 1.45;
 }
 .site-footer .footer-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--uvy-space-2);
+  gap: var(--uvy-space-1);
   text-align: center;
 }
 .site-footer p {
@@ -584,20 +587,25 @@ time,
 .site-footer a strong {
   color: var(--uvy-text);
   font-family: var(--uvy-font-mono);
-  font-size: 0.875em;
+  font-size: 0.923em;
   font-weight: 600;
 }
 .footer-sep {
   display: inline-block;
-  margin-inline: var(--uvy-space-3);
+  margin-inline: var(--uvy-space-2);
   color: var(--uvy-border-emphasis);
   user-select: none;
 }
+.footer-meta,
 .version {
   color: var(--uvy-text-faint);
   font-family: var(--uvy-font-mono);
   font-size: var(--uvy-text-xs);
+  line-height: 1.4;
   overflow-wrap: anywhere;
+}
+.footer-meta time {
+  font-size: inherit;
 }
 
 /* 6. Navigation ----------------------------------------------------------- */
@@ -605,7 +613,7 @@ time,
 .sidebar {
   position: sticky;
   top: 0;
-  max-height: 100dvh;
+  max-height: calc(100dvh - 3.5rem);
   padding: var(--uvy-space-6) var(--uvy-space-3) var(--uvy-space-6) 0;
   border-right: 1px solid var(--uvy-border);
   overflow-y: auto;
@@ -654,7 +662,8 @@ time,
   padding: 0.4375rem var(--uvy-space-3);
   border-radius: var(--uvy-radius-control);
   color: var(--uvy-text-muted);
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   line-height: 1.45;
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -796,7 +805,7 @@ button,
   border-radius: var(--uvy-radius-control);
   background: var(--uvy-surface);
   color: var(--uvy-text);
-  font: 500 var(--uvy-text-sm) / 1.25 var(--uvy-font-sans);
+  font: 500 0.8125rem / 1.25 var(--uvy-font-mono);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -874,7 +883,8 @@ button:disabled,
 }
 label,
 legend {
-  font-size: var(--uvy-text-sm);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
   font-weight: 500;
   line-height: 1.4;
 }
@@ -952,7 +962,13 @@ input[type="search"]::-webkit-search-cancel-button {
   display: inline-flex;
   align-items: center;
   gap: var(--uvy-space-2);
+  font-family: var(--uvy-font-sans);
+  font-size: var(--uvy-text-sm);
   font-weight: 400;
+}
+.uvy-input--mono {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875rem;
 }
 [aria-invalid="true"] {
   border-color: var(--uvy-danger);
@@ -1052,8 +1068,8 @@ input[type="search"]::-webkit-search-cancel-button {
 .uvy-panel__header h2,
 .uvy-panel__header h3 {
   margin: 0;
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-panel__header p {
   margin: var(--uvy-space-1) 0 0;
@@ -1264,6 +1280,8 @@ td.num {
 .uvy-kv dt {
   padding-right: var(--uvy-space-6);
   color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
 }
 .uvy-kv dd {
   min-width: 0;
@@ -1499,6 +1517,11 @@ td.num {
 .record-table thead th:first-child {
   width: 32%;
 }
+.record-table tbody th {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
 .record-table td.metric {
   text-align: right;
   font-family: var(--uvy-font-mono);
@@ -1538,7 +1561,7 @@ td.num {
 }
 .type-preview > span {
   display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
+  grid-template-columns: 7.5rem minmax(0, 1fr);
   align-items: baseline;
   gap: var(--uvy-space-4);
   line-height: 1.25;
@@ -1786,8 +1809,8 @@ dialog::backdrop {
 }
 .uvy-dialog__header h2 {
   margin: 0;
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-dialog__body > :last-child {
   margin-bottom: 0;
@@ -1828,13 +1851,13 @@ dialog::backdrop {
 }
 
 .hero {
-  max-width: 48rem;
+  max-width: 52rem;
   padding-block: var(--uvy-space-7);
 }
 .hero h1 {
   margin-bottom: var(--uvy-space-4);
-  font-size: clamp(2.25rem, 1.5rem + 3vw, var(--uvy-text-3xl));
-  line-height: 1.05;
+  font-size: clamp(1.75rem, 1.3rem + 2.1vw, var(--uvy-text-3xl));
+  line-height: 1.12;
   letter-spacing: -0.03em;
 }
 .hero .uvy-lead {
@@ -1857,8 +1880,8 @@ dialog::backdrop {
 .uvy-features h2,
 .uvy-features h3 {
   margin: 0 0 var(--uvy-space-2);
-  font-size: var(--uvy-text-md);
-  letter-spacing: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
 }
 .uvy-features p {
   margin: 0 0 var(--uvy-space-2);
@@ -1880,7 +1903,7 @@ dialog::backdrop {
 }
 .uvy-index a {
   display: grid;
-  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
   gap: var(--uvy-space-1) var(--uvy-space-6);
   padding: var(--uvy-space-3) var(--uvy-space-2);
   margin-inline: calc(-1 * var(--uvy-space-2));
@@ -1893,6 +1916,8 @@ dialog::backdrop {
   background: var(--uvy-hover);
 }
 .uvy-index strong {
+  font-family: var(--uvy-font-mono);
+  font-size: 0.875rem;
   font-weight: 600;
 }
 .uvy-index a:hover strong {
@@ -2199,12 +2224,20 @@ dialog::backdrop {
     border-right-color: currentColor;
   }
 }
+@media (max-height: 28rem) {
+  .site-footer {
+    position: static;
+  }
+}
 @media print {
   .site-header nav,
   #theme,
   .sidebar,
   .menu-backdrop {
     display: none !important;
+  }
+  .site-footer {
+    position: static;
   }
   body {
     background: #fff;

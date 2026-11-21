@@ -12,7 +12,7 @@ Follow the operating system theme initially via `color-scheme: light dark` and `
 
 ## Two navigation & search models
 
-Applications across Unit Vector Y Labs use two primary navigation patterns — choose the one that fits the site's information architecture:
+Applications across UnitVectorY-Labs use two primary navigation patterns — choose the one that fits the site's information architecture:
 
 ### 1. Persistent sticky sidebar + search
 

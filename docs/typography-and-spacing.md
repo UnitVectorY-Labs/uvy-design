@@ -1,32 +1,35 @@
 # Typography and spacing
 
-Use universally supported system fonts so `site/uvy.css` embeds cleanly into any application with zero external font files or network requests. Pair readable `system-ui` sans-serif prose with fixed-width `ui-monospace` instrumentation for subtle retro-terminal clarity.
+Use universally supported system fonts so `site/uvy.css` embeds cleanly into any application with zero external font files or network requests. Establish an unmistakable retro-terminal engineering voice by setting **structural chrome, headings and instrumentation in fixed-width `ui-monospace`**, while keeping **body prose and descriptions in crisp `system-ui` sans-serif**.
 
-## Font stacks
+## Two-voice font system
 
-- **Sans (`--uvy-font-sans`)**: `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` — body copy, page headings, form controls, navigation links.
-- **Monospace (`--uvy-font-mono`)**: `ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace` — header brand title, breadcrumbs, table headers, stat values, counts, status pills, badges, timestamps, identifiers, versions and code/output wells.
+- **Monospace (`--uvy-font-mono`)**: `ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace` — landing display, `H1`–`H4` headings, header brand title, header & sidebar navigation, tabs, buttons, form labels and legends, panel & dialog titles, datasheet keys (`.uvy-kv dt`), directory titles (`.uvy-index strong`), table column headers, record row identifiers, stat strips, counts, status pills, badges, timestamps, technical inputs (`.uvy-input--mono`), versions and code/output wells.
+- **Sans (`--uvy-font-sans`)**: `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` — body paragraphs, lead text (`.uvy-lead`), hints (`.uvy-hint`), list descriptions, alert copy, prose table cells and multiline prose textareas.
 
 ## Type scale
 
 | Role | Font | Size | Weight | Line-height |
 | --- | --- | --- | --- | --- |
-| Landing display | Sans | 36–52px (`clamp(2.25rem, 1.5rem + 3vw, 3.25rem)`) | 600 | 1.05 |
-| H1 page title | Sans | 32–40px (`clamp(2rem, 1.65rem + 1.4vw, 2.5rem)`) | 600 | 1.12 |
-| H2 section heading | Sans | 24px / `1.5rem` | 600 | 1.25 |
-| H3 subheading | Sans | 18px / `1.125rem` | 600 | 1.35 |
-| Header brand | Mono | 18px / `1.125rem` | 600 | 1.2 |
-| Body text | Sans | 16px / `1rem` | 400 | 1.65 |
-| UI controls, tables | Sans | 14px / `0.875rem` | 400 / 500 | 1.5 |
-| Labels, headers, badges | Mono | 12px / `0.75rem` | 500 | 1.45 |
+| Landing display | Mono | 28–44px (`clamp(1.75rem, 1.3rem + 2.1vw, 2.75rem)`) | 700 | 1.12 |
+| H1 page title | Mono | 24–34px (`clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem)`) | 700 | 1.18 |
+| H2 section heading | Mono | 21px / `1.3125rem` | 600 | 1.28 |
+| H3 subheading | Mono | 17px / `1.0625rem` | 600 | 1.35 |
+| Header brand | Mono | 14–17px (`clamp(0.875rem, 0.8rem + 0.35vw, 1.0625rem)`) | 600 | 1.2 |
+| Panel title / H4 | Mono | 15px / `0.9375rem` | 600 | 1.4 |
+| Nav, tabs, buttons, labels, keys | Mono | 13px / `0.8125rem` | 500 | 1.4 |
+| Body prose | Sans | 16px / `1rem` | 400 | 1.65 |
+| Descriptions, hints, prose cells | Sans | 14px / `0.875rem` | 400 | 1.55 |
+| Table headers, badges, meta | Mono | 12px / `0.75rem` | 500 | 1.45 |
 
-<div class="uvy-specimen type-preview"><span><small>Display</small><strong style="font-size:2.5rem;line-height:1.05;letter-spacing:-0.03em;font-weight:600">Inspect every certificate</strong></span><span><small>H1 · 40px</small><strong style="font-size:2.25rem;line-height:1.12;letter-spacing:-0.025em;font-weight:600">Service key details</strong></span><span><small>H2 · 24px</small><strong style="font-size:1.5rem;line-height:1.25;letter-spacing:-0.015em;font-weight:600">Key observations</strong></span><span><small>Brand · 18px</small><strong style="font-family:var(--uvy-font-mono);font-size:1.125rem;font-weight:600">UnitVectorY-Labs</strong></span><span><small>Body · 16px</small><span>Readable system sans keeps documentation and explanations effortless to scan.</span></span><span><small>Mono · 12px</small><span style="font-family:var(--uvy-font-mono);font-size:0.75rem;color:var(--uvy-text-muted)">2026-11-20 08:00 UTC · RS256 · sha256:9f86d081</span></span></div>
+<div class="uvy-specimen type-preview"><span><small>Display · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:2rem;line-height:1.12;letter-spacing:-0.03em;font-weight:700">Inspect every certificate</strong></span><span><small>H1 · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:1.75rem;line-height:1.18;letter-spacing:-0.025em;font-weight:700">Service key details</strong></span><span><small>H2 · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:1.3125rem;line-height:1.28;letter-spacing:-0.02em;font-weight:600">Key observations</strong></span><span><small>Chrome · Mono</small><strong style="font-family:var(--uvy-font-mono);font-size:0.875rem;font-weight:600">UnitVectorY-Labs · Check domain · RS256</strong></span><span><small>Body · Sans</small><span>Readable system sans keeps documentation, explanations and alert copy effortless to scan alongside fixed-width terminal headings and controls.</span></span><span><small>Meta · Mono</small><span style="font-family:var(--uvy-font-mono);font-size:0.75rem;color:var(--uvy-text-muted)">2026-11-21T16:05:05Z · sha256:9f86d081 · 12 records</span></span></div>
 
-## Subtle terminal restraint
+## Terminal clarity without fatigue
 
-- **Keep prose in sans-serif.** Fixed-width type brings crisp technical character when reserved for structural labels, metrics, paths, timestamps and code. Do not set long paragraphs in monospace.
+- **Let monospace lead structure, keep prose in sans.** Giving headings, navigation, buttons, labels, keys and metrics a consistent fixed-width voice creates an immediate retro-terminal engineering feel across every page, while system sans preserves reading speed on multi-sentence prose.
+- **Use `.uvy-input--mono` for technical inputs.** Apply `.uvy-input--mono` to inputs expecting domains, hostnames, identifiers, hashes, endpoints or search queries (`example.com`, `catalog.example.com`) so typed values match the terminal aesthetic.
 - **Sentence case everywhere.** Headings, buttons, tabs, table headers and sidebar labels use sentence case — never tracked-out ALL CAPS.
-- **Tabular numerals & UTC timestamps.** Apply `tabular-nums` to all tables, stat strips, counts and `<time>` elements (`2026-11-20 08:00 UTC`). Right-align numeric table columns (`.num`).
+- **Tabular numerals & UTC timestamps.** Apply `tabular-nums` to all tables, stat strips, counts and `<time>` elements (`2026-11-21 16:05 UTC` or ISO-8601 `2026-11-21T16:05:05Z`). Right-align numeric table columns (`.num`).
 - **Measure.** Keep prose paragraphs and list items within `70ch` even inside full-width layouts.
 
 ## Spacing & flexible page width

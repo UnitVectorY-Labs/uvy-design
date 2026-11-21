@@ -42,6 +42,14 @@ SOFTWARE.
   <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
   <path d="M12 8v4" />
   <path d="M12 16h.01" />
+</symbol><symbol id="tabler-alert-triangle" viewBox="0 0 24 24">
+  <path d="M12 9v4" />
+  <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+  <path d="M12 16h.01" />
+</symbol><symbol id="tabler-info-circle" viewBox="0 0 24 24">
+  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+  <path d="M12 9h.01" />
+  <path d="M11 12h1v4h1" />
 </symbol><symbol id="tabler-refresh" viewBox="0 0 24 24">
   <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
   <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
@@ -51,4 +59,13 @@ SOFTWARE.
   <path d="M9 9l1 0" />
   <path d="M9 13l6 0" />
   <path d="M9 17l6 0" />
+</symbol><symbol id="tabler-search" viewBox="0 0 24 24">
+  <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+  <path d="M21 21l-6 -6" />
+</symbol><symbol id="tabler-chevron-right" viewBox="0 0 24 24">
+  <path d="M9 6l6 6l-6 6" />
+</symbol><symbol id="tabler-external-link" viewBox="0 0 24 24">
+  <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+  <path d="M11 13l9 -9" />
+  <path d="M15 4h5v5" />
 </symbol></svg>

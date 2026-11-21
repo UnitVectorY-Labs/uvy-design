@@ -28,7 +28,7 @@
       theme.title = theme.getAttribute("aria-label");
       theme.querySelector("[data-icon=moon]").toggleAttribute("hidden", dark);
       theme.querySelector("[data-icon=sun]").toggleAttribute("hidden", !dark);
-      reset.hidden = !root.dataset.theme;
+      if (reset) reset.hidden = !root.dataset.theme;
     }
     function chooseTheme(value) {
       if (value) root.dataset.theme = value;
@@ -39,27 +39,104 @@
       } catch (_) {}
       updateTheme();
     }
-    theme.hidden = false;
-    updateTheme();
-    theme.addEventListener("click", function () {
-      const dark = root.dataset.theme
-        ? root.dataset.theme === "dark"
-        : system.matches;
-      chooseTheme(dark ? "light" : "dark");
-    });
-    reset.addEventListener("click", function () {
-      chooseTheme(null);
-      if (sidebar && sidebar.hasAttribute("data-open")) setOpen(false, false);
-      theme.focus();
-    });
-    system.addEventListener("change", updateTheme);
-    window.addEventListener("storage", function (event) {
-      if (event.key === "uvy-theme") {
-        if (event.newValue === "light" || event.newValue === "dark")
-          root.dataset.theme = event.newValue;
-        else delete root.dataset.theme;
-        updateTheme();
+    if (theme) {
+      theme.hidden = false;
+      updateTheme();
+      theme.addEventListener("click", function () {
+        const dark = root.dataset.theme
+          ? root.dataset.theme === "dark"
+          : system.matches;
+        chooseTheme(dark ? "light" : "dark");
+      });
+      if (reset) {
+        reset.addEventListener("click", function () {
+          chooseTheme(null);
+          if (sidebar && sidebar.hasAttribute("data-open"))
+            setOpen(false, false);
+          theme.focus();
+        });
       }
+      system.addEventListener("change", updateTheme);
+      window.addEventListener("storage", function (event) {
+        if (event.key === "uvy-theme") {
+          if (event.newValue === "light" || event.newValue === "dark")
+            root.dataset.theme = event.newValue;
+          else delete root.dataset.theme;
+          updateTheme();
+        }
+      });
+    }
+
+    // Copy buttons: copy text from [data-copy-target] or [data-copy-text].
+    document
+      .querySelectorAll("[data-copy-target], [data-copy-text]")
+      .forEach((button) => {
+        button.addEventListener("click", async function () {
+          const targetId = button.dataset.copyTarget;
+          const text = targetId
+            ? (document.getElementById(targetId)?.textContent ?? "").trim()
+            : button.dataset.copyText || "";
+          if (!text) return;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              const area = document.createElement("textarea");
+              area.value = text;
+              area.setAttribute("readonly", "");
+              area.style.position = "fixed";
+              area.style.opacity = "0";
+              document.body.append(area);
+              area.select();
+              document.execCommand("copy");
+              area.remove();
+            }
+          } catch (_) {}
+          button.classList.add("is-copied");
+          const liveId = button.dataset.copyStatus;
+          if (liveId) {
+            const live = document.getElementById(liveId);
+            if (live) live.textContent = "Copied to clipboard.";
+          }
+          clearTimeout(button._copyTimer);
+          button._copyTimer = setTimeout(() => {
+            button.classList.remove("is-copied");
+          }, 1800);
+        });
+      });
+
+    // Accessible tablists: click and arrow-key navigation.
+    document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
+      const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+      function selectTab(next, focus) {
+        tabs.forEach((tab) => {
+          const active = tab === next;
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+          const panel = document.getElementById(
+            tab.getAttribute("aria-controls") || "",
+          );
+          if (panel) panel.hidden = !active;
+        });
+        if (focus) next.focus();
+      }
+      tabs.forEach((tab, index) => {
+        tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
+        tab.addEventListener("click", () => selectTab(tab, false));
+        tab.addEventListener("keydown", (event) => {
+          let target = null;
+          if (event.key === "ArrowRight")
+            target = tabs[(index + 1) % tabs.length];
+          else if (event.key === "ArrowLeft")
+            target = tabs[(index - 1 + tabs.length) % tabs.length];
+          else if (event.key === "Home") target = tabs[0];
+          else if (event.key === "End") target = tabs[tabs.length - 1];
+          if (target) {
+            event.preventDefault();
+            selectTab(target, true);
+          }
+        });
+      });
     });
 
     const sidebar = document.getElementById("sidebar");

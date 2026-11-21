@@ -1,5 +1,6 @@
 """Exercise standalone and published references with Chromium (optional QA dependency)."""
 from pathlib import Path
+import re
 from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,6 +48,9 @@ with sync_playwright() as p:
         assert min(contrast_ratios(page, 'td[data-value]:not([data-value=""]), .legend span')) >= 4.5
         page.goto((ROOT / 'examples/panels.html').as_uri())
         assert min(contrast_ratios(page, '.lifecycle-active .state, .lifecycle-inactive .state')) >= 4.5
+        page.goto((ROOT / 'examples/components.html').as_uri())
+        assert min(contrast_ratios(page, '.uvy-status, .uvy-button--primary')) >= 4.5
+        assert page.evaluate("document.fonts.ready.then(() => [...document.fonts].some(f => f.family.includes('IBM Plex Sans') && f.status === 'loaded'))")
         context.close()
 
     context = browser.new_context(viewport={'width': 375, 'height': 900}, color_scheme='light')
@@ -129,8 +133,18 @@ with sync_playwright() as p:
     page.locator('#repo-filter').fill('missing')
     assert page.locator('#record-empty').is_visible()
     page.goto((ROOT / 'examples/utility.html').as_uri())
-    page.get_by_role('button', name='Normalize').click()
+    page.get_by_role('button', name='Normalize', exact=True).click()
     assert page.locator('#result').inner_text() == 'catalog.example.com'
+    copy_btn = page.get_by_role('button', name='Copy normalized identifier')
+    copy_btn.click()
+    expect(copy_btn).to_have_class(re.compile(r'\bis-copied\b'))
+    page.goto((ROOT / 'examples/panels.html').as_uri())
+    page.locator('#ev-tab-headers').focus()
+    page.keyboard.press('ArrowRight')
+    assert page.locator('#ev-tab-json').get_attribute('aria-selected') == 'true'
+    assert page.locator('#ev-panel-json').is_visible()
+    assert page.locator('#ev-panel-headers').is_hidden()
+    page.goto((ROOT / 'examples/utility.html').as_uri())
     page.set_viewport_size({'width': 640, 'height': 900})
     page.evaluate("document.documentElement.style.fontSize='200%'")
     check_layout(page)

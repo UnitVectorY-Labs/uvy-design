@@ -1,23 +1,34 @@
 # Themes and navigation
 
-Follow the operating-system theme initially and respond to system changes while no override is set. The [header's sun/moon button](header.md) switches directly to the opposite theme and persists that choice where storage is available. “Use system theme” clears the override. Keep the page usable without storage or JavaScript; hide inactive controls.
+## Light and dark themes
 
-The isolated [light](../examples/light.html) and [dark](../examples/dark.html) examples start in their named mode to make comparison predictable.
+Follow the operating system preference initially via `color-scheme: light dark` and `light-dark()` tokens, and react immediately to OS changes while no user override is set.
 
-Use semantic color variables and `color-scheme` throughout. Apply saved preferences before painting where practical. Keep text, native controls, icons and focus indicators readable in both themes.
+- Store explicit choices in `localStorage` under the shared key `uvy-theme` (`"light"` or `"dark"`) and mirror them onto `<html data-theme="light|dark">`.
+- Run the small theme bootstrap script synchronously in `<head>` so saved choices apply before first paint without a flash of the wrong theme.
+- The header sun/moon button switches directly to the opposite theme; “Use system theme” deletes `data-theme` and removes `uvy-theme`.
+- Keep all pages readable and navigable when JavaScript or `localStorage` is unavailable; hide JS-only controls with `hidden` until enhanced.
+- Listen to `window`'s `storage` event so open tabs on the same origin stay synchronized.
 
-## Guide and example navigation
+The isolated [light](../examples/light.html) and [dark](../examples/dark.html) examples lock their initial mode with `data-example-theme` so side-by-side comparison stays predictable.
 
-Keep documentation and examples in separate destinations. The guide sidebar contains only guide chapters in a stable conceptual order. Link from each chapter to the relevant full-page example; the Examples index lists isolated demonstrations. Examples do not inherit the guide sidebar. A sidebar inside a navigation or article example belongs only to that demonstration.
+## Guide and example separation
 
-Avoid mixing guide chapters, sample pages and local anchors in one flat menu, reordering links between pages, or adding search/filter controls to a short menu. These patterns obscure where a link will take the reader.
+Keep documentation chapters and full-page examples in separate destinations. A documentation sidebar lists chapters in one stable conceptual order without mixing local anchors, examples or unnecessary search boxes into a short menu.
 
-## Application sidebars
+## Application sidebars and drawers
 
-Use a persistent left sidebar around 15rem wide on desktop. Keep search and task-relevant filters above an independently scrolling link list; do not invent filters for short menus. Keep the current destination marked when visible in the filtered list, using `aria-current` and an accent-derived indicator.
+Use a persistent `15rem` left sidebar on desktop separated by a `1px` vertical border. Inside the sidebar:
 
-At widths of 768px or less, use a left drawer no wider than 18rem and leave a tappable backdrop visible. The header menu button opens it. Provide an explicit close button; close on Escape, backdrop click, destination selection and a change to desktop layout. Trap focus while open, keep the background inactive, and restore focus to the trigger on dismissal. Prevent background scrolling while allowing the drawer to scroll.
+- Keep section search or domain filters sticky above an independently scrolling link list; omit filters when a sidebar has fewer than ~12 links.
+- Mark the active destination with `aria-current="page"` (or `"location"` for in-page sections), `--uvy-hover` fill, `--uvy-text` ink and a `2px` `--uvy-accent` left bar — the vertical counterpart of the header's 2px bottom bar.
+- At `768px` or narrower, collapse the sidebar into a left slide-over drawer (`max-width: 18rem`, leaving a visible tappable backdrop). Provide an explicit close button; dismiss on `Escape`, backdrop click, link activation or resize back to desktop. Set `role="dialog"`, `aria-modal="true"`, trap keyboard Tab focus, mark background landmarks `inert`, lock body scroll and restore focus to the menu button on close.
+- Without JavaScript, render the sidebar inline above the content so every link remains reachable.
 
-Use normal links and retain usable navigation without JavaScript. Preserve useful search, filter and scroll state when updating content. See the working [navigation](../examples/navigation.html) and [documentation](../examples/documentation.html) examples.
+## Breadcrumbs, tabs and pagination
 
-Use the shared [footer](footer.md) on static and dynamic pages. Serve assets locally. Standalone examples embed their styles and behavior; shared theme storage carries choices between pages on the same origin, subject to browser storage support.
+- **Breadcrumbs** (`.uvy-breadcrumbs`): Use on nested entity detail pages, metadata browsers and documentation hierarchies (`Catalog / Service / Key`). Separate items with a quiet `/` and mark the final item `aria-current="page"`.
+- **Tabs** (`.uvy-tabs`): Use `role="tablist"` and `role="tab"` to switch between closely related views of the same entity (for example, formatted claims vs. raw JSON payload). The selected tab (`aria-selected="true"`) carries the same `2px` `--uvy-accent` bottom rule as header navigation. Support `ArrowLeft`, `ArrowRight`, `Home` and `End` keys. Never hide primary content behind tabs purely to shorten a page.
+- **Pagination** (`.uvy-pagination`): Show the current visible range in tabular numerals on the left and quiet Previous / Next links or buttons on the right.
+
+See [header, sidebar and tabs](../examples/navigation.html), [detail panels](../examples/panels.html) and [static article](../examples/documentation.html).

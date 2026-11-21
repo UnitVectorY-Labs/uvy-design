@@ -1,29 +1,31 @@
 # UVY Design
 
-Current design guidance for Unit Vector Y Labs projects: minimal, precise engineering interfaces with neutral surfaces, restrained orange accents and first-class light and dark modes. This is an unversioned, human-readable reference. Each application owns its implementation; preserve its purpose, data semantics and workflows.
+Current design guidance for Unit Vector Y Labs projects: quiet, precise engineering interfaces built on cool graphite surfaces, IBM Plex typography, a single 2px signal-orange accent rule, and first-class light and dark modes. This repository is an unversioned, human-readable reference. Each application owns its implementation; preserve its purpose, data semantics and workflows.
 
 ## Read the guide
 
-- [Foundations](docs/foundations.md)
-- [Color](docs/color.md)
-- [Typography and spacing](docs/typography-and-spacing.md)
-- [Header](docs/header.md)
-- [Themes and navigation](docs/themes-and-navigation.md)
-- [Icons](docs/icons.md)
-- [Components](docs/components-and-icons.md)
-- [Footer](docs/footer.md)
-- [Page archetypes](docs/page-archetypes.md)
-- [Review](docs/review.md)
+- [Foundations](docs/foundations.md) — Aesthetic direction, restraint rules and adoption contract
+- [Color](docs/color.md) — Graphite surfaces, signal orange, status, lifecycle, spectra and charts
+- [Typography and spacing](docs/typography-and-spacing.md) — IBM Plex type scale, measure, numerals, geometry and motion
+- [Header](docs/header.md) — Universal top bar, brand mark, active rule and theme switch
+- [Themes and navigation](docs/themes-and-navigation.md) — Light/dark contract, sidebars, drawers, breadcrumbs, tabs and pagination
+- [Icons](docs/icons.md) — Tabler outline icons, sizing, neutral-by-default coloring and labeling
+- [Components](docs/components-and-icons.md) — Controls, panels, datasheets, status pills, tables, code viewers, alerts and charts
+- [Footer](docs/footer.md) — Centered attribution, license, repository links and optional version line
+- [Page archetypes](docs/page-archetypes.md) — Landings, catalogs, lookup tools, dashboards, admin apps and documentation
+- [Review](docs/review.md) — Visual, responsive, accessibility and fallback audit checklist
 
 ## Explore the examples
 
-Open the separate [examples index](examples/index.html). Each page is a full-page implementation focused on one concept, with no guide sidebar. The [light](examples/light.html), [dark](examples/dark.html), [footer](examples/footer.html), [icons](examples/icons.html) and [table](examples/table.html) references are intentionally small. Complete static and dynamic layouts are available separately.
+Open the separate [examples index](examples/index.html). Each example is a focused, standalone page with no guide sidebar. Every HTML file embeds its own stylesheet and shell behavior so it opens directly in a browser without a server or build step.
 
-Every HTML example contains its own styles and behavior and can be opened directly in a browser. No server, build step or external assets are required. Font stacks prefer locally installed IBM Plex and fall back to system fonts. The web build renders Markdown guide pages and adapts links; the Markdown remains readable on its own.
+## Apply to a project
+
+Copy the semantic token block (`--uvy-*`) and the needed component patterns from [site/reference.css](site/reference.css), the inline Tabler sprite from [site/icons.inc](site/icons.inc), and the theme/drawer script from [site/theme.js](site/theme.js). Self-host the IBM Plex WOFF2 files in [site/fonts/](site/fonts/) with their SIL OFL license notice, or rely on system fallbacks when a project must stay single-file.
 
 ## Preview and publish
 
-The GitHub Pages build renders the Markdown and copies the standalone examples into one static site. Generated output is ignored; edit the Markdown, HTML and presentation sources instead. `site/reference.css` and `site/theme.js` style the published guide; the examples deliberately embed their own copies so each HTML file remains portable. After changing common CSS or shell behavior, run `python3 scripts/sync_examples.py` to refresh the embedded copies. Page content remains authored HTML.
+The GitHub Pages build renders the Markdown guides and copies the standalone examples into one static site. Generated output (`_site/`) is ignored; edit the Markdown, HTML and `site/` sources instead. After editing `site/reference.css` or `site/theme.js`, run `python3 scripts/sync_examples.py` to refresh the embedded copies in `examples/*.html`.
 
 ```sh
 python3 -m venv .venv
@@ -33,10 +35,8 @@ python3 -m venv .venv
 .venv/bin/python -m http.server 8000 --directory _site
 ```
 
-For browser regression checks, install `requirements-browser.txt`, run `python -m playwright install --with-deps chromium`, then `python scripts/check_browser.py` in the virtual environment. CI runs the same layout, keyboard, theme, data-contrast and interaction checks before publishing.
+For browser regression checks, install `requirements-browser.txt`, run `.venv/bin/python -m playwright install --with-deps chromium`, and run `.venv/bin/python scripts/check_browser.py`. CI runs the same layout, contrast, keyboard, theme and interaction checks before publishing.
 
-Open `http://localhost:8000`. Relative links also work under GitHub Pages repository subpaths and custom domains. The site needs no runtime JavaScript to read guides or navigate; JavaScript enables appearance controls and example interactions.
+Open `http://localhost:8000`. All links stay relative so the site works under GitHub Pages repository subpaths and custom domains. Reading guides and navigating require no JavaScript; JavaScript enhances theme switching, drawers, tabs, copy buttons and example filters.
 
-In repository **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. The included workflow checks pull requests and publishes pushes to `main`, or manual workflow runs. GitHub environment protection rules may require deployment approval. See [GitHub's custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-
-The published project URL is [unitvectory-labs.github.io/uvy-design](https://unitvectory-labs.github.io/uvy-design/); availability depends on the repository's Pages configuration and a successful workflow run.
+In repository **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. The published project URL is [unitvectory-labs.github.io/uvy-design](https://unitvectory-labs.github.io/uvy-design/).

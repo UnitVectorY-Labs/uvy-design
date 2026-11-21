@@ -1,13 +1,21 @@
 # Universal header
 
-Use the same anatomy across sites: product identity on the left, contextual navigation beside it, and the theme icon at the far right. Applications retain their own name, mark and destinations.
+Every Unit Vector Y Labs site shares the same quiet header anatomy: product identity on the left, primary navigation beside it, and the theme switch flush on the far right.
 
-- Use a 56px minimum desktop height, page-aligned gutters, surface background and 1px neutral bottom border. Omit shadows.
-- Make the theme button 36px square, increasing to 44px for coarse pointers. Use a Tabler moon in light mode and sun in dark mode, with an action-specific accessible name and title such as “Switch to dark mode.”
-- Keep identity readable as names wrap. On narrow screens, keep the theme button in the top-right corner of the first row, with the menu trigger and identity on the left. Other navigation may wrap below.
-- Selected destinations use accessible accent-derived text, a visible indicator and `aria-current="page"`.
-- The sidebar trigger uses a Tabler menu icon, a clear accessible name, `aria-controls` and accurate `aria-expanded`.
+## Anatomy and geometry
 
-The theme button switches directly between light and dark. Offer a separate “Use system theme” action as a secondary action in the sidebar footer, or in header navigation when there is no sidebar; do not replace the button with a theme dropdown.
+- **Surface and rule.** `56px` (`3.5rem`) minimum desktop height, `--uvy-surface` background, `1px solid var(--uvy-border)` bottom divider, no shadow, aligned to the same `75rem` page gutters as main content.
+- **Brand identity.** Lead with the application's own product name (and optional mark). UnitVectorY-Labs properties may use the 24×24 geometric vector mark (`uvy-mark`) showing an orange unit vector rising from its origin dot on an ink tile. Keep long product names readable and allowed to wrap.
+- **Primary navigation.** Links span the full `56px` header height in quiet `--uvy-text-muted` text, darkening to `--uvy-text` on hover. The active destination (`aria-current="page"`) renders in `--uvy-text` with a flush `2px` `--uvy-accent` bottom rule sitting directly on the header divider.
+- **Theme switch.** A borderless `36px` square `.icon-button` (`44px` on coarse pointers) flush with the right gutter. Display a Tabler moon in light mode and sun in dark mode, using neutral `--uvy-text-muted` ink that brightens on `--uvy-hover`. Name the next action in both `aria-label` and `title` (for example, “Switch to dark theme”).
+- **System theme reset.** Offer “Use system theme” as a quiet secondary button in the sidebar footer, or beside header navigation when no sidebar exists, shown only while a manual override is active. Never replace the direct toggle with a dropdown.
 
-See the working [header and sidebar reference](../examples/navigation.html), [documentation layout](../examples/documentation.html) and [landing page](../examples/landing.html).
+## Mobile layout
+
+At `768px` (`48rem`) and narrower:
+
+- Keep the mobile menu trigger (when a sidebar exists) and product identity on the first row left, and keep the theme switch pinned at the top-right corner of the first row.
+- Wrap header navigation onto a second full-width row (`40px` height) with the same 2px active indicator.
+- The sidebar trigger uses a Tabler menu icon, an explicit accessible name (“Open navigation”), `aria-controls="sidebar"` and accurate `aria-expanded`.
+
+See [header and sidebar](../examples/navigation.html), [static article](../examples/documentation.html) and [landing page](../examples/landing.html).

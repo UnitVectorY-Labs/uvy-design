@@ -42,12 +42,29 @@ def build():
         title = text.splitlines()[0].lstrip('# ')
         article = web_links(markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc']))
         # Wide prose tables scroll within a named, keyboard-accessible region.
-        article = article.replace('<table>', '<div class="table-wrap" role="region" aria-label="Reference table" tabindex="0"><table>').replace('</table>', '</table></div>')
+        article = article.replace(
+            '<table>',
+            '<div class="table-wrap" role="region" aria-label="Reference table" tabindex="0"><table>',
+        ).replace('</table>', '</table></div>')
         if source.stem == 'color':
-            article = article.replace('<table>', '<table class="palette-table" role="table">').replace('<thead>', '<thead role="rowgroup">').replace('<tbody>', '<tbody role="rowgroup">').replace('<tr>', '<tr role="row">').replace('<th>', '<th scope="col" role="columnheader">').replace('<td>', '<td role="cell">')
-        links = ''.join(f'<a href="{prefix}docs/{slug}.html"'+(' aria-current="page"' if source.stem == slug else '')+f'>{escape(label)}</a>' for slug, label in GUIDES)
-        dest.write_text(f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{escape(title)} — Unit Vector Y Labs</title><link rel="stylesheet" href="{prefix}site/reference.css"><script src="{prefix}site/theme.js"></script></head><body>{header(prefix)}<main class="page layout" id="main">{navigation(links, 'Design guide')}<div class="workspace"><article class="article">{article}<p class="guide-note"><a href="{prefix}{rel.as_posix()}">Standalone Markdown source</a></p></article></div></main>{backdrop()}{footer(prefix)}</body></html>''')
+            article = (
+                article.replace('<table>', '<table class="palette-table" role="table">')
+                .replace('<thead>', '<thead role="rowgroup">')
+                .replace('<tbody>', '<tbody role="rowgroup">')
+                .replace('<tr>', '<tr role="row">')
+                .replace('<th>', '<th scope="col" role="columnheader">')
+                .replace('<td>', '<td role="cell">')
+            )
+        links = ''.join(
+            f'<a href="{prefix}docs/{slug}.html"'
+            + (' aria-current="page"' if source.stem == slug else '')
+            + f'>{escape(label)}</a>'
+            for slug, label in GUIDES
+        )
+        dest.write_text(
+            f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{escape(title)} — Unit Vector Y Labs</title><link rel="stylesheet" href="{prefix}site/reference.css"><script src="{prefix}site/theme.js"></script></head><body>{header(prefix)}<main class="page layout" id="main">{navigation(links, 'Design guide')}<div class="workspace"><article class="article">{article}<p class="guide-note"><a href="{prefix}{rel.as_posix()}">Standalone Markdown source</a></p></article></div></main>{backdrop()}{footer(prefix)}</body></html>'''
+        )
         shutil.copy(source, OUT / rel)
     print(f'Built {len(DOCS) + 1} guide pages and {len(list((OUT / "examples").glob("*.html")))} examples in {OUT}')
 

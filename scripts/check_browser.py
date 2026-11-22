@@ -13,6 +13,9 @@ def check_layout(page):
     assert page.locator('h1').count() == 1, page.url
     assert page.locator('.site-header .uvy-mark polygon').count() == 3, page.url
     assert page.locator('#theme svg:visible').count() == 1, page.url
+    if page.viewport_size['width'] >= 768 and page.locator('#menu').count():
+        assert page.locator('#menu').is_hidden(), f'#menu visible on desktop: {page.url}'
+        assert page.locator('#menu-close').is_hidden(), f'#menu-close visible on desktop: {page.url}'
     assert page.locator('#theme-reset').count() == 0, f'Unexpected theme reset control: {page.url}'
     # Brand naming rule: never abbreviate UnitVectorY-Labs to UVY in titles or header brand.
     assert 'UVY' not in page.title(), f'Unexpected UVY in title: {page.title()} ({page.url})'
@@ -103,6 +106,16 @@ try:
         assert page.locator('html').get_attribute('data-theme') == 'dark'
         page.goto(f'{base}/index.html')
         assert page.locator('html').get_attribute('data-theme') == 'light'
+
+        # Verify reveal-on-scroll-up header behavior on a tall documentation page.
+        page.goto(f'{base}/docs/color.html')
+        page.evaluate("window.scrollTo(0, 600)")
+        page.wait_for_timeout(250)
+        assert 'is-hidden' in (page.locator('.site-header').get_attribute('class') or ''), 'Header should hide on scroll down'
+        page.evaluate("window.scrollTo(0, 420)")
+        page.wait_for_timeout(250)
+        assert 'is-hidden' not in (page.locator('.site-header').get_attribute('class') or ''), 'Header should reveal on scroll up'
+        assert page.locator('.site-header').evaluate("el => el.getBoundingClientRect().top") >= -1
         context.close()
 
         # Mobile drawer, forms, tables, topbar, tabs, copy, dialog, zoom.

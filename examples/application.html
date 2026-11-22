@@ -143,6 +143,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--uvy-header-height) + var(--uvy-space-4));
   scroll-padding-bottom: 4.5rem;
 }
 body {
@@ -476,8 +477,17 @@ time,
 
 .site-header {
   position: relative;
+  z-index: 3;
   border-bottom: 1px solid var(--uvy-border);
   background: var(--uvy-surface);
+}
+.js .site-header {
+  position: sticky;
+  top: 0;
+  transition: transform 180ms var(--uvy-ease);
+}
+.js .site-header.is-hidden:not(:focus-within) {
+  transform: translateY(-100%);
 }
 .header-inner {
   display: grid;
@@ -557,8 +567,14 @@ time,
   height: var(--uvy-stroke);
   background: var(--uvy-accent);
 }
-.header-inner > #theme {
+.header-inner > #theme,
+.header-inner > .header-actions {
   grid-column: 3;
+}
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--uvy-space-1);
 }
 
 .site-footer {
@@ -629,6 +645,16 @@ time,
   scrollbar-width: thin;
   scrollbar-color: var(--uvy-border-emphasis) transparent;
 }
+@media (min-width: 48.0625rem) {
+  .js .sidebar {
+    transition: top 180ms var(--uvy-ease);
+  }
+  .js .site-header:not(.is-hidden) ~ main .sidebar,
+  .js .site-header:focus-within ~ main .sidebar {
+    top: var(--uvy-header-height);
+    max-height: calc(100dvh - var(--uvy-header-height) - 3.5rem);
+  }
+}
 .sidebar-tools {
   position: sticky;
   top: calc(-1 * var(--uvy-space-6));
@@ -698,7 +724,9 @@ time,
   background: var(--uvy-accent);
 }
 .sidebar-close,
-.menu-button {
+.menu-button,
+.icon-button.sidebar-close,
+.icon-button.menu-button {
   display: none;
 }
 .menu-backdrop {
@@ -870,12 +898,26 @@ button.uvy-button--primary:hover {
   font-size: var(--uvy-text-xs);
 }
 .icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--uvy-control-height);
+  min-height: var(--uvy-control-height);
   padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--uvy-radius-control);
+  background: transparent;
   color: var(--uvy-text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--uvy-duration) var(--uvy-ease),
+    color var(--uvy-duration) var(--uvy-ease);
 }
 .icon-button:hover {
+  border-color: transparent;
+  background: var(--uvy-hover);
   color: var(--uvy-text);
+  text-decoration: none;
 }
 button:disabled,
 .uvy-button[aria-disabled="true"] {
@@ -1977,7 +2019,8 @@ dialog::backdrop {
   .header-inner > nav a {
     min-height: 2.5rem;
   }
-  .header-inner > #theme {
+  .header-inner > #theme,
+  .header-inner > .header-actions {
     grid-column: 2;
     grid-row: 1;
   }
@@ -2017,7 +2060,9 @@ dialog::backdrop {
     top: calc(-1 * var(--uvy-space-3));
   }
   .js .menu-button,
-  .js .sidebar-close {
+  .js .sidebar-close,
+  .js .icon-button.menu-button,
+  .js .icon-button.sidebar-close {
     display: inline-flex;
   }
   .uvy-panel {
@@ -2258,12 +2303,21 @@ dialog::backdrop {
   }
 }
 @media (max-height: 28rem) {
+  .js .site-header {
+    position: relative;
+    transform: none;
+  }
   .site-footer {
     position: static;
   }
 }
 @media print {
+  .js .site-header {
+    position: static;
+    transform: none;
+  }
   .site-header nav,
+  .header-actions,
   #theme,
   .sidebar,
   .menu-backdrop {
@@ -2403,6 +2457,57 @@ dialog::backdrop {
             root.dataset.theme = event.newValue;
           updateTheme();
         }
+      });
+    }
+
+    // Reveal-on-scroll-up header: hides while scrolling down past the header,
+    // glides back into view on upward scroll or when focus enters the header.
+    const siteHeader = document.querySelector(".site-header");
+    if (siteHeader) {
+      let lastY = window.scrollY;
+      let anchorY = lastY;
+      let lastDir = 0;
+      let ticking = false;
+      function updateHeaderVisibility() {
+        ticking = false;
+        const y = Math.max(0, window.scrollY);
+        const step = y - lastY;
+        if (step === 0) return;
+        const dir = step > 0 ? 1 : -1;
+        if (dir !== lastDir) {
+          anchorY = lastY;
+          lastDir = dir;
+        }
+        const travel = y - anchorY;
+        const threshold = Math.max(siteHeader.offsetHeight, 64);
+        if (
+          y <= threshold ||
+          document.body.classList.contains("drawer-open") ||
+          siteHeader.matches(":focus-within")
+        ) {
+          siteHeader.classList.remove("is-hidden");
+          anchorY = y;
+        } else if (travel > 12) {
+          siteHeader.classList.add("is-hidden");
+          anchorY = y;
+        } else if (travel < -10) {
+          siteHeader.classList.remove("is-hidden");
+          anchorY = y;
+        }
+        lastY = y;
+      }
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateHeaderVisibility);
+          }
+        },
+        { passive: true },
+      );
+      siteHeader.addEventListener("focusin", function () {
+        siteHeader.classList.remove("is-hidden");
       });
     }
 

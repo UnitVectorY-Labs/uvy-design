@@ -18,8 +18,8 @@ Applications across UnitVectorY-Labs use two primary navigation patterns — cho
 
 Best for multi-chapter documentation, large domain catalogs and entity trees (`dns-caa-catalog`, `jwks-catalog`, this design guide):
 
-- A `15.5rem` sticky left sidebar (`position: sticky; top: 0; max-height: 100dvh; overflow-y: auto`) beside a naturally scrolling main column — never trap the whole viewport in `height: 100dvh; overflow: hidden`, which clips content above the footer.
-- Keep search inputs sticky inside `.sidebar-tools` for long lists; omit search on short menus.
+- A `15.5rem` sticky left sidebar beside a naturally scrolling main column — never trap the whole viewport in `height: 100dvh; overflow: hidden`, which clips content above the footer. When `.site-header` reveals on upward scroll, desktop `.sidebar` shifts its sticky `top` offset to `--uvy-header-height` automatically so `.sidebar-tools` and search stay unobstructed, then returns to `top: 0` when the header hides on downward scroll.
+- Keep search inputs sticky inside `.sidebar-tools` for long lists or full-text documentation search; omit search on short menus. On single-section documentation sites where the sidebar owns navigation, omit top-bar `<nav>` tabs and put any repository icon link inside `.header-actions` beside `#theme`.
 - Mark the current destination with `aria-current="page"` (or `"location"`), `--uvy-hover` fill and a bold `3px` `--uvy-accent` left bar.
 - At `768px` or narrower, convert the sidebar into an accessible left drawer (`max-width: 18rem`) with close button, `Escape` and backdrop dismissal, Tab focus trapping, `inert` background and focus restoration. Without JavaScript, the sidebar renders inline above content.
 

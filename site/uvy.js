@@ -125,6 +125,57 @@
       });
     }
 
+    // Reveal-on-scroll-up header: hides while scrolling down past the header,
+    // glides back into view on upward scroll or when focus enters the header.
+    const siteHeader = document.querySelector(".site-header");
+    if (siteHeader) {
+      let lastY = window.scrollY;
+      let anchorY = lastY;
+      let lastDir = 0;
+      let ticking = false;
+      function updateHeaderVisibility() {
+        ticking = false;
+        const y = Math.max(0, window.scrollY);
+        const step = y - lastY;
+        if (step === 0) return;
+        const dir = step > 0 ? 1 : -1;
+        if (dir !== lastDir) {
+          anchorY = lastY;
+          lastDir = dir;
+        }
+        const travel = y - anchorY;
+        const threshold = Math.max(siteHeader.offsetHeight, 64);
+        if (
+          y <= threshold ||
+          document.body.classList.contains("drawer-open") ||
+          siteHeader.matches(":focus-within")
+        ) {
+          siteHeader.classList.remove("is-hidden");
+          anchorY = y;
+        } else if (travel > 12) {
+          siteHeader.classList.add("is-hidden");
+          anchorY = y;
+        } else if (travel < -10) {
+          siteHeader.classList.remove("is-hidden");
+          anchorY = y;
+        }
+        lastY = y;
+      }
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateHeaderVisibility);
+          }
+        },
+        { passive: true },
+      );
+      siteHeader.addEventListener("focusin", function () {
+        siteHeader.classList.remove("is-hidden");
+      });
+    }
+
     // Delegated copy actions and tablists work across static and HTMX-swapped DOM.
     document.addEventListener("click", async function (event) {
       const tab = event.target.closest('[role="tablist"] [role="tab"]');

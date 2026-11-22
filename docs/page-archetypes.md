@@ -17,10 +17,13 @@ All archetypes share `site/uvy.css`, `site/uvy.js`, the [universal header](heade
 - **Fluid `.page--wide`** unlocks full viewport width for wide dashboards, multi-column lane boards, repo×badge matrices and top-bar search indexes. Keep `.site-header--wide` and `.site-footer--wide` aligned, and keep prose paragraphs inside capped at `70ch`.
 - **Sidebar vs. top-bar**: Use a sticky left sidebar when users jump frequently across dozens of named sections or entities. Use top-bar navigation plus an inline `.uvy-toolbar` search when the entire app revolves around one searchable workspace or a handful of top-level views.
 
-## Theming Jekyll documentation (`just-the-docs` and `minima`)
+## Standardized Jekyll documentation (`uvy-docs-theme`)
 
-Sites built on `just-the-docs` or Jekyll `minima` can match UnitVectorY-Labs Design cleanly through their custom stylesheet (`_sass/custom/custom.scss` or `assets/css/style.scss`):
+For GitHub Pages documentation repositories (including sites previously built on `just-the-docs`), adopt the shared [`uvy-docs-theme`](https://github.com/UnitVectorY-Labs/uvy-docs-theme) Jekyll remote theme directly on `site/uvy.css` and `site/uvy.js` rather than maintaining duplicated overrides:
 
-- Map canvas, surface, border, text, muted text, link, code well and focus variables directly to the light (`#F5F7FA` / `#FFFFFF` / `#F25C05`) and midnight-slate dark (`#090D16` / `#111827` / `#FF7A1A`) tokens in [Color](color.md).
-- Set body prose to `--uvy-font-sans` and headings, brand, navigation, controls, code and table headers to `--uvy-font-mono`.
-- Use the `3px` orange active bar on sidebar links and keep the compact sticky centered UnitVectorY-Labs footer and sun/moon cookie toggle where the layout allows.
+- **No redundant top-bar tabs.** Keep all chapter navigation in the sticky left sidebar; omit top-bar `<nav>` links unless the site has genuinely distinct top-level sections, and place the repository's Tabler `brand-github` `<a class="icon-button">` inside `.header-actions` immediately left of `#theme`.
+- **Reveal-on-scroll-up header + coordinated sidebar.** Let `.site-header` glide away on scroll down and return on scroll up while shifting the desktop sticky sidebar offset in sync so sidebar search and navigation are never covered.
+- **Workspace-width data inside `70ch` prose.** Keep Markdown paragraphs, lists and callouts capped at `70ch`, while allowing dense flag tables (wrapped in keyboard-focusable `.table-wrap`), `.uvy-code` blocks with copy bars, and live-themed Mermaid diagrams to use the full `.workspace` column width.
+- **Semantic callouts and Rouge tokens.** Map Kramdown callout classes (`.highlight`, `.important`, `.new`, `.note`, `.warning` scoped to `p`/`blockquote` so Rouge's `div.highlight` is unaffected) to `--uvy-*` semantic status tokens with a `3px` left rule, and calibrate syntax highlighting colors for `>= 4.5:1` contrast against `--uvy-sunken` in both light and dark modes.
+- **Zero-dependency client-side search.** Generate a build-time Liquid JSON index (`assets/js/search-data.json`) and render search results in-flow inside `.sidebar` so search works identically in the desktop sidebar and mobile drawer.
+- **One-off Jekyll `minima` or custom sites** that cannot switch themes can still map their variables in `_sass/custom/custom.scss` or `assets/css/style.scss` to the light (`#F5F7FA` / `#FFFFFF` / `#F25C05`) and midnight-slate dark (`#090D16` / `#111827` / `#FF7A1A`) tokens in [Color](color.md) with `--uvy-font-sans` prose and `--uvy-font-mono` headings and chrome.

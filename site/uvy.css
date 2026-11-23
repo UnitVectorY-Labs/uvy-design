@@ -484,6 +484,18 @@ time,
   min-width: 0;
   padding-block: var(--uvy-space-2);
 }
+.header-identity h1 {
+  margin: 0;
+}
+.header-identity > h1:not(.brand) {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
 .brand {
   display: inline-flex;
   align-items: center;

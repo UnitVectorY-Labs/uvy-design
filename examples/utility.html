@@ -1542,6 +1542,100 @@ td.num {
   line-height: 1.5;
 }
 
+/* Charts and aligned breakdown sparklines */
+.uvy-chart-panel__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--uvy-space-3);
+  margin-bottom: var(--uvy-space-3);
+}
+.uvy-chart-panel__top h2,
+.uvy-chart-panel__top h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+.uvy-chart-unit {
+  color: var(--uvy-text-faint);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+  white-space: nowrap;
+}
+.uvy-chart-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--uvy-space-3) var(--uvy-space-6);
+  margin-bottom: var(--uvy-space-3);
+}
+.uvy-chart-metric {
+  min-width: 0;
+}
+.uvy-chart-metric__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+  line-height: 1.4;
+}
+.uvy-chart-metric__value {
+  display: block;
+  margin-top: 0.125rem;
+  font-family: var(--uvy-font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.uvy-swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0;
+  border-top: 2.5px solid currentColor;
+  flex: none;
+}
+.uvy-swatch--dashed {
+  border-top-style: dashed;
+}
+.uvy-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--uvy-space-2) var(--uvy-space-4);
+  margin: var(--uvy-space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--uvy-text-muted);
+  font-family: var(--uvy-font-mono);
+  font-size: var(--uvy-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+.uvy-chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  max-width: none;
+}
+.uvy-sparkline {
+  display: block;
+  width: 100%;
+  height: 2.125rem;
+  overflow: visible;
+}
+.uvy-sparkline__baseline {
+  stroke: var(--uvy-border);
+  stroke-width: 1;
+}
+.uvy-series--dashed {
+  stroke-dasharray: 5 3;
+}
+
 /* Mobile-reflowing record table */
 .mobile-label {
   display: none;

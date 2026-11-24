@@ -36,7 +36,8 @@ def contrast_ratios(page, selector):
       const ctx=document.createElement('canvas').getContext('2d');
       function rgb(color){ctx.clearRect(0,0,1,1);ctx.fillStyle=color;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data].slice(0,3);}
       function lum(color){return rgb(color).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);}
-      return elements.map(el=>{const style=getComputedStyle(el);const a=lum(style.color),b=lum(style.backgroundColor);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);});
+      function effectiveBg(el){let cur=el;while(cur){const bg=getComputedStyle(cur).backgroundColor;if(bg&&bg!=='rgba(0, 0, 0, 0)'&&bg!=='transparent')return bg;cur=cur.parentElement;}return getComputedStyle(document.body).backgroundColor;}
+      return elements.map(el=>{const style=getComputedStyle(el);const a=lum(style.color),b=lum(effectiveBg(el));return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);});
     }''')
 
 
@@ -75,6 +76,8 @@ try:
             assert min(contrast_ratios(page, '.lifecycle-active .state, .lifecycle-inactive .state')) >= 4.5
             page.goto((ROOT / 'examples/components.html').as_uri())
             assert min(contrast_ratios(page, '.uvy-status, .uvy-button--primary')) >= 4.5
+            page.goto((ROOT / 'examples/charts.html').as_uri())
+            assert min(contrast_ratios(page, '.uvy-chart-metric__value, .breakdown-cell__item strong')) >= 4.5
             context.close()
 
         # Verify cookie-based theme persistence over HTTP and forced light/dark examples.
@@ -233,7 +236,7 @@ try:
 
         page.goto((ROOT / 'examples/index.html').as_uri())
         assert page.locator('#sidebar').count() == 0
-        assert page.locator('.example-link').count() == 20
+        assert page.locator('.example-link').count() == 21
 
         # Hovering the header logo must never alter any polygon color.
         page.set_viewport_size({'width': 1280, 'height': 900})

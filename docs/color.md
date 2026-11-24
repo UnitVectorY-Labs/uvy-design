@@ -39,7 +39,7 @@ Status colors communicate operational outcomes and never substitute for brand or
 
 - **Lifecycle rows.** `--uvy-active-bg` (`#E9F6ED` / `#0F2B1D`) and `--uvy-inactive-bg` (`#FDEEEE` / `#34161D`) distinguish active and recently deactivated records without implying error or health.
 - **Quantitative spectra.** `--uvy-scale-low` (`#D9F0E1` / `#143624`), `--uvy-scale-mid` (`#F7E9BC` / `#3B3012`) and `--uvy-scale-high` (`#F7D2CE` / `#471D25`) retain direction, per-column scaling, units and legends. Unknown values remain neutral (`--uvy-surface`) and distinct from zero. Never substitute brand orange for a quantitative scale.
-- **Categorical charts.** Use `--uvy-chart-1` through `--uvy-chart-6` for uPlot, Chart.js and Mermaid series:
+- **Categorical charts.** Use `--uvy-chart-1` through `--uvy-chart-6` for neutral or categorical series in uPlot, Chart.js and Mermaid, and semantic status tokens (`--uvy-danger`, `--uvy-ok`, `--uvy-warn`) when a series communicates operational outcomes (failures, execution time, queue wait). See [charts and graphs](charts.md) for contrast rules on colored KPI figures, dashed companion series and resolving `light-dark()` tokens in Canvas 2D:
 
 | Series | Light mode | Dark mode |
 | --- | --- | --- |

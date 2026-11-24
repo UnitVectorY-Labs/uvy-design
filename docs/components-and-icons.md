@@ -56,7 +56,8 @@ Build with semantic HTML first and apply the namespaced `uvy-*` patterns from `s
 
 ## Charts and diagrams
 
-- For canvas libraries (uPlot, Chart.js), read `--uvy-chart-1..6`, `--uvy-chart-grid`, `--uvy-chart-axis`, `--uvy-surface` and `--uvy-text` via `getComputedStyle(document.documentElement)` and re-apply them whenever `data-theme` or `prefers-color-scheme` changes.
+- For time-series plots, paired KPI cards and breakdown sparklines, follow the [charts and graphs](charts.md) guide.
+- For canvas libraries (uPlot, Chart.js), resolve `--uvy-chart-1..6`, semantic status tokens (`--uvy-ok`, `--uvy-warn`, `--uvy-danger`), `--uvy-chart-grid`, `--uvy-chart-axis`, `--uvy-surface` and `--uvy-text` to computed `rgb(...)` values through a hidden probe element (because `getPropertyValue` returns literal `light-dark(...)` strings) and re-render whenever `data-theme` or `prefers-color-scheme` changes.
 - For SVG diagrams (including Mermaid), bind node fills, strokes, edges and cluster borders directly to `--uvy-*` CSS custom properties (`light-dark()`) so theme toggles recolor the diagram immediately without re-rendering.
 
-See [components](../examples/components.html), [forms](../examples/forms.html), [comparison table](../examples/table.html), [record table](../examples/table-records.html), [detail panels](../examples/panels.html) and [utility](../examples/utility.html).
+See [components](../examples/components.html), [forms](../examples/forms.html), [comparison table](../examples/table.html), [record table](../examples/table-records.html), [detail panels](../examples/panels.html), [charts and graphs](../examples/charts.html) and [utility](../examples/utility.html).

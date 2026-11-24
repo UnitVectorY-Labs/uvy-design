@@ -24,7 +24,7 @@ Review every adapted application in **light and dark modes** at **1280px**, **37
 
 - Normal text meets **4.5:1** contrast on every surface, including lifecycle rows, status pills, alerts and quantitative spectrum cells. Essential borders, focus rings, `3px` indicators and meaningful icons (including colored Tabler icons) meet **3:1**. Primary orange buttons use dark `--uvy-on-accent` ink.
 - Any Tabler outline icon used preserves its 24×24 viewBox, 2px stroke and accessible labeling (or `aria-hidden="true"` when paired with text).
-- Lifecycle tints remain distinct from operational health verdicts; quantitative spectra retain direction, per-column scaling, units, legend and distinct unknown values; charts read `--uvy-chart-1..6`.
+- Lifecycle tints remain distinct from operational health verdicts; quantitative spectra retain direction, per-column scaling, units, legend and distinct unknown values; charts follow [charts and graphs](charts.md) with monospace axis ticks, resolved `light-dark()` canvas colors on theme change, dashed companion series (never color alone) and `≥ 4.5:1` KPI numerals.
 - Comparison tables scroll inside keyboard-focusable `.table-wrap` regions; mobile record tables reflow cleanly; zero horizontal page overflow occurs at 320px or 200% zoom; `prefers-reduced-motion: reduce` disables transitions and spinner rotation.
 
 Run `scripts/check_site.py` and `scripts/check_browser.py`, then inspect rendered screenshots in both light and dark modes before shipping. When capturing full-page Playwright screenshots on tall pages, resize the viewport height to the document height (or capture viewport-sized frames) so the sticky `.site-footer` docks at the bottom instead of painting mid-page.

@@ -11,7 +11,8 @@ Current design guidance for UnitVectorY-Labs projects: crisp cool-light and deep
 - [Header](docs/header.md) — Universal top bar, isometric unit cube mark, 3px active rule and theme toggle
 - [Themes and navigation](docs/themes-and-navigation.md) — Cookie-persisted themes, sticky sidebars, top-bar search, drawers, breadcrumbs and tabs
 - [Icons](docs/icons.md) — Any Tabler outline icon, sizing, semantic color usage and accessible labeling
-- [Components](docs/components-and-icons.md) — Controls, panels, datasheets, status pills, tables, code/output wells, alerts and charts
+- [Components](docs/components-and-icons.md) — Controls, panels, datasheets, status pills, tables, code/output wells, alerts and dialogs
+- [Charts and graphs](docs/charts.md) — Flat trend panels, paired KPI figures, monospace axes, `light-dark()` canvas resolution and aligned sparklines
 - [Footer](docs/footer.md) — Compact always-visible sticky footer, license, repository links, `Last updated` timestamp and optional version variants
 - [Page archetypes](docs/page-archetypes.md) — Landings, catalogs, lookup tools, dashboards, admin apps and documentation
 - [Review](docs/review.md) — Visual, responsive, accessibility and fallback audit checklist
@@ -27,7 +28,7 @@ UnitVectorY-Labs Design ships a single zero-dependency stylesheet ([site/uvy.css
 
 ## Explore the examples
 
-Open the separate [UnitVectorY-Labs Design Examples](examples/index.html) for 20 standalone HTML pages covering light and dark themes, official logo variants, typography, colored icons, both sidebar and top-bar navigation/search, all four footer variants, tables, panels, forms and full page archetypes. Every example embeds `site/uvy.css` and `site/uvy.js` so it opens directly in a browser with no server or build step.
+Open the separate [UnitVectorY-Labs Design Examples](examples/index.html) for 21 standalone HTML pages covering light and dark themes, official logo variants, typography, colored icons, both sidebar and top-bar navigation/search, all four footer variants, tables, panels, charts and sparklines, forms and full page archetypes. Every example embeds `site/uvy.css` and `site/uvy.js` so it opens directly in a browser with no server or build step.
 
 ## Preview and publish
 
